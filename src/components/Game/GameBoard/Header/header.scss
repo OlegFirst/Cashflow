@@ -1,0 +1,42 @@
+.game-board-header {
+	position: fixed;
+	display: grid;
+	grid-template-columns: auto auto auto;
+	grid-template-rows: 40px;
+	justify-content: flex-start;
+	align-items: center;
+	column-gap: 10px;
+	background-color: rgba(0, 0, 0, 0.4);
+	left: -2px;
+	top: -2px;
+	width: calc(70% - 15px);
+	padding: 10px;	
+	z-index: 10;
+	
+	&__zoom {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		align-items: center;
+	}
+	
+	& .alert {
+		margin:  0 !important;
+		padding: 4px 10px;
+	}
+	
+	&__agreement-card-wrapper {
+		position: relative;
+		height: 100%;
+		z-index: 10;
+	}
+	
+	&__agreement-card-inner {
+		position: absolute;
+		border: 4px solid red;
+		transform: scale(0.2, 0.2);
+		left: -90px;
+		top: -125px;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	}
+}

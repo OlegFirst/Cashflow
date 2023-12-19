@@ -1,0 +1,16 @@
+.two-columns-list {
+	display: grid;
+	grid-template-columns: auto 100px;
+	gap: 5px;
+	margin-bottom: 4px;
+	
+	&__title,
+	&__value {
+		border: 1px solid black;
+		padding: 0 4px;
+	}
+	
+	&__title {
+		font-weight: bold;
+	}
+}

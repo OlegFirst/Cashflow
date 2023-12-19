@@ -1,0 +1,46 @@
+.big-path-item {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	position: absolute;
+	align-items: center;
+	text-align: center;
+	font-size: 0.8rem;
+	border: 1px solid white;
+	padding: 4px;
+	cursor: pointer;
+	
+	&__title,
+	&__price {
+		position: relative;
+		padding: 4px;
+		border-radius: 10px;
+		font-weight: bold;
+		margin: 0;
+		z-index: 1;		
+	}
+	
+	&__title {
+		padding: 4px;
+		word-break: break-word;
+		line-height: 20px;
+	}
+	
+	&__bg-picture {
+		object-fit: contain;
+		position: absolute;
+		top: 10px;
+		left: 10px;
+		width: calc(100% - 20px);
+		height: calc(100% - 20px);
+		overflow: hidden;
+		opacity: 0.4;
+	}
+	
+	&__id {
+		color: white;
+		position: absolute;
+		left: 10px;
+		top: 20px;
+	}
+}

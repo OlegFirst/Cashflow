@@ -1,0 +1,33 @@
+.game-waiting {
+	position: relative;
+	
+	&__content {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		color: white;
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		padding: 20px;
+		z-index: 1;
+	}
+	
+	&__connecting-process {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	&__connection-text {
+		margin: 10px;
+	}
+	
+	&__bg-picture {
+		width: 100%;
+		height: 100vh;
+		object-fit: cover;
+	}
+}

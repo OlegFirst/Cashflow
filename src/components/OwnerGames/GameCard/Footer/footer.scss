@@ -1,0 +1,10 @@
+.footer {
+	display: flex;
+	justify-content: flex-start;
+	
+	&__edit {
+		display: flex;
+		justify-content: flex-end;
+		flex-grow: 1;
+	}
+}

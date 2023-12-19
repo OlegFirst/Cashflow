@@ -1,0 +1,39 @@
+.game-owner-page-header {
+	position: relative;
+	color: white;
+	background-color: grey;
+	padding: 10px;
+	
+	&__row-1 {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		
+		.row-1 {
+			&__name,
+			&__game-name,
+			&__date,
+			&__time {
+				margin: 0;
+			}
+		}
+	}
+	
+	&__row-2 {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+	}
+	
+	&__exit {
+		position: absolute;
+		right: 20px;
+		top: 4px;
+	}
+	
+	&__collapse {
+		position: absolute;
+		right: 20px;
+		bottom: 10px;
+	}
+}

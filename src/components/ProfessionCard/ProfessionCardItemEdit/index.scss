@@ -1,0 +1,21 @@
+.two-columns-table,
+.arithmetic-table {
+	&__remove-button {		
+		position: relative;
+		top: 7px;
+	}
+}
+
+.arithmetic-table {
+	&__total-title {
+		color: green !important;
+		font-weight: bold;
+	}
+}
+
+.actions-table {
+	&__total-title {
+		color: green !important;
+		font-weight: bold;
+	}
+}

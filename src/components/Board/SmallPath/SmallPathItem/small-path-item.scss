@@ -1,0 +1,23 @@
+.small-path-item {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	border: 1px solid white;
+	text-transform: uppercase;
+	text-align: center;
+	cursor: pointer;
+	
+	&_hovered {		
+		&::after {
+			display: block;
+			position: absolute;
+			background-color: red !important;
+			content: '';
+			border-radius: 50%;
+			width: 20px;
+			height: 20px;
+		}
+	}
+}

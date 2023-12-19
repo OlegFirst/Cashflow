@@ -1,0 +1,110 @@
+.profession-card {
+	color: black;
+	width: 450px;
+	
+	&__title {
+		text-align: center;
+		text-transform: uppercase;
+		font-weight: bold;
+	}
+	
+	& .incomes {
+		position: relative;
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		align-items: flex-start;
+			
+		.incomes {			
+			&__title {
+				position: absolute;
+				color: white;
+				background-color: brown;
+				margin: 0;
+				text-transform: uppercase;
+				padding: 7px 37px;
+				transform: rotate(-90deg);
+				left: -67px;
+				top: 68px;
+				font-weight: bold;
+			}
+			
+			&__items {
+				width: calc(100% - 50px);
+				padding-left: 0;
+				margin-left: 50px;
+				list-style-type: none;
+			}
+		}
+	}
+	
+	& .expenses {
+			position: relative;
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			align-items: flex-start;
+			
+		.expenses {			
+			&__title {
+				position: absolute;
+				color: white;
+				background-color: blue;
+				margin: 0;
+				text-transform: uppercase;
+				padding: 7px 81px;
+				transform: rotate(-90deg);
+				left: -113px;
+				top: 113px;
+				font-weight: bold;
+			}
+			
+			&__items {
+				width: calc(100% - 50px);
+				padding-left: 00;
+				margin-left: 50px;
+				list-style-type: none;
+			}
+		}
+	}
+	
+	&__moneyFlow {
+		display: grid;
+		grid-template-columns: auto 100px;
+		
+		.moneyFlow {
+			&__title {
+				color: green;
+				margin: 0;
+				font-weight: bold;
+			}
+		}
+	}
+	
+	& .big-path-card {
+		position: relative;
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		align-items: flex-start;
+			
+		.big-path-card {			
+			&__title {
+				position: absolute;
+				background-color: brown;
+				width: 40px;
+				height: 85px;
+				margin: 0;
+				left: 5px;
+				top: 0;
+			}
+			
+			&__items {
+				width: calc(100% - 50px);
+				padding-left: 0;
+				margin-left: 50px;
+				list-style-type: none;
+			}
+		}
+	}
+}

@@ -1,0 +1,62 @@
+.card-view {
+	&__title {
+		position: relative;
+	}
+	
+	&__card-type-name {
+		position: absolute;
+		background-color: white;
+		padding: 5px;
+		color: red;
+		font-size: 0.8rem;
+		top: -31px;
+		left: -5px;
+	}
+	
+	&__items {
+		display: grid;
+		grid-template-columns: calc(50% - 10px) calc(50% - 10px);
+		grid-template-rows: 70px 70px;
+		justify-content: space-between;
+		align-content: space-between;
+		column-gap: 20px;
+		row-gap: 15px;
+		padding-left: 0;
+		list-style-type: none;
+	}
+	
+	&__item {
+		color: white;
+		background-color: lightgreen;
+		padding: 10px;
+		text-align: center;
+		
+		.item {
+			&__title,
+			&__caption {
+				margin-bottom: 0;
+				font-size: 0.7rem;
+				font-weight: bold;
+			}
+			
+			&__caption {
+				font-size: 0.8rem;
+				font-weight: bold;
+			}
+		}
+	}
+	
+	&__caption,
+	&__sub-caption {
+		text-align: justify;
+	}
+	
+	&__sub-caption {
+		margin-bottom: 0;
+	}
+	
+	&__action-buttons-center {
+		display: flex;
+		justify-content: center;
+	}
+}

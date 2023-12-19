@@ -1,0 +1,28 @@
+.fishka {
+	position: absolute;
+	width: 25px;
+	transition: all 0.4s;
+	cursor: pointer;
+	z-index: 10;
+	
+	&_selected {
+		animation-name: jump;
+		animation-duration: 1s;
+		animation-iteration-count: infinite;
+		animation-direction: alternative;
+	}
+	
+	&__img {
+		position: relative;
+		left: 20px;
+		top: 12px;
+		width: 100%;
+		height: auto;
+	}
+	
+	@keyframes jump {
+		0% { transform: translateY(0px); }
+		50% { transform: translateY(-10px) }
+		100% { transform: translateY(0px) }
+	}
+}

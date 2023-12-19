@@ -1,0 +1,12 @@
+.money-in-the-wind-card {
+	&__content {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: flex-start;
+	}
+	
+	& b {
+		color: green;
+	}
+}

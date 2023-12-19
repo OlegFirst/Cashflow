@@ -1,0 +1,28 @@
+.calculation-cards-small-path {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: flex-start;
+	
+	&__working-field {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		border: 10px solid rgba(0, 0, 0, 0.1);
+		border-radius: 10px;
+		width: calc(50% - 20px);
+		min-height: 200px;
+		margin-right: 20px;
+	}
+	
+	&__profession-card-wrapper {
+		background-color: white;
+		width: 50%;
+		right: 20px;
+		top: 40px;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+		padding: 10px;
+	}
+}
+

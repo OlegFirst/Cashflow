@@ -1,0 +1,21 @@
+.header {
+	position: relative;
+	color: white;
+	background-color: grey;
+	left: -20px;
+	top: -20px;
+	width: calc(100% + 40px);
+	padding: 10px;
+	
+	&__top {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;	
+	}
+	
+	&__exit {
+		position: absolute;
+		right: 20px;
+		top: 10px;
+	}
+}

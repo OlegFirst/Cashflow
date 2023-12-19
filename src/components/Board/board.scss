@@ -1,0 +1,57 @@
+.board {
+	width: 100%;
+	height: 100vh;
+	overflow: auto;
+	perspective: 100px;
+	
+	&__inner {
+		position: relative;
+		width: 2040px;
+		height: 1850px;
+		top: -15px;
+		transition: all 0.4s;
+		
+		&_perspective {
+			transform-style: preserve-3d;
+			transform: rotateX(20deg);
+		}
+	}
+	
+	&__card-logo {
+		position: absolute;
+		object-fit: cover;
+		width: 200px;
+		height: 110px;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+		
+			&.big-bg {
+				left: 716px;
+				top: 590px;
+			}
+			
+			&.small-bg {
+				left: 1120px;
+				top: 590px;
+			}
+			
+			&.money-for-wind {
+				left: 716px;
+				top: 1154px;
+			}
+			
+			&.card-market {
+				left: 1120px;
+				top: 1154px;
+			}
+	}
+	
+	&__bg-image {
+		position: absolute;
+		object-fit: cover;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+	}
+}

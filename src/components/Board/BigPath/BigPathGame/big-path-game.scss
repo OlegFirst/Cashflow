@@ -1,0 +1,12 @@
+.big-path-game {
+	width: 100%;
+	height: 100%;
+	
+	&__items {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		padding-left: 0;
+		list-style-type: none;
+	}
+}

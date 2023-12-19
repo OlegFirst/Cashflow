@@ -1,0 +1,11 @@
+.modal-content {
+	& > div.modal-dialog {
+		margin: 0;
+	}
+	
+	/* &__progress-bar-wrapper {
+		flex-grow: 1;
+		align-self: center;
+		height: 100%;
+	} */
+}

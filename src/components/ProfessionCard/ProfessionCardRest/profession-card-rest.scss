@@ -1,0 +1,118 @@
+.profession-card-rest {
+	margin-top: 20px;
+	
+	&__row-1 {
+		position: relative;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: flex-start;
+			
+		& .row-1 {
+			&__grey-line {
+				position: absolute;
+				background-color: grey;
+				width: 40px;
+				height: 100%;
+				left: 0;
+				top: 0;
+			}
+			
+			&__left {
+				position: relative;
+				width: 20%;
+				padding-left: 40px;
+				
+				& .left {
+					&__title {
+						font-weight: bold;
+						padding-left: 5px;
+					}
+					
+					&__sub-title {
+						position: absolute;
+						transform: rotate(-90deg);
+						left: -20px;
+						top: 93px;
+						padding-left: 7px;
+					}
+					
+					&__value {
+						display: flex;
+						flex-direction: row;
+						justify-content: center;
+						align-items: center;
+						border: 1px solid grey;
+						width: 45px;
+						height: 133px;
+						margin: 10px 30px auto;
+						font-style: italic;
+					}
+				}
+			}
+			
+			&__right {
+				width: 70%;
+				background: blue;
+				
+				& .right {
+					&__title {
+						text-align: center;
+					}
+					
+					&__items {
+						list-style-type: none;
+						padding-left: 0;
+						background-color: white;
+						margin-bottom: 0;
+					}
+					
+					&__item {
+						display: grid;
+						grid-template-columns: auto 100px;
+						gap: 5px;
+						
+						& .item {
+							&__title,
+							&__value {
+								border: 1px solid;
+								padding: 0 4px;
+							}
+						}
+					}
+				}
+			}
+		}		
+	}
+	
+	&__row-2 {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		margin-top: 20px;
+		height: 70px;
+		
+		& .row-2 {
+			&__blue-line {
+				background-color: lightblue;
+				width: 40px;
+				height: 100%;
+			}
+
+			&__title > h4 {
+				margin: 0;
+			}
+			
+			&__value {
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				align-items: center;
+				width: 100px;
+				height: 100%;
+				border: 1px solid lightblue;
+			}
+		}
+	}
+}

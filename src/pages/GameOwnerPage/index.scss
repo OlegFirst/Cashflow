@@ -1,0 +1,16 @@
+.game-owner-page {	
+	&__main {
+		position: sticky;
+		background-color: white;
+		top: 0;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+		z-index: 10;
+		
+		& .main {
+			&__content_hide {
+				visibility: hidden;
+				height: 0;
+			}
+		}
+	}
+}

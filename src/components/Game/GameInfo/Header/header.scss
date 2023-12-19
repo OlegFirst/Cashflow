@@ -1,0 +1,13 @@
+.game-info-header {
+	position: relative;
+	background-color: #212252;
+	width: 100%;
+	min-width: 360px;
+	padding: 20px;
+	
+	&__exit {
+		position: absolute;
+		right: 20px;
+		top: 20px;
+	}
+}

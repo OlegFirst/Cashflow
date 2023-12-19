@@ -1,0 +1,19 @@
+.calculation-cards-big-path {
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+	
+	&__info {
+		width: calc(50% - 20px);
+		margin-right: 20px;
+	}
+	
+	&__big-path-card-wrapper {
+		background-color: white;
+		width: 50%;
+		right: 20px;
+		top: 40px;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+		padding: 10px;
+	}
+}

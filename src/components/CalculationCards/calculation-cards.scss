@@ -1,0 +1,48 @@
+.calculation-cards {
+	position: absolute;
+	background-color: white;
+	top: 0;
+	width: 100%;
+	padding: 40px 20px 20px 20px;
+	min-height: 100vh;
+	animation-name: fade-in;
+	animation-duration: 1s;
+	animation-fill-mode: forwards;
+	z-index: 10;
+	
+	&__cancel-button {
+		position: absolute;
+		right: 20px;
+		top: 10px;
+	}
+	
+	&__bg-picture {
+		position: absolute;
+		left: 0;
+		top: 0;
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+	}
+	
+	@keyframes fade-in {
+		from {
+			right: -100%;
+		}
+		
+		to {
+			right: 0;
+		}
+	}
+	
+	@keyframes fade-out {
+		from {
+			right: 0;
+		}
+		
+		to {
+			right: -100%;
+		}
+	}
+}
