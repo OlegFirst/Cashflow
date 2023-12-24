@@ -1,4 +1,4 @@
-  import InputBlock from  '../../../InputBlock/InputBlock';
+import InputBlock from  '../../../InputBlock/InputBlock';
 
 import './two-columns-list.scss';
 

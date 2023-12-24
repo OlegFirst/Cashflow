@@ -95,7 +95,9 @@ export const checkIsValueListEmpty = valueList => {
 	return valueList.length === removedValuesLength;
 };
 
-const executeRequestInsert = ({ generalData, data }, callbacks) => {
+const getQueryBegin = isSmallPath => isSmallPath ? 'info=user_model-insert&data=' : 'info=user_model_buyed-insert&data=';
+
+const executeRequestInsert = ({ generalData, data, isSmallPath }, callbacks) => {
 	let queryObj = {
 		userId: generalData.userId,
 		userRoleId: generalData.userRoleId,
@@ -115,13 +117,13 @@ const executeRequestInsert = ({ generalData, data }, callbacks) => {
 	
 	const request = {
 		endPointURL: 'game',
-		query: 'info=user_model-insert&data=' + JSON.stringify(queryObj)
+		query: getQueryBegin(isSmallPath) + JSON.stringify(queryObj)
 	};
 	
 	executeRequestGetWrapper(request, callbacks);
 };
 
-const executeRequestUpdate = ({ generalData, data }, callbacks) => {
+const executeRequestUpdate = ({ generalData, data, isSmallPath }, callbacks) => {
 	const queryObj = {
 		userId: generalData.userId,
 		userRoleId: generalData.userRoleId,
@@ -138,7 +140,7 @@ const executeRequestUpdate = ({ generalData, data }, callbacks) => {
 	executeRequestGetWrapper(request, callbacks);
 };
 
-const executeRequestRemove = ({ generalData, data }, callbacks) => {
+const executeRequestRemove = ({ generalData, data, isSmallPath }, callbacks) => {
 	const queryObj = {
 		userId: generalData.userId,
 		userRoleId: generalData.userRoleId,
@@ -157,7 +159,7 @@ const executeRequestRemove = ({ generalData, data }, callbacks) => {
 	executeRequestGetWrapper(request, callbacks);
 };
 
-export const changeProfessionCardItem = ({ generalData, data }, callbacks) => {
+export const changeProfessionCardItem = ({ generalData, data, isSmallPath }, callbacks) => {
 	const { valueList } = data;
 		
 	const upadatedValueList = 
@@ -183,18 +185,18 @@ export const changeProfessionCardItem = ({ generalData, data }, callbacks) => {
 		});
 	
 	if (insertedValueList.length > 0) {
-		executeRequestInsert({ generalData, data: { ...data, valueList: insertedValueList } }, callbacks);
+		executeRequestInsert({ generalData, data: { ...data, valueList: insertedValueList }, isSmallPath }, callbacks);
 	}
 	
 	if (
 		upadatedValueList.length > 0 ||
 		generalData.isTotalUpdated && generalData.type != professionCardTypes.ARITHMETIC
 	) {
-		executeRequestUpdate({ generalData, data: { ...data, valueList: upadatedValueList } }, callbacks);
+		executeRequestUpdate({ generalData, data: { ...data, valueList: upadatedValueList }, isSmallPath }, callbacks);
 	}
 	
 	if (removedValueList.length > 0) {
-		executeRequestRemove({ generalData, data: { ...data, valueList: removedValueList } }, callbacks);
+		executeRequestRemove({ generalData, data: { ...data, valueList: removedValueList }, isSmallPath }, callbacks);
 	}
 };
 // business card item changes_(end)

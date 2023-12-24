@@ -24,7 +24,7 @@ const CalculationCardsSmallPath = (props) => {
 						<CardView isViewOnly={true} />
 						
 						<Button
-							variant='outline-primary'
+							variant='primary'
 							className='m-4'
 							size='sm'
 							onClick={props.onAgreementCardRemove}

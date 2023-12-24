@@ -40,7 +40,11 @@ const ProfessionCard = (props) => {
 	const userModel = useSelector(state => state.userModel);
 	const bigPathCard = useSelector(state => state.bigPathCard);
 	
-	const { profession } = userModel;
+	const isSmallPath = userModel.info.isSmallPath;
+	const profession = isSmallPath ? userModel.profession : bigPathCard.profession;
+	
+	// console.clear()
+	// console.log('profession=', profession)
 		
 	const [itemEditData, setItemEditData] = useState(itemEditDataInitialState);
 	
@@ -135,7 +139,7 @@ const ProfessionCard = (props) => {
 			valueList: itemEditData.data.valueList
 		};
 		
-		changeProfessionCardItem({ generalData, data }, { 
+		changeProfessionCardItem({ generalData, data, isSmallPath  }, { 
 			...callbacks,
 			onSuccess: data => {	
 				onSuccess();
@@ -166,7 +170,7 @@ const ProfessionCard = (props) => {
 	
 	return (
 		<div className='profession-card'>
-			<h3 className='profession-card__title'>{profession.info.professionName}</h3>
+			<h3 className='profession-card__title'>{userModel.profession.info.professionName}</h3>
 			
 			{userModel.info.isSmallPath && (
 				<>
@@ -350,14 +354,14 @@ const ProfessionCard = (props) => {
 							<ProfessionCardItem 
 								title='МРІЇ'
 								profession={profession}
-								objKey='incomes.business'
-								type={professionCardTypes.BUSINESS}
+								objKey='buyedDreams'
+								type={professionCardTypes.ARITHMETIC}
 								cardItemType={professionCardItemTypes.TWO_COLUMNS_LIST}
 								active={true}
 								onClick={onItemClick}
 							/>
 							
-							<ProfessionCardItem 
+							{/* <ProfessionCardItem 
 								title='БІЗНЕС'
 								profession={profession}
 								objKey='incomes.business'
@@ -375,7 +379,7 @@ const ProfessionCard = (props) => {
 								cardItemType={professionCardItemTypes.TWO_COLUMNS_LIST}
 								active={true}
 								onClick={onItemClick}
-							/>
+							/>*/}
 						</ul>
 					</div>
 				</>

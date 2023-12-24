@@ -111,13 +111,7 @@ const ArithmeticTable = (props) => {
 						<tr>
 							<td className='arithmetic-table__total-title'>Разом: </td>
 							<td className='arithmetic-table__total'>
-								<InputComponentWrapper 
-									id={0}
-									name={'total'}
-									value={total}
-									onBlur={onBlurTotalHandler}
-									isSelected={true}
-								/>
+								{total}
 							</td>
 						</tr>
 					)}

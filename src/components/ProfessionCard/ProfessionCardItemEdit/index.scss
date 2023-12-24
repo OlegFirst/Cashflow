@@ -4,11 +4,20 @@
 		position: relative;
 		top: 7px;
 	}
+	
+	&__total {
+		font-weight: bold;
+	}
 }
 
 .arithmetic-table {
 	&__total-title {
 		color: green !important;
+		font-weight: bold;
+	}
+	
+	&__total {
+		padding-left: 10px !important;
 		font-weight: bold;
 	}
 }
@@ -17,5 +26,9 @@
 	&__total-title {
 		color: green !important;
 		font-weight: bold;
+	}
+	
+	&__total {
+		padding-left: 10px !important;
 	}
 }

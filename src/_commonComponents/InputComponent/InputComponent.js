@@ -12,6 +12,10 @@ const InputComponent = (props) => {
 		isDisabled = false
 	} = props;
 	
+	const onFocus = event => {
+		event.target.select();
+	};
+	
 	return (
 		<div 
 			className='input-component'
@@ -25,7 +29,7 @@ const InputComponent = (props) => {
 					placeholder={placeholder}
 					size={'sm'}
 					onChange={props.onChange}
-					onFocus={props.onFocus}
+					onFocus={onFocus}
 					onBlur={props.onBlur}
 					disabled={isDisabled}
 					
