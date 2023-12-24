@@ -10,8 +10,7 @@ import { setCurrentAgreementCardContent } from '../../storage/actions/actionCrea
 import { smallAgreementList } from './small-agreement';
 import { bigAgreementList } from './big-agreement';
 
-// Card preparation
-const AgreementCard = (props) => {
+const AgreementCardGeneral = (props) => {
 	const { 
 		cardId,
 		type,
@@ -27,8 +26,9 @@ const AgreementCard = (props) => {
 			const cardTypeName = type === cardTypes.SMALL_AGREEMENT ? 'Мала угода' : 'Велика угода';
 			const agreementList = type === cardTypes.SMALL_AGREEMENT ? smallAgreementList : bigAgreementList
 			const agreementItem = agreementList.find(item => item.id === cardId);
-	
-			dispatch(setCurrentAgreementCardContent({ ...agreementItem, cardTypeName }));
+			const data = { ...agreementItem, cardTypeName };
+			
+			dispatch(setCurrentAgreementCardContent(data));
 		}
 	}, [cardId]);
 	
@@ -44,6 +44,54 @@ const AgreementCard = (props) => {
 				onTimeIsUp={props.onTimeIsUp}
 			/>
 		</div>
+	)
+};
+
+const AgreementCardCommonSmall = (props) => {
+	const { cardId } = props;
+	
+	const agreementItem = smallAgreementList.find(item => item.id === cardId);
+	
+	const data = {
+		cardId,
+		content: {
+			cardTypeName: 'Мала угода',
+			name: agreementItem.name,
+			info: agreementItem.info,
+			caption: agreementItem.caption,
+			subCaption: agreementItem.subCaption,
+			isSellAble: false
+		},
+		gamerType: null,
+		isCardRedirected: false
+	};
+	
+	return (
+		<div className='agreement-card'>
+			<CardView
+				data={data}
+				isViewOnly={true}
+				isSelling={false}
+			/>
+		</div>
+	)
+};
+
+
+// Card preparation
+const AgreementCard = (props) => {
+	const { 
+		isCommonSmallAgreementCards = false
+	} = props;
+	
+	if (!isCommonSmallAgreementCards) {
+		return (
+			<AgreementCardGeneral { ...props } />
+		)
+	}
+	
+	return (
+		<AgreementCardCommonSmall { ...props } />
 	)
 };
 

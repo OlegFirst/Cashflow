@@ -17,6 +17,12 @@
 		}
 	}
 	
+	&__common-cards-wrapper {
+		position: absolute;
+		left: 458px;
+		top: 1500px;
+	}
+	
 	&__card-logo {
 		position: absolute;
 		object-fit: cover;

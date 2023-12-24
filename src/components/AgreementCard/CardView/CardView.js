@@ -5,17 +5,19 @@ import Card from 'react-bootstrap/Card';
 import CurrentGamerActions from './CurrentGamerActions/CurrentGamerActions';
 import NotCurrentGamerActions from './NotCurrentGamerActions/NotCurrentGamerActions';
 
-
 import { currentCardGamerTypes } from '../../Game/constants';
 import './card-view.scss';
 
 const CardView = (props) => {
-	const { 
+	const {
+		data = null,
 		isViewOnly,
 		isSelling
 	} = props;
 	
-	const currentAgreementCard = useSelector(state => state.userModel.currentAgreementCard);
+	const userModelData = useSelector(state => state.userModel.currentAgreementCard);
+	
+	const currentAgreementCard = data ?? userModelData;
 	
 	if (!currentAgreementCard.content) {
 		return null;

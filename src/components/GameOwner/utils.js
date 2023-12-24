@@ -36,6 +36,15 @@ export const sendAgreementToGamer = (data, callbacks) => {
 	executeRequestGetWrapper(request, callbacks);
 };
 
+export const sendCommonAgreementToGamer = (data, callbacks) => {		
+	const request = {
+		endPointURL: 'game',
+		query: 'info=send-common-agreement-to-gamer&data=' + JSON.stringify(data)
+	};
+	
+	executeRequestGetWrapper(request, callbacks);
+};
+
 export const removeAgreement = (data, callbacks) => {		
 	const request = {
 		endPointURL: 'game',

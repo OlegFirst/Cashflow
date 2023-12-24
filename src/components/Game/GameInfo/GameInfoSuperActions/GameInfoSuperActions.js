@@ -78,11 +78,7 @@ const GameInfoSuperActions = (props) => {
 			</Button>
 			
 			<div className='game-info__gamer-action-wrapper mt-4'>
-				<GameInfoActions
-					gameRequestQueryGeneral={gameRequestQueryGeneral}
-					callbacks={callbacks}
-					onReadAgreement={props.onReadAgreement}
-				/>
+				<GameInfoActions onReadAgreement={props.onReadAgreement} />
 			</div>
 		</>
 	)

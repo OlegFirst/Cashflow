@@ -9,7 +9,6 @@ export const initialInfoReducerState = {
 		gameOwnerName: null,
 		time: null,
 		date: null,
-		// isGameBegun: null,
 		gamerList: []
 	},
 	protocol: null,

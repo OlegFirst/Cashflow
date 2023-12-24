@@ -9,7 +9,10 @@ import GameOwnerMarketCard from './GameOwnerMarketCard/GameOwnerMarketCard';
 import GameOwnerMoneyInTheWindCard from './GameOwnerMWCard/GameOwnerMWCard';
 import ConfirmModal from '../../_commonComponents/ConfirmModal/ConfirmModal';
 
-import { createResponseCompleteMessage } from '../../common/utils';
+import { 
+	createResponseCompleteMessage,
+	checkCommonSmallAgreement
+} from '../../common/utils';
 import { 
 	confirmModalTypes,
 	pathTypes,
@@ -33,7 +36,8 @@ import {
 	makeNextTurnMapper,
 	setCharityTurnsLeft,
 	checkMakeNextTurnMapper,
-	getMoneyInTheWindMapper
+	getMoneyInTheWindMapper,
+	sendCommonAgreementToGamer
 } from './utils';
 import './game-owner.scss';
 
@@ -61,6 +65,17 @@ const GameOwner = (props) => {
 	// Storage
 	const dispatch = useDispatch();
 	
+	const sendCommonAgreement = cardId => {		
+		sendCommonAgreementToGamer({
+			...gameRequestQueryGeneral, gamerIdTurn: info.ownerData.gamerTurnData.gamerIdTurn, cardId
+			}, {
+			...callbacks,
+			onSuccess: data => {
+				callbacks.onSuccess();
+			}
+		});
+	};
+	
 	const onSendAgreementToGamerHandler = cardType => {
 		sendAgreementToGamer({
 			...gameRequestQueryGeneral, gamerIdTurn: info.ownerData.gamerTurnData.gamerIdTurn, type: cardType 
@@ -69,7 +84,7 @@ const GameOwner = (props) => {
 			onSuccess: data => {
 				callbacks.onSuccess();
 				
-				// Check if the Agreement has been already sent				
+				// Check if the Agreement has been already sent		
 				if (data.hasOwnProperty('is_complete')) {
 					if (Number(data.is_complete) === 0) {
 						onInfoMessage(data.complete_message, true);
@@ -83,6 +98,10 @@ const GameOwner = (props) => {
 				dispatch(setCurrentAgreementCardIdType(mappedResponse));
 				
 				setIsAgreementCardShow(true);
+				
+				if (checkCommonSmallAgreement(mappedResponse)) {
+					sendCommonAgreement(mappedResponse.cardId);
+				}
 			}
 		});
 	};

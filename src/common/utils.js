@@ -1,4 +1,8 @@
-import { errors } from './constants';
+import { 
+	errors,
+	commonSmallAgreementIdList,
+	cardTypes
+} from './constants';
 
 const cutSpacesFromString = str => str.trim();
 
@@ -120,3 +124,13 @@ export class ArifmeticTable {
 	}
 };
 // Profession_(end)
+
+export const checkCommonSmallAgreement = card => {
+	const { cardId, type } = card;
+	
+	if (type === cardTypes.SMALL_AGREEMENT) {
+		return commonSmallAgreementIdList.some(id => id === cardId);
+	}
+	
+	return false;
+};

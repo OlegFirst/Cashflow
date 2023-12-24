@@ -10,6 +10,7 @@ import CalculationCardsSmallPath
 import CalculationCardsBigPath
 	from '../../../components/CalculationCards/CalculationCardsBigPath/CalculationCardsBigPath';
 
+import { checkCommonSmallAgreement } from '../../../common/utils';
 import { getAgreementMapper } from '../../../services/utils';
 import { 
 	setCurrentAgreementCardIdType,
@@ -72,6 +73,11 @@ const GameInfo = (props) => {
 				callbacks.onSuccess();
 				
 				const parsedData = parseAgreement(getAgreementMapper(data), gameRequestQueryGeneral.userId, type);
+				
+				if (checkCommonSmallAgreement(parsedData)) {
+					return;
+				}
+				
 				dispatch(setCurrentAgreementCardIdType(parsedData));
 				setIsAgreementCardShow(true);
 			}

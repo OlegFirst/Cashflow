@@ -1,0 +1,24 @@
+.common-small-agreement-cards {
+	max-height: 300px;
+	overflow: hidden;
+	
+	&__items {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		align-items: center;
+		padding-left: 0;
+		margin-bottom: 0;
+		list-style-type: none;
+		transform: scale(0.8, 0.7);
+	}
+	
+	&__item {
+		width: 580px;
+		margin-right: 20px;
+		
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+}

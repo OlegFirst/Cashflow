@@ -104,7 +104,7 @@ export const createSmallPathItemList = () => {
 };
 
 // Common maping_(start)
-const waitingConnectionMapper = ({ fishka_positions, is_game_begun }) => {	
+const waitingConnectionMapper = ({ fishka_positions, is_game_begun, common_small_agreement_id_list}) => {	
 	return {
 		fishkaPositions: fishka_positions.map(item => ({
 			gamerId: Number(item.gamer_id),
@@ -116,7 +116,8 @@ const waitingConnectionMapper = ({ fishka_positions, is_game_begun }) => {
 				top: item.path_position_top
 			}
 		})),
-		isGameBegun: Number(is_game_begun) === 1
+		isGameBegun: Number(is_game_begun) === 1,
+		commonSmallAgreementIdList: common_small_agreement_id_list.map(item => Number(item))
 	};
 };
 // Common maping_(end)
@@ -131,16 +132,15 @@ export const useWaitingConnection = ({ data, isCreateConnection }) => {
 	
 	const [response, setResponse] = useState({
 		fishkaPositions: [],
-		isGameBegun: null
+		isGameBegun: null,
+		commonSmallAgreementIdList: []
 	});
 	const [isResponseReceived, setIsResponseReceived] = useState(true);
 	
 	const update = () => {
 		console.log('run update')
 		
-		executeRequestGet(request, ({ isSuccess, data }) => {
-			console.log(data)
-			
+		executeRequestGet(request, ({ isSuccess, data }) => {			
 			if (isSuccess && data) {
 				setResponse(waitingConnectionMapper(data));
 				setIsResponseReceived(!isResponseReceived);

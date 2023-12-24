@@ -9,6 +9,8 @@ export const cardTypes = {
 	BIG_AGREEMENT: 'big_agreement'
 };
 
+export const commonSmallAgreementIdList = [9, 47];
+
 export const errors = {
 	LOGIN: 'Помилка. Довжина 4...8 символів',
 	PASSWORD: 'Помилка. Довжина 4...8 символів'

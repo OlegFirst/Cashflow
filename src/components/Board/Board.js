@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import BigPath from './BigPath/BigPath';
 import SmallPath from './SmallPath/SmallPath';
 import Money from '../../_commonComponents/Money/Money';
+import CommonSmallAgreementCards from '../CommonSmallAgreementCards/CommonSmallAgreementCards';
 
 import { userRoles } from '../../common/constants';
 import { useWaitingConnection } from './utils';
@@ -25,8 +26,6 @@ const Board = (props) => {
 	
 	const isGame = gameRequestQueryGeneral.userRoleId === userRoles.GAMER;
 	
-	console.log('isCreateConnection', isOk)
-	
 	// If Gamer is moved to the other Path then correct fishka data
 	useEffect(() => {
 		if (isGame) {
@@ -35,6 +34,9 @@ const Board = (props) => {
 			);
 		}
 	}, [waitingData]);
+	
+	// console.log('isCreateConnection', isOk)
+	// console.log(waitingData)
 	
 	return (
 		<section className='board'>		
@@ -50,6 +52,10 @@ const Board = (props) => {
 					isGame={isGame}
 					waitingData={waitingData}
 				/>
+				
+				<div className='board__common-cards-wrapper'>
+					<CommonSmallAgreementCards idList={waitingData.commonSmallAgreementIdList} />
+				</div>
 				
 				<img
 					className='board__card-logo big-bg'

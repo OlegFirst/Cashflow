@@ -9,9 +9,7 @@ const CurrentGamerActions = (props) => {
 		isCardRedirected,
 		isSelling
 	} = props;
-	
-	console.log(isSellAble)
-	
+		
 	const [isCradSelling, setIsCradSelling] = useState(false);
 	
 	const isProgressBarComponentHide = isCardRedirected || isCradSelling;
