@@ -206,7 +206,7 @@ export const gamePagePreparationMapper = data => {
 			buyedBusiness: data.user_model_big_path_card.user_model_buyed_business.map(item => ({
 				id: Number(item.id),
 				name: item.name,
-				passiveIncome: Number(item.passive_incomes),
+				passiveIncomes: Number(item.passive_incomes),
 				moneyFlow: Number(item.money_flow)
 			})),
 			buyedCash: arithmeticMapper(data.user_model_big_path_card.user_model_buyed_cash),

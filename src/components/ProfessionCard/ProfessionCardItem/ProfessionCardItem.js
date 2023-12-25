@@ -1,5 +1,6 @@
 import TwoColumnsList from './ViewComponents/TwoColumnsList/TwoColumnsList';
 import TwoColumns from './ViewComponents/TwoColumns/TwoColumns';
+import OneColumnList from './ViewComponents/OneColumnList/OneColumnList';
 
 import {
 	getTotal,
@@ -45,7 +46,10 @@ const ProfessionCardItem = (props) => {
 				() => <TwoColumnsList { ...renderProps } onClick={onClickHandler} />,
 				
 			[professionCardItemTypes.TWO_COLUMNS]: 
-				() => <TwoColumns { ...renderProps } onClick={onClickHandler} />
+				() => <TwoColumns { ...renderProps } onClick={onClickHandler} />,
+				
+			[professionCardItemTypes.ONE_COLUMN_LIST]: 
+				() => <OneColumnList { ...renderProps } onClick={onClickHandler} />,
 		};
 		
 		return cardComponentByStatus[type]

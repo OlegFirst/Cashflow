@@ -21,7 +21,10 @@ const CalculationCardsBigPath = (props) => {
 				</div>
 				
 				<div className='calculation-cards-big-path__big-path-card-wrapper'>			
-					<ProfessionCard />
+					<ProfessionCard 
+						isSmallPath={false}
+						getUserModel={props.getUserModel} 
+					/>
 				</div>
 			</section>
 		</CalculationCards>

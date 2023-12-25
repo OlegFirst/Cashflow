@@ -80,7 +80,10 @@ export const getTotal = (objKey, type, profession) => {
 		return getObjectValue('total.' + objKey, profession);
 	}
 	
-	if (type === professionCardTypes.ARITHMETIC) {
+	if (
+		type === professionCardTypes.ARITHMETIC ||
+		type === professionCardTypes.BUYED_CASH
+	) {
 		const property = getObjectValue(objKey, profession);
 		return property.length > 0 ?  property[property.length - 1]['result'] : 0;
 	}
@@ -95,20 +98,20 @@ export const checkIsValueListEmpty = valueList => {
 	return valueList.length === removedValuesLength;
 };
 
-const getQueryBegin = isSmallPath => isSmallPath ? 'info=user_model-insert&data=' : 'info=user_model_buyed-insert&data=';
-
-const executeRequestInsert = ({ generalData, data, isSmallPath }, callbacks) => {
+const executeRequestInsert = ({ generalData, data }, callbacks) => {
+	const type = generalData.type;
+	
 	let queryObj = {
 		userId: generalData.userId,
 		userRoleId: generalData.userRoleId,
 		gameId: generalData.gameId,		
-		type: generalData.type,
+		type,
 		data: {
 			valueList: data.valueList
 		}
 	};
 	
-	if (generalData.type === professionCardTypes.ARITHMETIC) {
+	if (type === professionCardTypes.ARITHMETIC) {
 		queryObj = {
 			...queryObj,
 			objKey: professionCardChangeObjKeyMapper(generalData.objKey)
@@ -117,13 +120,13 @@ const executeRequestInsert = ({ generalData, data, isSmallPath }, callbacks) => 
 	
 	const request = {
 		endPointURL: 'game',
-		query: getQueryBegin(isSmallPath) + JSON.stringify(queryObj)
+		query: 'info=user_model-insert&data=' + JSON.stringify(queryObj)
 	};
 	
 	executeRequestGetWrapper(request, callbacks);
 };
 
-const executeRequestUpdate = ({ generalData, data, isSmallPath }, callbacks) => {
+const executeRequestUpdate = ({ generalData, data }, callbacks) => {
 	const queryObj = {
 		userId: generalData.userId,
 		userRoleId: generalData.userRoleId,
@@ -140,7 +143,7 @@ const executeRequestUpdate = ({ generalData, data, isSmallPath }, callbacks) => 
 	executeRequestGetWrapper(request, callbacks);
 };
 
-const executeRequestRemove = ({ generalData, data, isSmallPath }, callbacks) => {
+const executeRequestRemove = ({ generalData, data }, callbacks) => {
 	const queryObj = {
 		userId: generalData.userId,
 		userRoleId: generalData.userRoleId,
@@ -159,7 +162,7 @@ const executeRequestRemove = ({ generalData, data, isSmallPath }, callbacks) => 
 	executeRequestGetWrapper(request, callbacks);
 };
 
-export const changeProfessionCardItem = ({ generalData, data, isSmallPath }, callbacks) => {
+export const changeProfessionCardItem = ({ generalData, data }, callbacks) => {
 	const { valueList } = data;
 		
 	const upadatedValueList = 
@@ -185,18 +188,18 @@ export const changeProfessionCardItem = ({ generalData, data, isSmallPath }, cal
 		});
 	
 	if (insertedValueList.length > 0) {
-		executeRequestInsert({ generalData, data: { ...data, valueList: insertedValueList }, isSmallPath }, callbacks);
+		executeRequestInsert({ generalData, data: { ...data, valueList: insertedValueList } }, callbacks);
 	}
 	
 	if (
 		upadatedValueList.length > 0 ||
 		generalData.isTotalUpdated && generalData.type != professionCardTypes.ARITHMETIC
 	) {
-		executeRequestUpdate({ generalData, data: { ...data, valueList: upadatedValueList }, isSmallPath }, callbacks);
+		executeRequestUpdate({ generalData, data: { ...data, valueList: upadatedValueList } }, callbacks);
 	}
 	
 	if (removedValueList.length > 0) {
-		executeRequestRemove({ generalData, data: { ...data, valueList: removedValueList }, isSmallPath }, callbacks);
+		executeRequestRemove({ generalData, data: { ...data, valueList: removedValueList } }, callbacks);
 	}
 };
 // business card item changes_(end)

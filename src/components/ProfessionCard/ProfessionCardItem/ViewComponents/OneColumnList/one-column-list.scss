@@ -1,0 +1,14 @@
+.one-column-list {
+	margin-bottom: 4px;
+	
+	&__title {
+		border: 1px solid black;
+		padding: 0 4px;
+		font-weight: bold;
+		
+		&:hover {
+			color: white;
+			background-color: grey !important;
+		}
+	}
+}

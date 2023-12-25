@@ -42,14 +42,11 @@ const ProfessionCard = (props) => {
 	
 	const isSmallPath = userModel.info.isSmallPath;
 	const profession = isSmallPath ? userModel.profession : bigPathCard.profession;
-	
-	// console.clear()
-	// console.log('profession=', profession)
 		
 	const [itemEditData, setItemEditData] = useState(itemEditDataInitialState);
 	
 	// Start editing ProfessionCard Item
-	const onItemClick = data => {		
+	const onItemClick = data => {
 		const valueList = getObjectValue(data.objKey, profession);
 		
 		setItemEditData(prevState => ({
@@ -139,11 +136,11 @@ const ProfessionCard = (props) => {
 			valueList: itemEditData.data.valueList
 		};
 		
-		changeProfessionCardItem({ generalData, data, isSmallPath  }, { 
+		changeProfessionCardItem({ generalData, data }, { 
 			...callbacks,
-			onSuccess: data => {	
-				onSuccess();
+			onSuccess: data => {				
 				props.getUserModel();
+				onSuccess();
 			}
 		});
 				
@@ -355,18 +352,18 @@ const ProfessionCard = (props) => {
 								title='МРІЇ'
 								profession={profession}
 								objKey='buyedDreams'
-								type={professionCardTypes.ARITHMETIC}
-								cardItemType={professionCardItemTypes.TWO_COLUMNS_LIST}
+								type={professionCardTypes.BUYED_DREAMS}
+								cardItemType={professionCardItemTypes.ONE_COLUMN_LIST}
 								active={true}
 								onClick={onItemClick}
 							/>
 							
-							{/* <ProfessionCardItem 
-								title='БІЗНЕС'
+							<ProfessionCardItem 
+								title='БІЗНЕС TA ГРОШОВИЙ ПОТІК'
 								profession={profession}
-								objKey='incomes.business'
-								type={professionCardTypes.BUSINESS}
-								cardItemType={professionCardItemTypes.TWO_COLUMNS_LIST}
+								objKey='buyedBusiness'
+								type={professionCardTypes.BUYED_BUSINESS}
+								cardItemType={professionCardItemTypes.ONE_COLUMN_LIST}
 								active={true}
 								onClick={onItemClick}
 							/>
@@ -374,12 +371,12 @@ const ProfessionCard = (props) => {
 							<ProfessionCardItem 
 								title='Кеш'
 								profession={profession}
-								objKey='incomes.business'
-								type={professionCardTypes.BUSINESS}
+								objKey='buyedCash'
+								type={professionCardTypes.BUYED_CASH}
 								cardItemType={professionCardItemTypes.TWO_COLUMNS_LIST}
 								active={true}
 								onClick={onItemClick}
-							/>*/}
+							/>
 						</ul>
 					</div>
 				</>

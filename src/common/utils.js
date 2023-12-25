@@ -123,6 +123,27 @@ export class ArifmeticTable {
 		}];
 	}
 };
+
+export class BuyedDreamsTable {
+	static preparation(id = 1, result = 0) {
+		return [{ 
+			id,
+			name: '',
+			price: 0
+		}];
+	}
+};
+
+export class BuyedBusinessTable {
+	static preparation(id = 1, result = 0) {
+		return [{ 
+			id,
+			name: '',
+			passiveIncomes: 0,
+			moneyFlow: 0
+		}];
+	}
+};
 // Profession_(end)
 
 export const checkCommonSmallAgreement = card => {
