@@ -26,6 +26,11 @@ const Board = (props) => {
 	
 	const isGame = gameRequestQueryGeneral.userRoleId === userRoles.GAMER;
 	
+	useEffect(() => {
+		console.log('isCreateConnection', isOk)
+		// console.log(waitingData)
+	}, [isOk]);
+	
 	// If Gamer is moved to the other Path then correct fishka data
 	useEffect(() => {
 		if (isGame) {
@@ -34,9 +39,6 @@ const Board = (props) => {
 			);
 		}
 	}, [waitingData]);
-	
-	// console.log('isCreateConnection', isOk)
-	// console.log(waitingData)
 	
 	return (
 		<section className='board'>		

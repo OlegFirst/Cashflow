@@ -37,7 +37,7 @@ const InputComponentWrapper = (props) => {
 			onChange={onChangeHandler}
 			onBlur={onBlurHandler}
 			isSelected={isSelected}
-			isDisabled={user.userRole !== userRoles['GAMER']}
+			isDisabled={user.userRoleId !== userRoles['GAMER']}
 		/>
 	)
 };

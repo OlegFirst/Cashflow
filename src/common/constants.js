@@ -54,3 +54,5 @@ export const pathOptions = {
 };
 
 export const fishkaTranslateX = 10;
+
+export const bankruptMoneyFlow = 300;

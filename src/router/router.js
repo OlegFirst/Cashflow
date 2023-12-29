@@ -5,8 +5,7 @@ import GameWaiting from '../pages/GameWaiting/GameWaiting';
 import OwnerPage from '../pages/OwnerPage/OwnerPage';
 import GamePage from '../pages/Game/GamePage';
 import GameOwnerPage from '../pages/GameOwnerPage/GameOwnerPage';
-
-// TO DO: create PageNotFound
+import Bankrupt from '../pages/Bankrupt/Bankrupt';
 
 const Router = () => (
 	<BrowserRouter>
@@ -16,6 +15,7 @@ const Router = () => (
 			<Route path='/owner-page' element={<OwnerPage />} />			
 			<Route path='/game' element={<GamePage />} />
 			<Route path='/game-owner-page' element={<GameOwnerPage />} />
+			<Route path='/bankrupt-page' element={<Bankrupt />} />
 		</Routes>
 	</BrowserRouter>
 )

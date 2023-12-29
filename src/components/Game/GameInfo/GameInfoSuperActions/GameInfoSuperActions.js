@@ -1,9 +1,11 @@
+import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 
 import GameInfoActions from './GameInfoActions/GameInfoActions';
 import DiceBlock from './DiceBlock/DiceBlock';
 
+import { bankruptMoneyFlow } from '../../../../common/constants';
 import { useTurnProgress } from '../../utils';
 
 const GameInfoSuperActions = (props) => {
@@ -13,6 +15,9 @@ const GameInfoSuperActions = (props) => {
 				diceValue,
 				diceCount,
 				fishkaStepProcessValue
+			},
+			profession: {
+				moneyFlow
 			}
 		},
 		gameRequestQueryGeneral,
@@ -20,12 +25,28 @@ const GameInfoSuperActions = (props) => {
 		onInfoMessage
 	} = props;
 	
+	const navigate = useNavigate();
+	
 	const { 
 		turnProgress, isSkipTurnSpinnerShow,
 		onStartTurn, onRollHandler, onSkipTurn, onEndTurn
 	} = useTurnProgress(
 		gameRequestQueryGeneral, fishkaStepProcessValue, diceValue, callbacks, onInfoMessage
 	);
+	
+	const onStartTurnHandler = () => {
+		const moneyFlowLength = moneyFlow.length;
+		
+		// Check if the user is a bankrupt
+		if (moneyFlowLength > 0) {
+			if (moneyFlow[moneyFlowLength - 1].result <= bankruptMoneyFlow) {
+				navigate('/bankrupt-page');
+				return;
+			}
+		}
+				
+		onStartTurn();
+	};
 	
 	return (
 		<>
@@ -35,7 +56,7 @@ const GameInfoSuperActions = (props) => {
 					className='mt-4 me-4'
 					size='sm'
 					disabled={!turnProgress.startTurn}
-					onClick={onStartTurn}
+					onClick={onStartTurnHandler}
 				>
 					Почати хід
 				</Button>

@@ -46,7 +46,7 @@ const ProfessionCard = (props) => {
 		
 	const [itemEditData, setItemEditData] = useState(itemEditDataInitialState);
 	
-	const isDisabled = user.userRole !== userRoles['GAMER'];
+	const isDisabled = user.userRoleId !== userRoles['GAMER'];
 	
 	// Start editing ProfessionCard Item
 	const onItemClick = data => {
