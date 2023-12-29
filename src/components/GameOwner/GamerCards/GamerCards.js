@@ -19,6 +19,7 @@ const GamerCards = (props) => {
 							item={item}
 							gamerTurnData={item.id === gamerTurnData.gamerIdTurn ? gamerTurnData : null}
 							charityActivatedTurnsLeft={charityActivatedTurnsLeft}
+							onCalculationCards={props.onCalculationCards}
 						/>
 					)
 				})}

@@ -228,8 +228,6 @@ export const professionCardChangeObjKeyMapper = (objKey) => {
 		sub_property: null
 	};
 	
-	console.log('~', objKey)
-	
 	switch (objKey) {
 		// Small path_(start)
 		case 'incomes.passiveIncome':

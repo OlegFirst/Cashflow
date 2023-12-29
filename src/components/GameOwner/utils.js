@@ -18,7 +18,7 @@ export const checkMakeNextTurn= (data, callbacks) => {
 	executeRequestGetWrapper(request, callbacks);
 };
 
-export const makeNextTurn = (data, callbacks) => {		
+export const makeNextTurn = (data, callbacks) => {
 	const request = {
 		endPointURL: 'game',
 		query: 'info=game-make-next-turn&data=' + JSON.stringify(data)
@@ -95,7 +95,7 @@ export const checkMakeNextTurnMapper = data  => {
 	return Number(data.is_gamer_turn_end) === 1;
 };
 
-export const makeNextTurnMapper = data => {
+export const makeNextTurnMapper = data => {	
 	const { gamer_id_turn, gamer_turn_data } = data;
 	
 	return {

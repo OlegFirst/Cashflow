@@ -36,7 +36,6 @@ const GameOwnerPage = () => {
 	const [isPerspective, setIsPerspective] = useState(false);
 	
 	const [isOk, setIsOk] = useState(false);
-	// console.log('isCreateConnection= ',isOk)
 	
 	// Storage
 	const dispatch = useDispatch();

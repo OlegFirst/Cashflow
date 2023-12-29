@@ -11,6 +11,7 @@ import {
 	parseKeyStringOfObject,
 	getObjectValue
 } from '../../common/utils';
+import { userRoles } from '../../common/constants';
 import { setNetworkStatus } from '../../storage/actions/actionCreatorsInfo';
 import { networkStatuses } from '../../services/constants';
 import { 
@@ -45,6 +46,8 @@ const ProfessionCard = (props) => {
 		
 	const [itemEditData, setItemEditData] = useState(itemEditDataInitialState);
 	
+	const isDisabled = user.userRole !== userRoles['GAMER'];
+	
 	// Start editing ProfessionCard Item
 	const onItemClick = data => {
 		const valueList = getObjectValue(data.objKey, profession);
@@ -71,7 +74,11 @@ const ProfessionCard = (props) => {
 	};
 	
 	// Remove
-	const onRemove = id => {		
+	const onRemove = id => {
+		if (isDisabled) {
+			return;
+		}
+		
 		setItemEditData(prevState => ({
 			...prevState,
 			data: { 
@@ -96,6 +103,10 @@ const ProfessionCard = (props) => {
 	
 	// Total value Update
 	const onTotalUpdate = newTotal => {
+		if (isDisabled) {
+			return;
+		}
+		
 		setItemEditData(prevState => ({
 			...prevState,
 			data: { ...prevState.data, total: newTotal.value },
@@ -113,7 +124,6 @@ const ProfessionCard = (props) => {
 	
 	const onFail = data => {
 		dispatch(setNetworkStatus(networkStatuses.FAIL));
-		console.log(data);
 	};
 	
 	const callbacks = {
@@ -121,7 +131,12 @@ const ProfessionCard = (props) => {
 	};
 	
 	// Submit
-	const onModalSubmit = () => {		
+	const onModalSubmit = () => {
+		if (isDisabled) {
+			setItemEditData(prevState => itemEditDataInitialState);
+			return;
+		}
+		
 		const generalData = {
 			userId: user.id,
 			userRoleId: user.userRoleId,

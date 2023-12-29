@@ -1,22 +1,28 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import InputComponent from '../../../_commonComponents/InputComponent/InputComponent';
+
+import { userRoles } from '../../../common/constants';
 
 const InputComponentWrapper = (props) => {
 	const { 
 		id, 
 		name,
 		value,
-		isSelected
+		isSelected,
+		isEditable
 	} = props;
 	
 	const [data, setData] = useState({ name, value });
+	
+	const user = useSelector(state => state.info.user);
 	
 	const onBlurHandler = () => {
 		props.onBlur({ id, ...data });
 	};
 	
-	const onChangeHandler = e => {
+	const onChangeHandler = e => {		
 		const { name, value } = e.target;		
 		setData(prevState => ({
 			...prevState,
@@ -31,7 +37,7 @@ const InputComponentWrapper = (props) => {
 			onChange={onChangeHandler}
 			onBlur={onBlurHandler}
 			isSelected={isSelected}
-			// errorMessage={inputError[modelValues.CURRENT_VALUE]}
+			isDisabled={user.userRole !== userRoles['GAMER']}
 		/>
 	)
 };

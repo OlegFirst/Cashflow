@@ -8,6 +8,10 @@ import GameOwnerAgreementGard from './GameOwnerAgreementGard/GameOwnerAgreementC
 import GameOwnerMarketCard from './GameOwnerMarketCard/GameOwnerMarketCard';
 import GameOwnerMoneyInTheWindCard from './GameOwnerMWCard/GameOwnerMWCard';
 import ConfirmModal from '../../_commonComponents/ConfirmModal/ConfirmModal';
+import CalculationCardsSmallPath 
+	from '../CalculationCards/CalculationCardsSmallPath/CalculationCardsSmallPath';
+import CalculationCardsBigPath
+	from '../CalculationCards/CalculationCardsBigPath/CalculationCardsBigPath';
 
 import { 
 	createResponseCompleteMessage,
@@ -18,11 +22,17 @@ import {
 	pathTypes,
 	pathTypeStartCoordinates
 } from '../../common/constants';
+import { gamePagePreparationMapper } from '../../services/utils';
+import { gamePagePreparation } from '../../components/Game/utils';
 import { 
 	setGamerTurnData,
 	setGamerTurnPath
 } from '../../storage/actions/actionCreatorsInfo';
-import { setCurrentAgreementCardIdType } from '../../storage/actions/actionCreatorsUserModel';
+import { 
+	setCurrentAgreementCardIdType,
+	setUserModel
+} from '../../storage/actions/actionCreatorsUserModel';
+import { setProfession } from '../../storage/actions/actionCreatorsBigPathCard';
 import {
 	sendAgreementToGamer,
 	sendedAgreementToGamerMapper,
@@ -40,6 +50,11 @@ import {
 	sendCommonAgreementToGamer
 } from './utils';
 import './game-owner.scss';
+
+const calculationCardsDataInitialState = {
+	isSmallPath: null,
+	isShow: false
+};
 
 const GameOwner = (props) => {
 	const {
@@ -61,6 +76,7 @@ const GameOwner = (props) => {
 	});
 	const [charityActivatedTurnsLeft, setCharityActivatedTurnsLeft] = useState(null);
 	const [isConfirmModalShow, setIsConfirmModalShow] = useState(false);
+	const [calculationCardsData, setCalculationCardsData] = useState(calculationCardsDataInitialState);
 	
 	// Storage
 	const dispatch = useDispatch();
@@ -195,16 +211,15 @@ const GameOwner = (props) => {
 	};
 	
 	// Next turn_(start)
-	const nextTurnProceed = () => {		
+	const nextTurnProceed = () => {
 		if (charityActivatedTurnsLeft) {
 			setCharityActivatedTurnsLeft(null);
 		}
 		
 		makeNextTurn({ ...gameRequestQueryGeneral }, {
 			...callbacks,
-			onSuccess: data => {
-				callbacks.onSuccess();
-				
+			onSuccess: data => {				
+				callbacks.onSuccess();				
 				dispatch(setGamerTurnData(makeNextTurnMapper(data)));
 			}
 		});
@@ -263,12 +278,31 @@ const GameOwner = (props) => {
 		});
 	};
 	
+	const onShowCalculationCards = userId => {		
+		gamePagePreparation({ userId, userRoleId: 3 }, { 
+			...callbacks,
+			onSuccess: data => {
+				callbacks.onSuccess();
+				const { info, profession, bigPathCard } = gamePagePreparationMapper(data);
+				
+				dispatch(setUserModel({ info, profession }));
+				dispatch(setProfession(bigPathCard));
+				
+				setCalculationCardsData({
+					isSmallPath: info.isSmallPath,
+					isShow: true
+				});
+			}
+		});
+	};
+	
 	return (
 		<div className='game-owner'>
 			<div className='game-owner__gamer-cards-wrapper'>
 				<GamerCards 
 					{ ...info.ownerData }
 					charityActivatedTurnsLeft={charityActivatedTurnsLeft}
+					onCalculationCards={onShowCalculationCards}
 				/>
 			</div>
 			
@@ -321,7 +355,19 @@ const GameOwner = (props) => {
 				isShow={isConfirmModalShow}
 				onSubmit={onConfirmModalSubmit}
 				onClose={onConfirmModalCancel}
-			/>
+			/>			
+			
+			{calculationCardsData.isShow && calculationCardsData.isSmallPath && (
+				<CalculationCardsSmallPath 
+					onCalculationCardsHide={() => setCalculationCardsData(calculationCardsDataInitialState)}
+				/>
+			)}
+			
+			{calculationCardsData.isShow && !calculationCardsData.isSmallPath && (
+				<CalculationCardsBigPath
+					onCalculationCardsHide={() => setCalculationCardsData(calculationCardsDataInitialState)}
+				/>
+			)}
 		</div>
 	)
 };

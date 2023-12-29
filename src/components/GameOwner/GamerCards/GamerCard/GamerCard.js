@@ -25,9 +25,9 @@ const GamerCard = (props) => {
 			
 			{gamerTurnData && (
 				<>
-					<p className='mb-0'><b>Готівка:</b> {gamerTurnData.cash}</p>
+					<p className='mb-0'><b>Кеш :</b> $ {gamerTurnData.cash}</p>
 					
-					<p className='mb-0'><b>Пасивний дохід:</b> {gamerTurnData.incomesRealEstate}</p>
+					<p className='mb-0'><b>Пасивний дохід:</b> $ {gamerTurnData.incomesRealEstate}</p>
 					
 					<p className='gamer-card__path mb-0'>
 						{gamerTurnData.isSmallPath
@@ -40,6 +40,15 @@ const GamerCard = (props) => {
 						<b>Благодійність, залишилось ходів: </b> 
 						{charityActivatedTurnsLeft ?? gamerTurnData.charityTurnsLeft}
 					</p>
+					
+					<Button
+						variant='success'
+						className='mt-4'
+						size='sm'
+						onClick={() => props.onCalculationCards(id)}
+					>
+						Розрахункові картки
+					</Button>
 				</>
 			)}
 		</li>

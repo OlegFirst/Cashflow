@@ -11,7 +11,7 @@ const InputComponent = (props) => {
 		errorMessage,
 		isDisabled = false
 	} = props;
-	
+		
 	const onFocus = event => {
 		event.target.select();
 	};

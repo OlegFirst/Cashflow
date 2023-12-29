@@ -3,12 +3,12 @@ import { useDispatch } from 'react-redux';
 
 import Header from './Header/Header';
 import GameInfoSuperActions from './GameInfoSuperActions/GameInfoSuperActions';
-import TableInfo from '../../../components/CalculationCards/TableInfo/TableInfo';
+import TableInfo from '../../CalculationCards/TableInfo/TableInfo';
 import GameInfoAgreementCardActions from './GameInfoAgreementCardActions/GameInfoAgreementCardActions';
 import CalculationCardsSmallPath 
-	from '../../../components/CalculationCards/CalculationCardsSmallPath/CalculationCardsSmallPath';
+	from '../../CalculationCards/CalculationCardsSmallPath/CalculationCardsSmallPath';
 import CalculationCardsBigPath
-	from '../../../components/CalculationCards/CalculationCardsBigPath/CalculationCardsBigPath';
+	from '../../CalculationCards/CalculationCardsBigPath/CalculationCardsBigPath';
 
 import { checkCommonSmallAgreement } from '../../../common/utils';
 import { getAgreementMapper } from '../../../services/utils';
