@@ -5,6 +5,11 @@ import CloseButton from 'react-bootstrap/CloseButton';
 
 import InputComponent from '../../../../../_commonComponents/InputComponent/InputComponent';
 
+import { 
+	validateName,
+	validateLogin,
+	validatePassword
+} from '../../../../../common/utils';
 import { editedGamerPreparation } from '../../../utils';
 import { 
 	editedGamerInitailState,
@@ -22,6 +27,11 @@ const EditGamer = (props) => {
 	} = props;
 	
 	const [componentData, setComponentData] = useState(editedGamerInitailState);
+	const [errorMessageList, setErrorMessageList] = useState({
+		name: '',
+		login: '',
+		password: ''
+	});
 	
 	const onChangeHandler = e => {
 		const { name, value } = e.target;
@@ -32,7 +42,42 @@ const EditGamer = (props) => {
 		}));
 	};
 	
-	const onSubmitHandler = () => props.onSubmit(componentData);
+	const onSubmitHandler = () => {
+		// Validation
+		let isValid = true;
+		
+		const error1 = validateName(componentData.name);		
+		if (error1) {
+			isValid = false;
+		}
+		setErrorMessageList(prevState => ({
+			...prevState,
+			name: error1
+		}));
+		
+		const error2 = validateName(componentData.login);
+		if (error2) {
+			isValid = false;
+		}
+		setErrorMessageList(prevState => ({
+			...prevState,
+			login: error2
+		}));
+		
+		const error3 = validateName(componentData.password);
+		if (error3) {
+			isValid = false;
+		}
+		setErrorMessageList(prevState => ({
+			...prevState,
+			password: error3
+		}));
+		
+		// Submitting
+		if (isValid) {
+			props.onSubmit(componentData);
+		}
+	};
 	
 	const onRemoveHandler = () => {
 		props.onRemove(gamerListId);
@@ -50,6 +95,7 @@ const EditGamer = (props) => {
 					defaultValue={componentData.name}
 					placeholder={'Ім`я'}
 					onChange={onChangeHandler}
+					errorMessage={errorMessageList['name']}
 				/>
 				
 				<InputComponent
@@ -57,6 +103,7 @@ const EditGamer = (props) => {
 					defaultValue={componentData.login}
 					placeholder={'Логін'}
 					onChange={onChangeHandler}
+					errorMessage={errorMessageList['login']}
 				/>
 				
 				<InputComponent
@@ -64,6 +111,7 @@ const EditGamer = (props) => {
 					defaultValue={componentData.password}
 					placeholder={'Пароль'}
 					onChange={onChangeHandler}
+					errorMessage={errorMessageList['password']}
 				/>
 				
 				<Button

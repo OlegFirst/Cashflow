@@ -5,16 +5,24 @@ import InputComponent from '../../../_commonComponents/InputComponent/InputCompo
 import Gamers from './Gamers/Gamers';
 
 import { 
+	validateGameName,
+	validateGameDate,
+	validateGameTime
+} from '../../../common/utils';
+import { 
 	editedGamePreparation,
 	getNewGamerListId
 } from '../utils';
 import { 
 	editedGameModes,
 	editedGameInitailState
-} from '../constants';;
+} from '../constants';
 
-// to do:
-// - validation
+const errorMessageListInitialState = {
+	name: '',
+	date: '',
+	time: ''
+};
 
 const EditedGameCard = (props) => {
 	const {
@@ -25,7 +33,8 @@ const EditedGameCard = (props) => {
 		gameList
 	} = props;
 	
-	const [componentData, setComponentData] = useState(editedGameInitailState);	
+	const [componentData, setComponentData] = useState(editedGameInitailState);
+	const [errorMessageList, setErrorMessageList] = useState(errorMessageListInitialState);
 	
 	// Change Game data_(start)
 	const onChangeHandler = e => {
@@ -41,7 +50,40 @@ const EditedGameCard = (props) => {
 	};
 	
 	const onSubmitGameHandler = () => {
-		props.onSubmit(componentData);
+		// Validation
+		let isValid = true;
+		
+		const error1 = validateGameName(componentData.game.name);
+		if (error1) {
+			isValid = false;
+		}
+		setErrorMessageList(prevState => ({
+			...prevState,
+			name: error1
+		}));
+		
+		const error2 = validateGameDate(componentData.game.date);
+		if (error2) {
+			isValid = false;
+		}
+		setErrorMessageList(prevState => ({
+			...prevState,
+			date: error2
+		}));
+		
+		const error3 = validateGameTime(componentData.game.time);
+		if (error3) {
+			isValid = false;
+		}
+		setErrorMessageList(prevState => ({
+			...prevState,
+			time: error3
+		}));
+		
+		// Submitting
+		if (isValid) {
+			props.onSubmit(componentData);
+		}
 	};
 	// Change Game data_(end)
 	
@@ -74,6 +116,15 @@ const EditedGameCard = (props) => {
 		setComponentData(editedGamePreparation(mode, gameId, gameList));
 	}, [mode, gameId]);
 	
+	useEffect(() => {
+		if (mode) {
+			setErrorMessageList(prevState => ({
+				...prevState,
+				...errorMessageListInitialState
+			}));
+		}
+	}, [mode]);
+	
 	return (
 		<div className='edited-game-card'>
 			<ModalComponent
@@ -87,14 +138,16 @@ const EditedGameCard = (props) => {
 					defaultValue={componentData.game.name}
 					placeholder={'Назва гри'}
 					onChange={onChangeHandler}
+					errorMessage={errorMessageList['name']}
 				/>
 			
 				<div className='mt-1'>
 					<InputComponent
 						name={'date'}
 						defaultValue={componentData.game.date}
-						placeholder={'Дата проведення'}
+						placeholder={'Дата проведення: day/month/year'}
 						onChange={onChangeHandler}
+						errorMessage={errorMessageList['date']}
 					/>
 				</div>
 				
@@ -104,6 +157,7 @@ const EditedGameCard = (props) => {
 						defaultValue={componentData.game.time}
 						placeholder={'Час проведення'}
 						onChange={onChangeHandler}
+						errorMessage={errorMessageList['time']}
 					/>
 				</div>
 				

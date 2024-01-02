@@ -9,7 +9,8 @@ const InputComponent = (props) => {
 		placeholder = '',
 		isSelected,
 		errorMessage,
-		isDisabled = false
+		isDisabled = false,
+		isValid = false
 	} = props;
 		
 	const onFocus = event => {
@@ -31,10 +32,9 @@ const InputComponent = (props) => {
 					onChange={props.onChange}
 					onFocus={onFocus}
 					onBlur={props.onBlur}
-					disabled={isDisabled}
-					
-					// isInvalid={true}
-					// isValid={true}
+					disabled={isDisabled}					
+					isInvalid={errorMessage}
+					isValid={isValid}
 				/>
 				
 				{errorMessage && (<span className='input-component__error'>{errorMessage}</span>)}

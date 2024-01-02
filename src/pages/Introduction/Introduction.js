@@ -64,7 +64,7 @@ const Introduction = () => {
 			
 				<img 
 					className='introduction__bg-picture'
-					src='images/introduction.jpg'
+					src='images/introduction-1.jpg'
 					alt='backgrount-picture'
 				/>
 				

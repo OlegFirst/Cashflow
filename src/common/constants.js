@@ -12,8 +12,12 @@ export const cardTypes = {
 export const commonSmallAgreementIdList = [9, 47];
 
 export const errors = {
-	LOGIN: 'Помилка. Довжина 4...8 символів',
-	PASSWORD: 'Помилка. Довжина 4...8 символів'
+	GAME_NAME: 'Помилка. Довжина 1...12 символів',
+	DATE: 'Помилка',
+	TIME: 'Помилка',
+	NAME: 'Помилка. Довжина 3...12 символів',
+	LOGIN: 'Помилка. Довжина 3...12 символів',
+	PASSWORD: 'Помилка. Довжина 3...12 символів'
 };
 
 export const operators = {

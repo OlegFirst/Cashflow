@@ -7,13 +7,16 @@ import { editedGameModes } from '../../constants';
 import './gamers.scss';
 
 const Gamers = (props) => {
-	const {
-		gamerList		
-	} = props;
+	const { gamerList } = props;
 	
 	const [status, setStatus] =  useState({
 		gamerListId: null,
 		mode: null
+	});
+	const [errorMessageList, setErrorMessageList] = useState({
+		name: '',
+		date: '',
+		time: ''
 	});
 	
 	const onEditHandler = gamerListId => {

@@ -4,21 +4,37 @@ import {
 	cardTypes
 } from './constants';
 
-const cutSpacesFromString = str => str.trim();
+const cutSpaces = str => typeof str === 'string' ? str.trim() : '';
 
 // Validations_(start)
+export const validateGameName = data => {	
+	const dataLength = cutSpaces(data).length;
+	return dataLength >= 1 && dataLength <= 12 ? '' : errors.GAME_NAME
+};
+
+export const validateGameDate = data => {	
+	const dataLength = cutSpaces(data).length;
+	return dataLength >= 1 && dataLength <= 12 ? '' : errors.DATE
+};
+
+export const validateGameTime = data => {	
+	const dataLength = cutSpaces(data).length;
+	return dataLength >= 1 && dataLength <= 12 ? '' : errors.TIME
+};
+
+export const validateName = data => {	
+	const dataLength = cutSpaces(data).length;
+	return dataLength >= 3 && dataLength <= 12 ? '' : errors.NAME
+};
+
 export const validateLogin = data => {
-	return '';
-	
-	const dataLength = cutSpacesFromString(data).length;
-	return dataLength >=4 && dataLength <= 12 ? '' : errors.LOGIN
+	const dataLength = cutSpaces(data).length;
+	return dataLength >= 3 && dataLength <= 12 ? '' : errors.LOGIN
 };
 
 export const validatePassword = data => {
-	return '';
-	
-	const dataLength = cutSpacesFromString(data).length;
-	return dataLength >=4 && dataLength <= 12 ? '' : errors.PASSWORD
+	const dataLength = cutSpaces(data).length;
+	return dataLength >= 3 && dataLength <= 12 ? '' : errors.PASSWORD
 };
 // Validations_(end)
 

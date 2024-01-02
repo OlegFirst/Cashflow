@@ -33,12 +33,12 @@ const OwnerPage = () => {
 	// Storage
 	const dispatch = useDispatch();
 	const user = useSelector(state => state.info.user);
-	const networkStatus = useSelector(state => state.info.networkStatus);	
+	const networkStatus = useSelector(state => state.info.networkStatus);
 	
 	const navigate = useNavigate();
 	
 	// Get created game list
-	const getCreatedGames = () => {
+	const getCreatedGames = (cb) => {
 		dispatch(setNetworkStatus(networkStatuses.PENDING));
 			
 		const request = {
@@ -51,6 +51,7 @@ const OwnerPage = () => {
 				dispatch(setNetworkStatus(networkStatuses.SUCCESS));				
 				const mappedData = ownerCreatedGamesResponseMapper(data);				
 				setOwnerGamesData(mappedData);
+				cb?.(mappedData);
 				return;
 			}
 			
@@ -61,9 +62,9 @@ const OwnerPage = () => {
 			}
 			
 			setInfoMessage('Користувач не розпізнаний');
+			return;
 		});
 	};
-	
 	
 	const onPending = () => {
 		dispatch(setNetworkStatus(networkStatuses.PENDING));
@@ -142,9 +143,14 @@ const OwnerPage = () => {
 		onSuccess, onPending, onFail
 	};
 	
-	// Submit creating or editing the game
-	const onSubmitHandler = componentData => {		
-		if (editedGameCardStatus.mode === editedGameModes.CREATE) {		
+	// Submit creating or editing the game_(start)	
+	const createNewGame = componentData => {
+		getCreatedGames(createdGames => {
+			if (createdGames.some(game => game.name === componentData.game.name)) {
+				setInfoMessage('Ця назва гри присутня');
+				return;
+			}
+			
 			const sendingData = {
 				user_id: user.id,
 				game: componentData.game,
@@ -157,6 +163,13 @@ const OwnerPage = () => {
 			}
 			
 			executeRequestGetWrapper(request, callbacks);
+		});
+	};
+	
+	const onSubmitHandler = componentData => {
+		if (editedGameCardStatus.mode === editedGameModes.CREATE) {
+			createNewGame(componentData);
+			return;
 		}
 		
 		if (editedGameCardStatus.mode === editedGameModes.EDIT) {
@@ -175,6 +188,7 @@ const OwnerPage = () => {
 			executeRequestGetWrapper(request, callbacks);
 		}
 	};
+	// Submit creating or editing the game_(end)
 	
 	// Remove the game
 	const onGameRemoveHandler = gameId => {
