@@ -32,6 +32,12 @@ const Bankrupt = () => {
 	console.log(userModel)
 	console.log(bigPathCard)
 	
+	const gameRequestQueryGeneral = {
+		userId: info.user.id,
+		userRoleId: info.user.userRoleId,
+		gameId: info.game.gameId
+	};
+	
 	const onPending = () => {
 		dispatch(setNetworkStatus(networkStatuses.PENDING));
 	};
@@ -55,7 +61,7 @@ const Bankrupt = () => {
 	};
 	
 	const onClickHandler = () => {
-		gameBankrupt({ userId: info.user.id, userRoleId: info.user.userRoleId }, { 
+		gameBankrupt({ ...gameRequestQueryGeneral }, { 
 			...callbacks,
 			onSuccess: data => {
 				onSuccess();
