@@ -11,9 +11,11 @@ import {
 	getObjectValue,
 	ActionsTable as ActionsTableClass
 } from '../../../common/utils';
+import { professionCardInputNames } from '../../../common/constants';
 import { updateActionsTableItems } from '../utils';
 import { itemStatuses } from '../constants';
 import './index.scss';
+
 
 const ActionsTable = (props) => {
 	const { 
@@ -25,7 +27,7 @@ const ActionsTable = (props) => {
 	} = props;
 	
 	// onBlur
-	const onBlurHandler = newValue => {		
+	const onBlurHandler = newValue => {
 		const data = updateActionsTableItems(newValue, valueList);
 		
 		props.onUpdate({
@@ -86,7 +88,7 @@ const ActionsTable = (props) => {
 								<td>
 									<InputComponentWrapper
 										id={id}
-										name={'name'}
+										name={professionCardInputNames.NAME}
 										value={name}
 										onBlur={onBlurHandler}
 									/>
@@ -95,7 +97,7 @@ const ActionsTable = (props) => {
 								<td>
 									<InputComponentWrapper
 										id={id}
-										name={'count'}
+										name={professionCardInputNames.COUNT}
 										value={count}
 										onBlur={onBlurHandler}
 									/>
@@ -104,7 +106,7 @@ const ActionsTable = (props) => {
 								<td>
 									<InputComponentWrapper
 										id={id}
-										name={'price'}
+										name={professionCardInputNames.PRICE}
 										value={price}
 										onBlur={onBlurHandler}
 									/>
@@ -113,7 +115,7 @@ const ActionsTable = (props) => {
 								<td>
 									<InputComponentWrapper
 										id={id}
-										name={'cost'}
+										name={professionCardInputNames.COST}
 										value={cost}
 										onBlur={onBlurHandler}
 									/>
@@ -122,7 +124,7 @@ const ActionsTable = (props) => {
 								<td className='two-columns-table__row-item'>
 									<InputComponentWrapper 
 										id={id}
-										name={'income'}
+										name={professionCardInputNames.INCOME}
 										value={income}
 										onBlur={onBlurHandler}
 									/>

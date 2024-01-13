@@ -63,9 +63,8 @@ export const useProfessionCardValidation = () => {
 		}));
 	};
 	
-	const validationProceed = data => {
-		console.clear()
-		console.log('/', data)
+	const proceed = data => {
+		// console.clear()
 		
 		switch (data.name) {
 			case professionCardInputNames.NAME:
@@ -107,7 +106,7 @@ export const useProfessionCardValidation = () => {
 		setIsValid(!isErrorMessagePresent);
 	}, [errorMessageList]);
 	
-	return { errorMessageList, isValid, validationProceed };
+	return { errorMessageList, isValid, proceed };
 };
 // Validations_(end)
 

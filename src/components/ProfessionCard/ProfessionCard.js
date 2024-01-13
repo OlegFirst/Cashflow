@@ -132,6 +132,10 @@ const ProfessionCard = (props) => {
 	
 	// Submit
 	const onModalSubmit = () => {
+		// TO DO: Validation on empty field(s)
+		console.log('TO DO: Validation on empty field(s)')
+		
+	
 		if (isDisabled) {
 			setItemEditData(prevState => itemEditDataInitialState);
 			return;

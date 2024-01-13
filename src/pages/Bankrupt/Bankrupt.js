@@ -27,11 +27,6 @@ const Bankrupt = () => {
 	
 	const navigate = useNavigate();
 	
-	console.clear()
-	console.log(info)
-	console.log(userModel)
-	console.log(bigPathCard)
-	
 	const gameRequestQueryGeneral = {
 		userId: info.user.id,
 		userRoleId: info.user.userRoleId,
@@ -66,15 +61,7 @@ const Bankrupt = () => {
 			onSuccess: data => {
 				onSuccess();
 				
-				console.log(data)
-				
-				return;
-				
-				// const { info, profession, bigPathCard } = gamePagePreparationMapper(data);
-				
-				// dispatch(setUserModel({ info, profession }));
-				// dispatch(setProfession(bigPathCard));
-				// onSuccess();
+				navigate('/game');
 			}
 		});
 	};

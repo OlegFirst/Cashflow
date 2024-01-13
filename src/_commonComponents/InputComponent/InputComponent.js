@@ -21,6 +21,7 @@ const InputComponent = (props) => {
 		<div 
 			className='input-component'
 			style={{ border: isSelected ? '1px solid green' : null }}
+			title={defaultValue}
 		>
 			<Form>
 				<Form.Control

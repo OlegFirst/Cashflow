@@ -26,10 +26,10 @@ const Board = (props) => {
 	
 	const isGame = gameRequestQueryGeneral.userRoleId === userRoles.GAMER;
 	
-	useEffect(() => {
-		console.log('isCreateConnection', isOk)
-		// console.log(waitingData)
-	}, [isOk]);
+	// useEffect(() => {
+		// console.log('isCreateConnection', isOk)
+		// // console.log(waitingData)
+	// }, [isOk]);
 	
 	// If Gamer is moved to the other Path then correct fishka data
 	useEffect(() => {
@@ -96,6 +96,12 @@ const Board = (props) => {
 				<Money left='1570px' top='1540px' />
 				
 				<Money left='1570px' top='170px' />
+				
+				<img
+					className='board__shtrih-cod'
+					src='images/shtrih-cod.jpg'
+					alt='shtrih-cod'
+				/>
 			</div>
 		</section>
 	)

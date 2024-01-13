@@ -104,7 +104,7 @@ const GamePage = () => {
 	}, []);
 	
 	if (!info.user || !info.game.gameId || !userModel.profession) {
-		return null;
+		return <SpinnerComponent />;
 	}
 	
 	const gameRequestQueryGeneral = {
