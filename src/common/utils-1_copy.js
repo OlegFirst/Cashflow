@@ -52,7 +52,7 @@ export const validateStringField = data => {
 	return dataLength >= 1 && dataLength <= 12 ? '' : errors.STRING_FIELD
 };
 
-const validate = (name, value) => {
+export const professionCardValidation = ({ name, value }) => {	
 	switch (name) {
 		case professionCardInputNames.NAME:
 			return validateStringField(value);
@@ -73,31 +73,6 @@ const validate = (name, value) => {
 			console.log('Bad input name');
 			return '';
 	};
-};
-
-export const professionCardValidation = ({ type, newValueList }) => {
-	// Loop throught all rows
-	const errorMessageList = newValueList.reduce((acc, items) => {		
-		// Loop throught all columns of the current row
-		const rowMessageList = Object.entries(items).reduce((acc, item) => {
-			const [ key, value ] = item;
-			
-			if (key == 'id') {
-				return { ...acc, id: value };
-			}
-			
-			if (key == 'status') {
-				return acc;
-			}
-			
-			const errorMessage = validate(key, value);			
-			return { ...acc, data: [ ...acc.data, { key, errorMessage } ] }
-		}, { id: null, data: [] });
-		
-		return acc.concat(rowMessageList);
-	}, []);
-	
-	return errorMessageList;
 };
 // Validations_(end)
 

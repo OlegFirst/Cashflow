@@ -7,9 +7,10 @@ import Button from 'react-bootstrap/Button';
 import RemoveButton from '../../../_commonComponents/RemoveButton/RemoveButton';
 import InputComponentWrapper from './InputComponentWrapper';
 
-import { 
+import {
 	getObjectValue,
-	ActionsTable as ActionsTableClass
+	ActionsTable as ActionsTableClass,
+	// professionCardValidation
 } from '../../../common/utils';
 import { professionCardInputNames } from '../../../common/constants';
 import { updateActionsTableItems } from '../utils';
@@ -28,9 +29,14 @@ const ActionsTable = (props) => {
 	
 	// onBlur
 	const onBlurHandler = newValue => {
+		// console.clear()
+		
+		// console.log(newValue)
+		
 		const data = updateActionsTableItems(newValue, valueList);
 		
 		props.onUpdate({
+			type: 'ACTION_TABLE',
 			newValueList: data,
 			newItemId
 		});
@@ -51,6 +57,7 @@ const ActionsTable = (props) => {
 		};
 		
 		props.onUpdate({
+			type: 'ACTION_TABLE',
 			newValueList: [ ...valueList, newValueListItem ],
 			newItemId: newItemId + 1
 		});
@@ -83,6 +90,19 @@ const ActionsTable = (props) => {
 							return null;
 						}
 						
+						// Validation
+						const onValidate = data => {
+							// console.clear()
+							
+							// const { value } = data;
+							// const error = professionCardValidation(data);
+							// console.log(error)
+							
+							onBlurHandler(data);
+						};
+						
+						// console.log('render')
+						
 						return (
 							<tr key={id}>
 								<td>
@@ -90,7 +110,7 @@ const ActionsTable = (props) => {
 										id={id}
 										name={professionCardInputNames.NAME}
 										value={name}
-										onBlur={onBlurHandler}
+										onBlur={onValidate}
 									/>
 								</td>
 							

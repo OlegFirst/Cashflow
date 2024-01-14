@@ -9,7 +9,8 @@ import ProfessionCardItemEdit from './ProfessionCardItemEdit';
 
 import { 
 	parseKeyStringOfObject,
-	getObjectValue
+	getObjectValue,
+	professionCardValidation
 } from '../../common/utils';
 import { userRoles } from '../../common/constants';
 import { setNetworkStatus } from '../../storage/actions/actionCreatorsInfo';
@@ -65,7 +66,12 @@ const ProfessionCard = (props) => {
 	};
 	
 	// Update	
-	const onUpdate = ({ newValueList, newItemId }) => {		
+	const onUpdate = ({ type, newValueList, newItemId }) => {
+		console.clear()
+		
+		const errorMessageList = professionCardValidation({ type, newValueList });
+		console.log(errorMessageList)
+		
 		setItemEditData(prevState => ({
 			...prevState,
 			data: { ...prevState.data, valueList: newValueList },
