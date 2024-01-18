@@ -9,10 +9,14 @@ import InputComponentWrapper from './InputComponentWrapper';
 
 import {
 	getObjectValue,
-	ActionsTable as ActionsTableClass
+	ActionsTable as ActionsTableClass,
+	professionCardTotalValidation
 } from '../../../common/utils';
 import { professionCardInputNames } from '../../../common/constants';
-import { updateActionsTableItems } from '../utils';
+import { 
+	updateActionsTableItems, 
+	getErrorMessage
+} from '../utils';
 import { itemStatuses } from '../constants';
 import './index.scss';
 
@@ -24,10 +28,9 @@ const ActionsTable = (props) => {
 			total
 		},
 		errorMessageList,
+		errorTotalMessage,
 		newItemId
 	} = props;
-	
-	// console.log('//', errorMessageList)
 	
 	// onBlur
 	const onBlurHandler = newValue => {
@@ -90,8 +93,6 @@ const ActionsTable = (props) => {
 						
 						const rowMessageList = errorMessageList.find(item => item.id === id)?.data;
 						
-						console.log(professionCardInputNames.NAME)
-						
 						return (
 							<tr key={id}>
 								<td>
@@ -100,7 +101,7 @@ const ActionsTable = (props) => {
 										name={professionCardInputNames.NAME}
 										value={name}
 										onBlur={onBlurHandler}
-										errorMessage={rowMessageList ? rowMessageList[professionCardInputNames.NAME] : ''}
+										errorMessage={getErrorMessage(professionCardInputNames.NAME, rowMessageList)}
 									/>
 								</td>
 							
@@ -110,6 +111,7 @@ const ActionsTable = (props) => {
 										name={professionCardInputNames.COUNT}
 										value={count}
 										onBlur={onBlurHandler}
+										errorMessage={getErrorMessage(professionCardInputNames.COUNT, rowMessageList)}
 									/>
 								</td>
 								
@@ -119,6 +121,7 @@ const ActionsTable = (props) => {
 										name={professionCardInputNames.PRICE}
 										value={price}
 										onBlur={onBlurHandler}
+										errorMessage={getErrorMessage(professionCardInputNames.PRICE, rowMessageList)}
 									/>
 								</td>
 								
@@ -128,6 +131,7 @@ const ActionsTable = (props) => {
 										name={professionCardInputNames.COST}
 										value={cost}
 										onBlur={onBlurHandler}
+										errorMessage={getErrorMessage(professionCardInputNames.COST, rowMessageList)}
 									/>
 								</td>
 								
@@ -137,6 +141,7 @@ const ActionsTable = (props) => {
 										name={professionCardInputNames.INCOME}
 										value={income}
 										onBlur={onBlurHandler}
+										errorMessage={getErrorMessage(professionCardInputNames.INCOME, rowMessageList)}
 									/>
 								</td>
 									
@@ -158,9 +163,10 @@ const ActionsTable = (props) => {
 							<td className='actions-table__total'>
 								<InputComponentWrapper 
 									id={0}
-									name={'total'}
+									name={professionCardInputNames.TOTAL}
 									value={total}
 									onBlur={onBlurTotalHandler}
+									errorMessage={errorTotalMessage}
 									isSelected={true}
 								/>
 							</td>

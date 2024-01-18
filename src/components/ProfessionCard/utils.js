@@ -202,4 +202,12 @@ export const changeProfessionCardItem = ({ generalData, data }, callbacks) => {
 		executeRequestRemove({ generalData, data: { ...data, valueList: removedValueList } }, callbacks);
 	}
 };
+
+export const getErrorMessage = (key, rowMessageList) => {
+	if (!rowMessageList) {
+		return '';
+	}
+	
+	return rowMessageList[key];
+};
 // business card item changes_(end)

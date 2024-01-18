@@ -4,8 +4,13 @@ import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 
 import Authentication from '../../components/Authentication/Authentication';
+import Network from '../../_commonComponents/Network/Network';
 
-import { userRoles } from '../../common/constants';
+import { 
+	userRoles,
+	phone,
+	eMail
+} from '../../common/constants';
 import {
 	title,
 	subTitle,
@@ -47,19 +52,35 @@ const Introduction = () => {
 
   return (
     <section className='introduction'>
-			<Container className='container-fluid p-0' fluid>
+			
 				<div className='introduction__content'>
-					<h1 className='text-center'>{title}</h1>
+					<div className='introduction__cover' />
 					
-					<h2 className='text-center'>{subTitle}</h2>
+					<h1 className='introduction__title'>{title}</h1>
 					
-					<Button
-						className='introduction__start-button'
-						variant='success'
-						onClick={onStartButtonClick}
-					>
-						{startButton}
-					</Button>
+					<h2 className='introduction__sub-title mt-4'>{subTitle}</h2>
+					
+					<div className='introduction__bottom bottom'>
+						<Button
+							className='introduction__start-button'
+							variant='success'
+							onClick={onStartButtonClick}
+						>
+							{startButton}
+						</Button>
+						
+						<div className='bottom__right right'>
+							<h4>З питань партнерства гри на платформі звертайтеся</h4>
+							
+							<div className='right__network'>
+								<Network />
+							</div>
+							
+							<p><b>{phone}</b> Чечотенко Оксана</p>
+							
+							<p><b>{eMail}</b></p>
+						</div>
+					</div>
 				</div>
 			
 				<img 
@@ -71,8 +92,7 @@ const Introduction = () => {
 				<Authentication
 					isShow={isAuthenticationShow}
 					onClose={onAuthenticationClose} 
-				/>
-			</Container>
+				/>			
     </section>
   );
 }

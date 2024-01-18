@@ -16,7 +16,8 @@ export const professionCardInputNames = {
 	COUNT: 'count',
 	PRICE: 'price',
 	COST: 'cost', 
-	INCOME: 'income'	
+	INCOME: 'income',
+	TOTAL: 'total'
 };
 
 export const errors = {
@@ -70,3 +71,28 @@ export const pathOptions = {
 export const fishkaTranslateX = 10;
 
 export const bankruptMoneyFlow = 300;
+
+export const networkIcons = [
+	{
+		id: 1,
+		title: 'Instagram',
+		src: 'instagram.png',
+		url: ''
+	},
+	{
+		id: 2,
+		title: 'Facebook',
+		src: 'facebook.png',
+		url: ''
+	},
+	{
+		id: 3,
+		title: 'Telegram',
+		src: 'telegram.png',
+		url: ''
+	}
+];
+
+export const phone = '+38(095)705-38-46';
+
+export const eMail = 'shioksana@ukr.net';

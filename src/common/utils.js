@@ -69,6 +69,9 @@ const validate = (name, value) => {
 		case professionCardInputNames.INCOME:
 			return validateNumberField(value);
 			
+		case professionCardInputNames.TOTAL:
+			return validateNumberField(value);
+			
 		default:
 			console.log('Bad input name');
 			return '';
@@ -93,9 +96,9 @@ export const professionCardValidation = ({ type, newValueList }) => {
 			const errorMessage = validate(key, value);			
 			return { 
 				...acc,
-				data: [ ...acc.data, {
+				data: { ...acc.data,
 					[key]: errorMessage 
-				}] 
+				}
 			}
 		}, { id: null, data: [] });
 		
@@ -103,6 +106,36 @@ export const professionCardValidation = ({ type, newValueList }) => {
 	}, []);
 	
 	return errorMessageList;
+};
+
+export const professionCardTotalValidation = value => {
+	return validate(professionCardInputNames.TOTAL, value);
+};
+
+export const checkProfessionCardValid = (errorMessageList, errorTotalMessage) => {
+	// console.log(errorMessageList, errorTotalMessage)
+	
+	let isValid = true;
+	
+	if (errorMessageList.length > 0) {
+		for (let i = 0; i < errorMessageList.length; i++) {
+			const data = errorMessageList[i].data;			
+			
+			Object.entries(data).forEach(item => {
+				const [ value ] = item;
+				
+				console.log(item.value)
+				
+				if (item.value) {
+					isValid = false;
+				}
+			});
+		}
+	}
+	
+	console.log(isValid)
+	
+	return isValid;
 };
 // Validations_(end)
 

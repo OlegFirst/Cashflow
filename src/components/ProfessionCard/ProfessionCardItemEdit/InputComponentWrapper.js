@@ -15,8 +15,6 @@ const InputComponentWrapper = (props) => {
 		errorMessage = ''
 	} = props;
 	
-	console.log('////', errorMessage)
-	
 	const [data, setData] = useState({ name, value });
 	
 	const user = useSelector(state => state.info.user);
@@ -41,7 +39,7 @@ const InputComponentWrapper = (props) => {
 			onBlur={onBlurHandler}
 			isSelected={isSelected}
 			isDisabled={user.userRoleId !== userRoles['GAMER']}
-			// errorMessage={errorMessage}
+			errorMessage={errorMessage}
 		/>
 	)
 };

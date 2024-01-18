@@ -10,7 +10,9 @@ import ProfessionCardItemEdit from './ProfessionCardItemEdit';
 import { 
 	parseKeyStringOfObject,
 	getObjectValue,
-	professionCardValidation
+	professionCardValidation,
+	professionCardTotalValidation,
+	checkProfessionCardValid
 } from '../../common/utils';
 import { userRoles } from '../../common/constants';
 import { setNetworkStatus } from '../../storage/actions/actionCreatorsInfo';
@@ -30,6 +32,7 @@ const itemEditDataInitialState = {
 	objKey: null,
 	data: null,
 	errorMessageList: [],
+	errorTotalMessage: '',
 	isTotalUpdated: false,
 	newItemId: 1,
 	isShow: false
@@ -112,9 +115,12 @@ const ProfessionCard = (props) => {
 			return;
 		}
 		
+		const errorTotalMessage = professionCardTotalValidation(newTotal.value);
+		
 		setItemEditData(prevState => ({
 			...prevState,
 			data: { ...prevState.data, total: newTotal.value },
+			errorTotalMessage,
 			isTotalUpdated: true
 		}));
 	};
@@ -137,14 +143,14 @@ const ProfessionCard = (props) => {
 	
 	// Submit
 	const onModalSubmit = () => {
-		// TO DO: Validation on empty field(s)
-		console.log('TO DO: Validation on empty field(s)')
-		
-	
 		if (isDisabled) {
 			setItemEditData(prevState => itemEditDataInitialState);
 			return;
 		}
+		
+		console.log(checkProfessionCardValid(itemEditData.errorMessageList, itemEditData.errorTotalMessage))
+		
+		return
 		
 		const generalData = {
 			userId: user.id,
@@ -416,6 +422,7 @@ const ProfessionCard = (props) => {
 				<ProfessionCardItemEdit 
 					currentData={itemEditData.data}
 					errorMessageList={itemEditData.errorMessageList}
+					errorTotalMessage={itemEditData.errorTotalMessage}
 					newItemId={itemEditData.newItemId}
 					onUpdate={onUpdate}
 					onTotalUpdate={onTotalUpdate}
