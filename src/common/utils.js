@@ -91,7 +91,12 @@ export const professionCardValidation = ({ type, newValueList }) => {
 			}
 			
 			const errorMessage = validate(key, value);			
-			return { ...acc, data: [ ...acc.data, { key, errorMessage } ] }
+			return { 
+				...acc,
+				data: [ ...acc.data, {
+					[key]: errorMessage 
+				}] 
+			}
 		}, { id: null, data: [] });
 		
 		return acc.concat(rowMessageList);

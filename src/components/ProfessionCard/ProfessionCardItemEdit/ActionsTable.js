@@ -9,8 +9,7 @@ import InputComponentWrapper from './InputComponentWrapper';
 
 import {
 	getObjectValue,
-	ActionsTable as ActionsTableClass,
-	// professionCardValidation
+	ActionsTable as ActionsTableClass
 } from '../../../common/utils';
 import { professionCardInputNames } from '../../../common/constants';
 import { updateActionsTableItems } from '../utils';
@@ -24,15 +23,14 @@ const ActionsTable = (props) => {
 			valueList,
 			total
 		},
+		errorMessageList,
 		newItemId
 	} = props;
 	
+	// console.log('//', errorMessageList)
+	
 	// onBlur
 	const onBlurHandler = newValue => {
-		// console.clear()
-		
-		// console.log(newValue)
-		
 		const data = updateActionsTableItems(newValue, valueList);
 		
 		props.onUpdate({
@@ -90,18 +88,9 @@ const ActionsTable = (props) => {
 							return null;
 						}
 						
-						// Validation
-						const onValidate = data => {
-							// console.clear()
-							
-							// const { value } = data;
-							// const error = professionCardValidation(data);
-							// console.log(error)
-							
-							onBlurHandler(data);
-						};
+						const rowMessageList = errorMessageList.find(item => item.id === id)?.data;
 						
-						// console.log('render')
+						console.log(professionCardInputNames.NAME)
 						
 						return (
 							<tr key={id}>
@@ -110,7 +99,8 @@ const ActionsTable = (props) => {
 										id={id}
 										name={professionCardInputNames.NAME}
 										value={name}
-										onBlur={onValidate}
+										onBlur={onBlurHandler}
+										errorMessage={rowMessageList ? rowMessageList[professionCardInputNames.NAME] : ''}
 									/>
 								</td>
 							

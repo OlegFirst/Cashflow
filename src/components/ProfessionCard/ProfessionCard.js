@@ -29,6 +29,7 @@ import './profession-card.scss';
 const itemEditDataInitialState = {
 	objKey: null,
 	data: null,
+	errorMessageList: [],
 	isTotalUpdated: false,
 	newItemId: 1,
 	isShow: false
@@ -66,15 +67,13 @@ const ProfessionCard = (props) => {
 	};
 	
 	// Update	
-	const onUpdate = ({ type, newValueList, newItemId }) => {
-		console.clear()
-		
+	const onUpdate = ({ type, newValueList, newItemId }) => {		
 		const errorMessageList = professionCardValidation({ type, newValueList });
-		console.log(errorMessageList)
 		
 		setItemEditData(prevState => ({
 			...prevState,
 			data: { ...prevState.data, valueList: newValueList },
+			errorMessageList: [ ...errorMessageList ],
 			newItemId
 		}));
 	};
@@ -416,6 +415,7 @@ const ProfessionCard = (props) => {
 			>
 				<ProfessionCardItemEdit 
 					currentData={itemEditData.data}
+					errorMessageList={itemEditData.errorMessageList}
 					newItemId={itemEditData.newItemId}
 					onUpdate={onUpdate}
 					onTotalUpdate={onTotalUpdate}
