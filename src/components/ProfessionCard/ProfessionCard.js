@@ -3,12 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import ModalComponent from '../../_commonComponents/Modal/Modal';
 
 import ProfessionCardItem from './ProfessionCardItem/ProfessionCardItem';
-import InputBlock from  './InputBlock/InputBlock';
 import ProfessionCardRest from './ProfessionCardRest/ProfessionCardRest';
 import ProfessionCardItemEdit from './ProfessionCardItemEdit';
 
-import { 
-	parseKeyStringOfObject,
+import {
 	getObjectValue,
 	professionCardValidation,
 	professionCardTotalValidation,
@@ -92,7 +90,7 @@ const ProfessionCard = (props) => {
 			data: { 
 				...prevState.data, 
 				valueList: prevState.data.valueList.reduce((acc, item) => {
-					if (item.id != id) {
+					if (item.id !== id) {
 						return acc.concat(item);
 					}
 					
@@ -148,9 +146,11 @@ const ProfessionCard = (props) => {
 			return;
 		}
 		
-		console.log(checkProfessionCardValid(itemEditData.errorMessageList, itemEditData.errorTotalMessage))
+		const isValid = checkProfessionCardValid(itemEditData.errorMessageList, itemEditData.errorTotalMessage);
 		
-		return
+		if (!isValid) {
+			return;
+		}
 		
 		const generalData = {
 			userId: user.id,

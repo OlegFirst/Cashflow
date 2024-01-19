@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-
 import {
 	errors,
 	commonSmallAgreementIdList,
@@ -72,6 +70,12 @@ const validate = (name, value) => {
 		case professionCardInputNames.TOTAL:
 			return validateNumberField(value);
 			
+		case professionCardInputNames.DEPOSIT:
+			return validateNumberField(value);
+			
+		case professionCardInputNames.BAIL:
+			return validateNumberField(value);
+			
 		default:
 			console.log('Bad input name');
 			return '';
@@ -85,11 +89,11 @@ export const professionCardValidation = ({ type, newValueList }) => {
 		const rowMessageList = Object.entries(items).reduce((acc, item) => {
 			const [ key, value ] = item;
 			
-			if (key == 'id') {
+			if (key === 'id') {
 				return { ...acc, id: value };
 			}
 			
-			if (key == 'status') {
+			if (key === 'status') {
 				return acc;
 			}
 			
@@ -112,9 +116,7 @@ export const professionCardTotalValidation = value => {
 	return validate(professionCardInputNames.TOTAL, value);
 };
 
-export const checkProfessionCardValid = (errorMessageList, errorTotalMessage) => {
-	// console.log(errorMessageList, errorTotalMessage)
-	
+export const checkProfessionCardValid = (errorMessageList, errorTotalMessage) => {	
 	let isValid = true;
 	
 	if (errorMessageList.length > 0) {
@@ -122,18 +124,18 @@ export const checkProfessionCardValid = (errorMessageList, errorTotalMessage) =>
 			const data = errorMessageList[i].data;			
 			
 			Object.entries(data).forEach(item => {
-				const [ value ] = item;
+				const [ _, value ] = item;
 				
-				console.log(item.value)
-				
-				if (item.value) {
+				if (value) {
 					isValid = false;
 				}
 			});
 		}
 	}
 	
-	console.log(isValid)
+	if (errorTotalMessage) {
+		isValid = false;
+	}
 	
 	return isValid;
 };

@@ -1,17 +1,15 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import Table from 'react-bootstrap/Table';
-import CloseButton from 'react-bootstrap/CloseButton';
 import Button from 'react-bootstrap/Button';
 
 import RemoveButton from '../../../_commonComponents/RemoveButton/RemoveButton';
 import InputComponentWrapper from './InputComponentWrapper';
 
+import { RealEstateTable as RealEstateTableClass } from '../../../common/utils';
+import { professionCardInputNames } from '../../../common/constants';
 import { 
-	getObjectValue,
-	RealEstateTable as RealEstateTableClass
-} from '../../../common/utils';
-import { updateActionsTableItems } from '../utils';
+	updateActionsTableItems,
+	getErrorMessage
+} from '../utils';
 import { itemStatuses } from '../constants';
 import './index.scss';
 
@@ -21,6 +19,8 @@ const RealEstateTable = (props) => {
 			valueList,
 			total
 		},
+		errorMessageList,
+		errorTotalMessage,
 		newItemId
 	} = props;
 	
@@ -80,50 +80,57 @@ const RealEstateTable = (props) => {
 							return null;
 						}
 						
+						const rowMessageList = errorMessageList.find(item => item.id === id)?.data;
+						
 						return (
 							<tr key={id}>
 								<td>
 									<InputComponentWrapper
 										id={id}
-										name={'name'}
+										name={professionCardInputNames.NAME}
 										value={name}
 										onBlur={onBlurHandler}
+										errorMessage={getErrorMessage(professionCardInputNames.NAME, rowMessageList)}
 									/>
 								</td>
 							
 								<td>
 									<InputComponentWrapper
 										id={id}
-										name={'deposit'}
+										name={professionCardInputNames.DEPOSIT}
 										value={deposit}
 										onBlur={onBlurHandler}
+										errorMessage={getErrorMessage(professionCardInputNames.DEPOSIT, rowMessageList)}
 									/>
 								</td>
 								
 								<td>
 									<InputComponentWrapper
 										id={id}
-										name={'price'}
+										name={professionCardInputNames.PRICE}
 										value={price}
 										onBlur={onBlurHandler}
+										errorMessage={getErrorMessage(professionCardInputNames.PRICE, rowMessageList)}
 									/>
 								</td>
 								
 								<td>
 									<InputComponentWrapper
 										id={id}
-										name={'bail'}
+										name={professionCardInputNames.BAIL}
 										value={bail}
 										onBlur={onBlurHandler}
+										errorMessage={getErrorMessage(professionCardInputNames.BAIL, rowMessageList)}
 									/>
 								</td>
 								
 								<td className='two-columns-table__row-item'>
 									<InputComponentWrapper 
 										id={id}
-										name={'income'}
+										name={professionCardInputNames.INCOME}
 										value={income}
 										onBlur={onBlurHandler}
+										errorMessage={getErrorMessage(professionCardInputNames.INCOME, rowMessageList)}
 									/>
 								</td>
 									
@@ -145,9 +152,10 @@ const RealEstateTable = (props) => {
 							<td className='actions-table__total'>
 								<InputComponentWrapper 
 									id={0}
-									name={'total'}
+									name={professionCardInputNames.TOTAL}
 									value={total}
 									onBlur={onBlurTotalHandler}
+									errorMessage={errorTotalMessage}
 									isSelected={true}
 								/>
 							</td>

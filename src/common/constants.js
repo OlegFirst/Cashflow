@@ -17,6 +17,8 @@ export const professionCardInputNames = {
 	PRICE: 'price',
 	COST: 'cost', 
 	INCOME: 'income',
+	DEPOSIT: 'deposit',
+	BAIL: 'bail',
 	TOTAL: 'total'
 };
 
