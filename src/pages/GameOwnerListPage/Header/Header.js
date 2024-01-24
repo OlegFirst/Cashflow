@@ -10,8 +10,6 @@ const Header = (props) => {
 		userRole
 	} = props;
 	
-	console.log(userRole)
-	
 	return (
 		<header className='header'>
 			<div className='header__top'>
@@ -27,23 +25,12 @@ const Header = (props) => {
 			<div className='header__bottom'>
 				<Button
 					variant='light'
-					className='mt-1 me-4'
+					className='mt-1'
 					size='sm'
-					onClick={props.onCreateNewInstance}
+					onClick={props.onCreateNewGameOwner}
 				>
-					Створити нову гру
+					Створити нового власника гри
 				</Button>
-				
-				{userRole === 'SUPER_OWNER' && (
-					<Button
-						variant='light'
-						className='mt-1'
-						size='sm'
-						onClick={props.onGameOwnerList}
-					>
-						Власники гри
-					</Button>
-				)}
 			</div>
 		</header>
 	)

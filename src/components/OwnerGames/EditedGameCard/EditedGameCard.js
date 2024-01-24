@@ -155,7 +155,7 @@ const EditedGameCard = (props) => {
 					<InputComponent
 						name={'time'}
 						defaultValue={componentData.game.time}
-						placeholder={'Час проведення'}
+						placeholder={'Час проведення: hh:mm'}
 						onChange={onChangeHandler}
 						errorMessage={errorMessageList['time']}
 					/>

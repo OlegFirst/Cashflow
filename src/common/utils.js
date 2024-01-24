@@ -14,13 +14,13 @@ export const validateGameName = data => {
 };
 
 export const validateGameDate = data => {	
-	const dataLength = cutSpaces(data).length;
-	return dataLength >= 1 && dataLength <= 12 ? '' : errors.DATE
+	const pattern = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;	
+	return pattern.test(data) ? '' : errors.DATE
 };
 
 export const validateGameTime = data => {	
-	const dataLength = cutSpaces(data).length;
-	return dataLength >= 1 && dataLength <= 12 ? '' : errors.TIME
+	const pattern = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/;	
+	return pattern.test(data) ? '' : errors.TIME
 };
 
 export const validateName = data => {	

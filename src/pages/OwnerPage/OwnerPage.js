@@ -112,6 +112,11 @@ const OwnerPage = () => {
 		});
 	};
 	
+	// Create new Game Owner
+	const onGameOwnerListHandler = () => {
+		navigate('/game-owner-list-page');
+	};
+	
 	// Create new game
 	const onCreateNewInstanceHandler = () => {
 		setEditedGameCardStatus(prevState => ({
@@ -144,10 +149,15 @@ const OwnerPage = () => {
 	};
 	
 	// Submit creating or editing the game_(start)	
-	const createNewGame = componentData => {
+	const createNewGame = componentData => {		
 		getCreatedGames(createdGames => {
 			if (createdGames.some(game => game.name === componentData.game.name)) {
 				setInfoMessage('Ця назва гри присутня');
+				return;
+			}
+			
+			if (componentData.gamerList.length === 0) {
+				setInfoMessage('Немає гравців');
 				return;
 			}
 			
@@ -243,6 +253,7 @@ const OwnerPage = () => {
 			<Header 
 				{ ...user }
 				onCreateNewInstance={onCreateNewInstanceHandler}
+				onGameOwnerList={onGameOwnerListHandler}
 			/>
 			
 			<OwnerGames 
