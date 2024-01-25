@@ -4,17 +4,34 @@ import { useSelector, useDispatch } from 'react-redux';
 import Header from './Header/Header';
 import SpinnerComponent from '../../_commonComponents/Spinner/Spinner';
 import Info from '../../_commonComponents/Info/Info';
+import ConfirmModal from '../../_commonComponents/ConfirmModal/ConfirmModal';
 
-import { 
+import GameOwnerList from '../../components/GameOwnerList/GameOwnerList';
+
+import { confirmModalTypes } from '../../common/constants';
+import {
 	executeRequestGet,
 	ownerCreatedGamesResponseMapper
 } from '../../services/utils';
 import { setNetworkStatus } from '../../storage/actions/actionCreatorsInfo';
 import { networkStatuses } from '../../services/constants';
+import { getGameOwnersMapper } from '../../components/GameOwnerList/utils';
+import { itemObjects } from '../../components/GameOwnerList/constants';
 import './game-owner-list-page.scss';
 
+const confirmDataInitailState = {
+	data: null,
+	title: '',
+	message: '',
+	type: confirmModalTypes.DANGER,
+	isShow: false
+};
+
 const GameOwnerListPage = () => {
+	const [gameOwnerList, setGameOwnerList] = useState([]);
+	const [isCardCreate, setIsCardCreate] = useState(false);
 	const [infoMessage, setInfoMessage] = useState('');
+	const [confirmData, setConfirmData] = useState(confirmDataInitailState);
 	
 	const dispatch = useDispatch();
 	const user = useSelector(state => state.info.user);
@@ -23,7 +40,7 @@ const GameOwnerListPage = () => {
 	const isSuperOwner = user && user.userRole === 'SUPER_OWNER';
 	
 	useEffect(() => {
-		if (isSuperOwner) {
+		if (isSuperOwner) {			
 			getGameOwners();
 		}
 	}, []);
@@ -34,7 +51,39 @@ const GameOwnerListPage = () => {
 		)
 	}
 	
-	const getGameOwners = () => {
+	const onPending = () => {
+		dispatch(setNetworkStatus(networkStatuses.PENDING));
+	}
+	
+	const onSuccess = () => {
+		dispatch(setNetworkStatus(networkStatuses.SUCCESS));
+	};
+	
+	const onFail = data => {
+		dispatch(setNetworkStatus(networkStatuses.FAIL));		
+		setInfoMessage('Server error');
+		console.log(data);
+	};
+	
+	const executeRequestGetWrapper = (request, { onSuccess, onPending, onFail }) => {
+		onPending();
+		
+		executeRequestGet(request, ({ isSuccess, data }) => {
+			if (isSuccess && data) {
+				onSuccess();
+			}
+			
+			if (!isSuccess) {
+				onFail(data);
+			}
+		});
+	};
+	
+	const callbacks = {
+		onSuccess, onPending, onFail
+	};
+	
+	const getGameOwners = () => {		
 		dispatch(setNetworkStatus(networkStatuses.PENDING));
 			
 		const request = {
@@ -43,13 +92,10 @@ const GameOwnerListPage = () => {
 		};
 		
 		executeRequestGet(request, ({ isSuccess, data }) => {
-			console.log(data)
-			
 			if (isSuccess && data) {
-				dispatch(setNetworkStatus(networkStatuses.SUCCESS));				
-				// onst mappedData = ownerCreatedGamesResponseMapper(data);				
-				// setOwnerGamesData(mappedData);
-				// cb?.(mappedData);
+				dispatch(setNetworkStatus(networkStatuses.SUCCESS));			
+				const mappedData = getGameOwnersMapper(data);				
+				setGameOwnerList(mappedData);
 				return;
 			}
 			
@@ -63,9 +109,65 @@ const GameOwnerListPage = () => {
 			return;
 		});
 	};
+		
+	const onRemoveHandler = ({ itemObject, id, name }) => {
+		setConfirmData(prevState => ({
+			...prevState,
+			data: {
+				itemObject,
+				id
+			},
+			title: `Ви впевнені, що хочете видалити ${itemObject === itemObjects.OWNER ? 'власникa гри?' : 'гру?'}`,
+			message: name,
+			isShow: true
+		}));
+	};
+	
+	const onConfirmModalCancel = () => {
+		setConfirmData(prevState => ({
+			...prevState,
+			...confirmDataInitailState
+		}));
+	};
+	
+	const onConfirmModalSubmit = () => {
+		let request = null;
+		
+		if (confirmData.data.itemObject === itemObjects.OWNER) {
+			request = {
+				endPointURL: 'super-owner',
+				query: 'info=remove-game-owner&owner_id=' + confirmData.data.id
+			};
+		} else {
+			request = {
+				endPointURL: 'super-owner',
+				query: 'info=remove-game&game_id=' + confirmData.data.id
+			};
+		}
+		
+		executeRequestGetWrapper(request, callbacks);
+		onConfirmModalCancel();
+	};
 	
 	const onCreateNewGameOwnerHandler = () => {
+		setIsCardCreate(true);
+	};
+	
+	const onCreateCancelHandler = () => {
+		setIsCardCreate(false);
+	};
+	
+	const onCreateSubmitHandler = data => {
+		console.log(data)
 		
+		// const request = {
+			// endPointURL: 'super-owner',
+			// query: 'info=create-new-game-owner&data=' + JSON.stringify(sendingData)
+		// }
+			
+		// executeRequestGetWrapper(request, callbacks);
+		
+		onCreateCancelHandler();
 	};
 	
 	const onInfoClose = () => setInfoMessage('');
@@ -77,11 +179,26 @@ const GameOwnerListPage = () => {
 				onCreateNewGameOwner={onCreateNewGameOwnerHandler}
 			/>
 			
+			<GameOwnerList 
+				gameOwnerList={gameOwnerList}
+				onRemove={onRemoveHandler}
+				
+				isCardCreate={isCardCreate}
+				onCreateSubmit={onCreateSubmitHandler}
+				onCreateCancel={onCreateCancelHandler}
+			/>
+			
 			<button onClick={getGameOwners}>OK</button>
 			
 			<Info message={infoMessage} onClose={onInfoClose} />
 			
 			{networkStatus === networkStatuses.PENDING && <SpinnerComponent />}
+			
+			<ConfirmModal 
+				{...confirmData}
+				onSubmit={onConfirmModalSubmit}
+				onClose={onConfirmModalCancel}
+			/>
 		</section>
 	)
 };

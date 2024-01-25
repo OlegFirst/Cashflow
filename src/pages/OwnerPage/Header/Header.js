@@ -10,8 +10,6 @@ const Header = (props) => {
 		userRole
 	} = props;
 	
-	console.log(userRole)
-	
 	return (
 		<header className='header'>
 			<div className='header__top'>

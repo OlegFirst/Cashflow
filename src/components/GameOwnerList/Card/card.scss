@@ -1,0 +1,34 @@
+.card {
+	position: relative;
+	background-color: lightgreen;
+	border-radius: 4px;
+	margin-bottom: 20px;
+	padding: 10px;
+	
+	&__remove-button {
+		position: absolute;
+		right: 10px;
+		top: 10px;
+	}
+	
+	&__owner > h4,
+	&__owner > p {
+		margin: 0;
+	}
+	
+	&__games {
+		list-style-type: none;
+	}
+	
+	&__game {
+		position: relative;
+		border: 1px solid;
+		border-radius: 4px;
+		margin-top: 10px;
+		padding: 10px;
+		
+		& p {
+			margin: 0;
+		}
+	}
+}
