@@ -7,6 +7,8 @@ import {
 
 const cutSpaces = str => typeof str === 'string' ? str.trim() : '';
 
+export const namePreparation = name => name.trim().toLowerCase();
+
 // Validations_(start)
 export const validateGameName = data => {	
 	const dataLength = cutSpaces(data).length;

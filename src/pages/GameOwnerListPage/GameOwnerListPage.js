@@ -91,7 +91,7 @@ const GameOwnerListPage = () => {
 			query: 'info=get-game-owners&user_id=' + user.id
 		};
 		
-		executeRequestGet(request, ({ isSuccess, data }) => {
+		executeRequestGet(request, ({ isSuccess, data }) => {			
 			if (isSuccess && data) {
 				dispatch(setNetworkStatus(networkStatuses.SUCCESS));			
 				const mappedData = getGameOwnersMapper(data);				
@@ -157,15 +157,19 @@ const GameOwnerListPage = () => {
 		setIsCardCreate(false);
 	};
 	
-	const onCreateSubmitHandler = data => {
-		console.log(data)
-		
-		// const request = {
-			// endPointURL: 'super-owner',
-			// query: 'info=create-new-game-owner&data=' + JSON.stringify(sendingData)
-		// }
+	const onCreateSubmitHandler = data => {		
+		const request = {
+			endPointURL: 'super-owner',
+			query: 'info=create-new-game-owner&data=' + JSON.stringify(data)
+		}
 			
-		// executeRequestGetWrapper(request, callbacks);
+		executeRequestGetWrapper(request, {
+			onSuccess: () => {
+				onSuccess();
+				getGameOwners();
+			},
+			onPending, onFail
+		});
 		
 		onCreateCancelHandler();
 	};
@@ -186,6 +190,8 @@ const GameOwnerListPage = () => {
 				isCardCreate={isCardCreate}
 				onCreateSubmit={onCreateSubmitHandler}
 				onCreateCancel={onCreateCancelHandler}
+				
+				infoMessage={data => setInfoMessage(data)}
 			/>
 			
 			<button onClick={getGameOwners}>OK</button>

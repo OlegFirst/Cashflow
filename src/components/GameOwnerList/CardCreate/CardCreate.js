@@ -6,19 +6,25 @@ import InputComponent from '../../../_commonComponents/InputComponent/InputCompo
 import { 
 	validateGameName,
 	validateLogin,
-	validatePassword
+	validatePassword,
+	validateGameDate,
+	namePreparation
 } from '../../../common/utils';
 
 const componentDataInitailState = {
 	name: '',
 	login: '',
-	password: ''
+	password: '',
+	startingRentDate: '',
+	endingRentDate: ''
 };
 
 const errorMessageListInitialState = {
 	name: '',
 	login: '',
-	password: ''
+	password: '',
+	startingRentDate: '',
+	endingRentDate: ''
 };
 
 const CardCreate = (props) => {
@@ -36,15 +42,11 @@ const CardCreate = (props) => {
 		}));
 	};
 	
-	const checkIfNameIsPresent = () => {
-		// console.log(gameOwnerList)
-		
-		// console.log(componentData)
-		
+	const checkIfNameIsPresent = () => {		
 		if (gameOwnerList.length > 0) {
-			const isPresent = gameOwnerList.some(item => item.owner.name === componentData.name);
+			const isPresent = gameOwnerList.some(item => namePreparation(item.owner.name) === namePreparation(componentData.name));
 			if (isPresent) {
-				console.log('Present')
+				props.infoMessage('Власник з таким імям створений');
 				return;
 			}
 		}
@@ -84,8 +86,26 @@ const CardCreate = (props) => {
 			password: error3
 		}));
 		
+		const error4 = validateGameDate(componentData.startingRentDate);
+		if (error4) {
+			isValid = false;
+		}
+		setErrorMessageList(prevState => ({
+			...prevState,
+			startingRentDate: error4
+		}));
+		
+		const error5 = validateGameDate(componentData.endingRentDate);
+		if (error5) {
+			isValid = false;
+		}
+		setErrorMessageList(prevState => ({
+			...prevState,
+			endingRentDate: error5
+		}));
+		
 		if (isValid) {
-			checkIfNameIsPresent()
+			checkIfNameIsPresent();
 		}
 	};
 	
@@ -120,6 +140,24 @@ const CardCreate = (props) => {
 					placeholder={'Пароль'}
 					onChange={onChangeHandler}
 					errorMessage={errorMessageList['password']}
+				/>
+				
+				<br/>
+				
+				<InputComponent
+					name={'startingRentDate'}
+					placeholder={'Дата початку оренди'}
+					onChange={onChangeHandler}
+					errorMessage={errorMessageList['startingRentDate']}
+				/>
+				
+				<br/>
+				
+				<InputComponent
+					name={'endingRentDate'}
+					placeholder={'Дата закінчення оренди'}
+					onChange={onChangeHandler}
+					errorMessage={errorMessageList['endingRentDate']}
 				/>
 			</ModalComponent>
 		</div>

@@ -5,7 +5,7 @@ import './card.scss';
 
 const Card = (props) => {
 	const {
-		owner,
+		owner,		
 		games
 	} = props;
 	
@@ -27,6 +27,8 @@ const Card = (props) => {
 				<h4><b>Ім'я:</b> {owner.name}</h4>
 				<p><b>Логін:</b> {owner.login}</p>
 				<p><b>Пароль:</b> {owner.password}</p>
+				<p><b>Дата початку оренди:</b> {owner.startingRentDate}</p>
+				<p><b>Дата закінчення оренди:</b> {owner.endingRentDate}</p>
 			</div>
 			
 			{games.length > 0 

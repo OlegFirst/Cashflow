@@ -1,11 +1,13 @@
 // Mappers_(start)
-export const getGameOwnersMapper = data => {
-	return data.map(({ owner, games }) => ({
+export const getGameOwnersMapper = data => {	
+	return data.map(({ owner, game_rent, games }) => ({
 		owner: {
 			id: Number(owner.id),
 			name: owner.name,
 			login: owner.login,
-			password: owner.password
+			password: owner.password,
+			startingRentDate: game_rent.starting_rent_date,
+			endingRentDate: game_rent.ending_rent_date
 		},
 		games: games.map(game => ({
 			id: Number(game.id),

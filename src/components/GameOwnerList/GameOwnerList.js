@@ -8,7 +8,7 @@ const GameOwnerList = (props) => {
 		gameOwnerList,
 		isCardCreate
 	} = props;
-	
+		
 	return (
 		<div className='game-owner-list'>
 			{gameOwnerList.length > 0 
@@ -24,7 +24,7 @@ const GameOwnerList = (props) => {
 						))}
 					</ul>					
 				: 
-					<h2>Немає ігор</h2>
+					<h2>Власників гри немає</h2>
 			}
 			
 			{isCardCreate && (
@@ -32,6 +32,7 @@ const GameOwnerList = (props) => {
 					gameOwnerList={gameOwnerList}
 					onSubmit={props.onCreateSubmit}
 					onCancel={props.onCreateCancel}
+					infoMessage={props.infoMessage}
 				/>
 			)}
 		</div>
