@@ -59,9 +59,9 @@ const GameOwnerListPage = () => {
 		dispatch(setNetworkStatus(networkStatuses.SUCCESS));
 	};
 	
-	const onFail = data => {
+	const onFail = data => {		
 		dispatch(setNetworkStatus(networkStatuses.FAIL));		
-		setInfoMessage('Server error');
+		setInfoMessage('Server error. ' + data.response.data.errorMesage);
 		console.log(data);
 	};
 	
@@ -71,6 +71,7 @@ const GameOwnerListPage = () => {
 		executeRequestGet(request, ({ isSuccess, data }) => {
 			if (isSuccess && data) {
 				onSuccess();
+				getGameOwners();
 			}
 			
 			if (!isSuccess) {
@@ -193,8 +194,6 @@ const GameOwnerListPage = () => {
 				
 				infoMessage={data => setInfoMessage(data)}
 			/>
-			
-			<button onClick={getGameOwners}>OK</button>
 			
 			<Info message={infoMessage} onClose={onInfoClose} />
 			
