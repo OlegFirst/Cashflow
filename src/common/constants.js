@@ -79,20 +79,20 @@ export const networkIcons = [
 		id: 1,
 		title: 'Instagram',
 		src: 'instagram.png',
-		url: ''
+		url: 'https://www.instagram.com/@oxanachechotenko'
 	},
-	{
-		id: 2,
-		title: 'Facebook',
-		src: 'facebook.png',
-		url: ''
-	},
-	{
-		id: 3,
-		title: 'Telegram',
-		src: 'telegram.png',
-		url: ''
-	}
+	// {
+		// id: 2,
+		// title: 'Facebook',
+		// src: 'facebook.png',
+		// url: ''
+	// },
+	// {
+		// id: 3,
+		// title: 'Telegram',
+		// src: 'telegram.png',
+		// url: ''
+	// }
 ];
 
 export const phone = '+38(095)705-38-46';

@@ -12,7 +12,7 @@ const Network = () => {
 				
 				return (
 					<li className='network__item' key={id}>
-						<Link to={url}>
+						<Link to={url} target='_blanck'>
 							<img src={srcPath} width='32' height='32' alt={title}/>
 						</Link>
 					</li>
