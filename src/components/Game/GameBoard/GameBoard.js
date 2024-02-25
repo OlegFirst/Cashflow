@@ -33,8 +33,6 @@ const GameBoard = (props) => {
 	} = useFishkaOptions(gameRequestQueryGeneral, userModel, isDreamCreatorShow, callbacks, onInfoMessage);
 	const [isPerspective, setIsPerspective] = useState(false);
 	
-	const [isOk, setIsOk] = useState(false);
-	
 	const onDreamCreatorClick = data => {
 		setIsDreamCreatorShow(false);
 		
@@ -59,9 +57,7 @@ const GameBoard = (props) => {
 				isGameInfoHide={isGameInfoHide}
 				onGameInfoHide={props.onGameInfoHide}
 				onGameInfoShow={props.onGameInfoShow}
-				onPerspectiveClick={() => setIsPerspective(!isPerspective)}
-				
-				onClick={() => setIsOk(!isOk)}
+				onPerspectiveClick={() => setIsPerspective(!isPerspective)}				
 				onGetModel={props.onGetModel}
 			/>
 		
@@ -72,8 +68,6 @@ const GameBoard = (props) => {
 				onClick={onPathClick}
 				onFishkaClick={onFishkaClickHandler}
 				waitingDataUpdate={waitingDataUpdateHandler}
-				
-				isOk={isOk}
 			/>
 			
 			{isDreamCreatorShow && (

@@ -20,16 +20,10 @@ const Board = (props) => {
 	
 	const waitingData =	useWaitingConnection({
 		data: gameRequestQueryGeneral,
-		isCreateConnection: isOk
-		// isCreateConnection: isCreateConnection
+		isCreateConnection: isCreateConnection
 	});
 	
 	const isGame = gameRequestQueryGeneral.userRoleId === userRoles.GAMER;
-	
-	// useEffect(() => {
-		// console.log('isCreateConnection', isOk)
-		// // console.log(waitingData)
-	// }, [isOk]);
 	
 	// If Gamer is moved to the other Path then correct fishka data
 	useEffect(() => {

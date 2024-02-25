@@ -35,8 +35,6 @@ const GameOwnerPage = () => {
 	const [isGameOwnerHide, setIsGameOwnerHide] = useState(false);
 	const [isPerspective, setIsPerspective] = useState(false);
 	
-	const [isOk, setIsOk] = useState(false);
-	
 	// Storage
 	const dispatch = useDispatch();
 	const info = useSelector(state => state.info);
@@ -123,8 +121,6 @@ const GameOwnerPage = () => {
 					onHide={() => setIsGameOwnerHide(true)}
 					onShow={() => setIsGameOwnerHide(false)}
 					onPerspectiveClick={() => setIsPerspective(!isPerspective)}
-					
-					onClick={() => setIsOk(!isOk)}
 				/>
 			
 				<div className={`main__content ${isGameOwnerHide ? 'main__content_hide' : ''}`}>
@@ -143,8 +139,6 @@ const GameOwnerPage = () => {
 					gameRequestQueryGeneral={gameRequestQueryGeneral}
 					isCreateConnection={true}
 					isPerspective={isPerspective}
-					
-					isOk={isOk}
 				/>
 			</div>
 			

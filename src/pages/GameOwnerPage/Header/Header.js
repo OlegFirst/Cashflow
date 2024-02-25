@@ -38,8 +38,6 @@ const Header = (props) => {
 						Ігри
 					</Button>
 				</div>
-				
-				{false && <button onClick={props.onClick}>onWorking</button>}
 			</div>
 				
 			<div className='game-owner-page-header__exit'>

@@ -21,14 +21,6 @@ const Header = (props) => {
 	
 	return (
 		<header className='game-board-header'>
-		{false && (
-		<>
-		<button onClick={props.onClick}>onWorking</button>
-			
-		<button onClick={props.onGetModel}>getModel</button>
-		</>
-		)}
-		
 			<div className='game-owner-page-header__collapse'>
 				<PerspectiveButton onClick={props.onPerspectiveClick} />
 			
