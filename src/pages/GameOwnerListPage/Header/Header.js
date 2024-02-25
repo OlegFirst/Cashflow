@@ -27,7 +27,7 @@ const Header = (props) => {
 				
 				<div className='header__exit'>
 					<Button
-					variant='outline-light'
+					variant='primary'
 					className='me-4 mt-1'
 					size='sm'
 					onClick={onGoBack}

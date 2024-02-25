@@ -102,7 +102,9 @@ const GameOwnerPage = () => {
 	}, []);
 	
 	if (!info.ownerData) {
-		return null;
+		return (
+			<h1>New game is being prepared. Please wait</h1>
+		);
 	}
 	
 	const gameRequestQueryGeneral = {

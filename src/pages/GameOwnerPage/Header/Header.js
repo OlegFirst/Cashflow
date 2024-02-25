@@ -30,7 +30,7 @@ const Header = (props) => {
 			<div className='game-owner-page-header__row-2'>
 				<div className='ms-4 mt-1'>
 					<Button
-						variant='info'
+						variant='primary'
 						className='mt-1'
 						size='sm'
 						onClick={() => navigate('/owner-page')}
