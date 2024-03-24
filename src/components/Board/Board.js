@@ -13,9 +13,7 @@ const Board = (props) => {
 	const {
 		gameRequestQueryGeneral,
 		isCreateConnection,
-		isPerspective,
-		
-		isOk
+		isPerspective
 	} = props;
 	
 	const waitingData =	useWaitingConnection({

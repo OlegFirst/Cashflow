@@ -7,18 +7,12 @@ import OwnerGames from '../../components/OwnerGames/OwnerGames';
 import SpinnerComponent from '../../_commonComponents/Spinner/Spinner';
 import Info from '../../_commonComponents/Info/Info';
 
-import { setNetworkStatus } from '../../storage/actions/actionCreatorsInfo';
-import { ownerGameClearStorage } from '../../storage/actions/actionCreatorsCommon';
+import { setNetworkStatus, clearInfoStorage } from '../../storage/actions/actionCreatorsInfo';
+import { ownerGameClearStorage, singOutClearStorage } from '../../storage/actions/actionCreatorsCommon';
 import { networkStatuses } from '../../services/constants';
-import { 
-	executeRequestGet,
-	ownerCreatedGamesResponseMapper
-} from '../../services/utils';
+import { executeRequestGet, ownerCreatedGamesResponseMapper } from '../../services/utils';
 import { getRemovedGamers } from '../../components/OwnerGames/utils';
-import { 
-	editedGameModes,
-	gameProcessingModes
-} from '../../components/OwnerGames/constants';
+import { editedGameModes, gameProcessingModes } from '../../components/OwnerGames/constants';
 import './owner-page.scss';
 
 const OwnerPage = () => {
@@ -39,6 +33,10 @@ const OwnerPage = () => {
 	
 	// Get created game list
 	const getCreatedGames = (cb) => {
+		if (!user) {
+			return;
+		}
+		
 		dispatch(setNetworkStatus(networkStatuses.PENDING));
 			
 		const request = {
@@ -65,6 +63,18 @@ const OwnerPage = () => {
 			return;
 		});
 	};
+	
+	useEffect(() => {
+		getCreatedGames();
+	}, []);
+	
+	// Page refereshing handler
+	useEffect(() => {
+		if (!user) {
+			singOutClearStorage(dispatch)();		
+			navigate('/');
+		}
+	}, [user]);
 	
 	const onPending = () => {
 		dispatch(setNetworkStatus(networkStatuses.PENDING));
@@ -161,6 +171,11 @@ const OwnerPage = () => {
 				return;
 			}
 			
+			if (componentData.gamerList.length <= 1) {
+				setInfoMessage('Має бути принаймні двоє гравців');
+				return;
+			}
+			
 			const sendingData = {
 				user_id: user.id,
 				game: componentData.game,
@@ -201,8 +216,8 @@ const OwnerPage = () => {
 	// Submit creating or editing the game_(end)
 	
 	// Remove the game
-	const onGameRemoveHandler = gameId => {
-		ownerGameClearStorage(dispatch);
+	const onGameRemove = gameId => {
+		ownerGameClearStorage(dispatch)();
 				
 		const request = {
 			endPointURL: 'super-owner',
@@ -213,7 +228,7 @@ const OwnerPage = () => {
 	};
 	
 	// Game processing_(start)
-	const gameProcessing = (gameId, mode) => {
+	const gameProcessing = (gameId, mode) => {		
 		const sendingData = {
 			game_id: gameId,
 			user_id: user.id,
@@ -228,7 +243,7 @@ const OwnerPage = () => {
 		executeRequestGetWrapper(request, callbacks);
 	};
 	
-	const onGameStart = gameId => {
+	const onGameStart = gameId => {		
 		isGameStarted.current = true;
 		gameProcessing(gameId, gameProcessingModes.START);
 	};
@@ -244,10 +259,6 @@ const OwnerPage = () => {
 	
 	const onInfoClose = () => setInfoMessage('');
 	
-	useEffect(() => {
-		getCreatedGames();
-	}, []);
-	
 	return (
 		<section className='owner-page'>
 			<Header 
@@ -261,12 +272,12 @@ const OwnerPage = () => {
 				status={editedGameCardStatus}
 				onEdit={onEditHandler}
 				onCancel={onCancelHandler}
-				onGameRemove={onGameRemoveHandler}
 				onSubmit={onSubmitHandler}
 				
 				onGameStart={onGameStart}
 				onGameComplete={onGameComplete}
 				onGameCancel={onGameCancel}
+				onGameRemove={onGameRemove}
 			/>
 			
 			<Info message={infoMessage} onClose={onInfoClose} />

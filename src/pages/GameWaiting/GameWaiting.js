@@ -82,6 +82,3 @@ const GameWaiting = () => {
 };
 
 export default GameWaiting;
-
-
-// #81A960 - green

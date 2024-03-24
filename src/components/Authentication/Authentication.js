@@ -74,7 +74,7 @@ const Authentication = (props) => {
 			
 			dispatch(setNetworkStatus(networkStatuses.PENDING));
 			
-			executeRequestGet(request, ({ isSuccess, data }) => {				
+			executeRequestGet(request, ({ isSuccess, data }) => {
 				if (isSuccess && data) {					
 					dispatch(setNetworkStatus(networkStatuses.SUCCESS));
 					
@@ -87,13 +87,7 @@ const Authentication = (props) => {
 					return;
 				}
 				
-				if (!isSuccess) {
-					dispatch(setNetworkStatus(networkStatuses.FAIL));
-					setInfoMessage('Server error');
-					return;
-				}
-				
-				dispatch(setNetworkStatus(networkStatuses.SUCCESS));
+				dispatch(setNetworkStatus(networkStatuses.FAIL));
 				setInfoMessage('Користувач не розпізнаний');
 			});
 		}

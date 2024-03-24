@@ -81,8 +81,6 @@ const GameInfoSuperActions = (props) => {
 				</Button>
 			</div>
 			
-			{false && <button onClick={() => onRollHandler(4)}>M</button>}
-			
 			<DiceBlock
 				isDisable={!turnProgress.dice}
 				diceCount={diceCount}

@@ -80,17 +80,18 @@ const GameOwnerPage = () => {
 		}));
 	};
 	
-	useEffect(() => {		
+	// Preparation
+	useEffect(() => {
 		if (!info.user?.id) {
 			navigate('/');
 			return;
 		}
 		
-		gameOwnerPreparation({ userId: info.user.id, userRoleId: info.user.userRoleId }, { 
+		gameOwnerPreparation({ userId: info.user.id, userRoleId: info.user.userRoleId }, {
 			...callbacks,
+			
 			onSuccess: data => {				
-				const mappedResponse = gameOwnerPreparationMapper(data);
-				
+				const mappedResponse = gameOwnerPreparationMapper(data);				
 				dispatch(setOwnerData(mappedResponse));
 				dispatch(setSmallPathStyled(createSmallPathItemList()));
 				dispatch(setBigPathStyled(createBigPathItemList()));
@@ -99,9 +100,9 @@ const GameOwnerPage = () => {
 		});
 	}, []);
 	
-	if (!info.ownerData) {
+	if (!info.ownerData) {		
 		return (
-			<h1>New game is being prepared. Please wait</h1>
+			<SpinnerComponent />
 		);
 	}
 	

@@ -397,14 +397,6 @@ export const useTurnProgress = (gameRequestQueryGeneral, fishkaStepProcessValue,
 	const onRollHandler = value => {
 		turnDiceValue.current += value;
 		
-		// setTimeout(() => {
-				// setTurnProgress(prevState => ({
-				// ...prevState,
-				// dice: false,
-				// endTurn: true
-			// }));
-		// }, 1000);
-		
 		dispatch(setDiceValue(turnDiceValue.current));
 		dispatch(setFishkaStepProcessValue(fishkaStepProcess.READY));
 	};

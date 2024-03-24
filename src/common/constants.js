@@ -97,4 +97,4 @@ export const networkIcons = [
 
 export const phone = '+38(095)705-38-46';
 
-export const eMail = 'shioksana@ukr.net';
+export const eMail = 'Shilinaoksana@ukr.net';

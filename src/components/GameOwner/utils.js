@@ -1,6 +1,6 @@
 import { executeRequestGetWrapper } from '../../services/utils';
 
-export const gameOwnerPreparation = (data, callbacks) => {		
+export const gameOwnerPreparation = (data, callbacks) => {
 	const request = {
 		endPointURL: 'game',
 		query: 'info=game-preparation&data=' + JSON.stringify(data)

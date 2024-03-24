@@ -9,9 +9,6 @@ const infoReducer = (state = initialInfoReducerState, action) => {
 		case ActionTypes.SET_GAME:		
 			return { ...state, game: action.value };
 			
-		// case ActionTypes.SET_PROTOCOL:
-			// return { ...state, protocol: action.value };
-			
 		case ActionTypes.SET_NETWORK_STATUS:
 			return { ...state, networkStatus: action.value };
 			
@@ -41,9 +38,18 @@ const infoReducer = (state = initialInfoReducerState, action) => {
 					}
 				} 
 			};
+		
+		case ActionTypes.CLEAR_INFO_GAMER_LIST:
+			return { ...state, ...initialInfoReducerState };
 			
 		case ActionTypes.CLEAR_INFO_STORAGE:
-			return { ...state, ...initialInfoReducerState };
+			return {
+				...state,
+				game: {
+					...state.game,
+					gamerList: []
+				}
+			};
 			
 		default:
 			return state;

@@ -34,6 +34,10 @@ const GameBoard = (props) => {
 	const [isPerspective, setIsPerspective] = useState(false);
 	
 	const onDreamCreatorClick = data => {
+		if (!data.bigPathId) {
+			return;
+		}
+		
 		setIsDreamCreatorShow(false);
 		
 		setServerDream({ ...gameRequestQueryGeneral, ...data }, {
