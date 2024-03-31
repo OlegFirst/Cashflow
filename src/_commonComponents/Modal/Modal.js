@@ -3,8 +3,6 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 
-// import ProgressBarComponent from '../ProgressBar/ProgressBar';
-
 import './modal.scss';
 
 //
@@ -39,16 +37,7 @@ const ModalComponent = (props) => {
 						{children}
 					</Modal.Body>
 					
-					<Modal.Footer>
-					{/* <div className='modal-content__progress-bar-wrapper'>
-							{isProgressBarShow && (
-								<ProgressBarComponent 
-									maxTime={10}
-									timeIsUp={props.timeIsUp}
-								/>
-							)}
-					</div> */}
-					
+					<Modal.Footer>					
 						{!isCancelButtonHide && (
 							<Button 
 								variant='outline-primary'

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import ModalComponent from '../../_commonComponents/Modal/Modal';
+import Button from 'react-bootstrap/Button';
 
+import ModalComponent from '../../_commonComponents/Modal/Modal';
 import ProfessionCardItem from './ProfessionCardItem/ProfessionCardItem';
 import ProfessionCardRest from './ProfessionCardRest/ProfessionCardRest';
 import ProfessionCardItemEdit from './ProfessionCardItemEdit';
@@ -33,7 +34,8 @@ const itemEditDataInitialState = {
 	errorTotalMessage: '',
 	isTotalUpdated: false,
 	newItemId: 1,
-	isShow: false
+	isShow: false,
+	isUpdated: false
 };
 
 const ProfessionCard = (props) => {
@@ -48,6 +50,7 @@ const ProfessionCard = (props) => {
 	const profession = isSmallPath ? userModel.profession : bigPathCard.profession;
 		
 	const [itemEditData, setItemEditData] = useState(itemEditDataInitialState);
+	const [isShow, setIsShow] = useState(false);
 	
 	const isDisabled = user.userRoleId !== userRoles['GAMER'];
 	
@@ -75,7 +78,8 @@ const ProfessionCard = (props) => {
 			...prevState,
 			data: { ...prevState.data, valueList: newValueList },
 			errorMessageList: [ ...errorMessageList ],
-			newItemId
+			newItemId,
+			isUpdated: true
 		}));
 	};
 	
@@ -258,6 +262,7 @@ const ProfessionCard = (props) => {
 								objKey='incomes.totalIncomes'
 								type={professionCardTypes.ARITHMETIC}
 								cardItemType={professionCardItemTypes.TWO_COLUMNS_LIST}
+								toastMessage={'Зарплата + пасивний дохід'}
 								active={true}
 								onClick={onItemClick}
 							/>
@@ -340,7 +345,10 @@ const ProfessionCard = (props) => {
 					</div>
 					
 					<div className='profession-card__moneyFlow moneyFlow'>
-						<h4 className='moneyFlow__title'>Грошовий потік</h4>
+						<h4 className='moneyFlow__title'>
+							Грошовий потік
+							<Button onClick={() => setIsShow(true)} variant='outline-secondary' size='sm'>i</Button>
+						</h4>
 						
 						<ProfessionCardItem
 							profession={profession}
@@ -424,10 +432,21 @@ const ProfessionCard = (props) => {
 					errorMessageList={itemEditData.errorMessageList}
 					errorTotalMessage={itemEditData.errorTotalMessage}
 					newItemId={itemEditData.newItemId}
+					isUpdated={itemEditData.isUpdated}
 					onUpdate={onUpdate}
 					onTotalUpdate={onTotalUpdate}
 					onRemove={onRemove}
 				/>
+			</ModalComponent>
+			
+			<ModalComponent
+				title={''}
+				isProgressBarShow={false}
+				isShow={isShow}
+				onSubmit={() => setIsShow(false)}
+				onClose={() => setIsShow(false)}
+			>
+				Сукупні доходи - Загальні витрати
 			</ModalComponent>
 		</div>
 	)

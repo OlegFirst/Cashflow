@@ -29,7 +29,8 @@ const ActionsTable = (props) => {
 		},
 		errorMessageList,
 		errorTotalMessage,
-		newItemId
+		newItemId,
+		isUpdated
 	} = props;
 	
 	// onBlur

@@ -15,7 +15,8 @@ const ProfessionCardItem = (props) => {
 		objKey,
 		type = null,
 		cardItemType,
-		active
+		active,
+		toastMessage = null
 	} = props;
 	
 	const total = getTotal(objKey, type, profession);
@@ -26,7 +27,8 @@ const ProfessionCardItem = (props) => {
 		title,
 		value: total,
 		style,
-		active
+		active,
+		toastMessage
 	};
 	
 	const onClickHandler = () => {

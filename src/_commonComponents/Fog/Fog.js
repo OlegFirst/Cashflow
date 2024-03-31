@@ -1,7 +1,7 @@
 import './fog.scss';
 
-const Fog = () => (
-	<div className='fog' />
+const Fog = ({ zIndex = 0 }) => (
+	<div className='fog' style={{ zIndex: zIndex }} />
 );
 
 export default Fog;

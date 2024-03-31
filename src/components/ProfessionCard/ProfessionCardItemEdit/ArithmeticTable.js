@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Table from 'react-bootstrap/Table';
 import CloseButton from 'react-bootstrap/CloseButton';
@@ -6,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 
 import RemoveButton from '../../../_commonComponents/RemoveButton/RemoveButton';
 import InputComponentWrapper from './InputComponentWrapper';
+import TotalChangedComponent from './TotalChangedComponent/TotalChangedComponent';
 
 import { 
 	getObjectValue,
@@ -21,7 +21,8 @@ const ArithmeticTable = (props) => {
 			valueList,
 			total
 		},
-		newItemId
+		newItemId,
+		isUpdated
 	} = props;
 	
 	// onBlur
@@ -111,7 +112,7 @@ const ArithmeticTable = (props) => {
 						<tr>
 							<td className='arithmetic-table__total-title'>Разом: </td>
 							<td className='arithmetic-table__total'>
-								{total}
+								<TotalChangedComponent total={total} isUpdated={isUpdated} />
 							</td>
 						</tr>
 					)}

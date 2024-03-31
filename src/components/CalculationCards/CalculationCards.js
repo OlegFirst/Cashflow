@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux';
 import CloseButton from 'react-bootstrap/CloseButton';
 import Button from 'react-bootstrap/Button';
 
+import Fog from '../../_commonComponents/Fog/Fog';
+
 import './calculation-cards.scss';
 
 const CalculationCards = (props) => {
@@ -37,6 +39,8 @@ const CalculationCards = (props) => {
 				src={bgImage}
 				alt='bg-picture'
 			/>
+			
+			<Fog zIndex={-1} />
 		</div>
 	)
 };

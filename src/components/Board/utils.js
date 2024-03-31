@@ -140,9 +140,7 @@ export const useWaitingConnection = ({ data, isCreateConnection }) => {
 	const update = () => {
 		console.log('run update')
 		
-		executeRequestGet(request, ({ isSuccess, data }) => {			
-			console.log('isSuccess, data=', isSuccess, data)
-		
+		executeRequestGet(request, ({ isSuccess, data }) => {		
 			if (isSuccess && data) {
 				setResponse(waitingConnectionMapper(data));
 				setIsResponseReceived(!isResponseReceived);
@@ -150,9 +148,7 @@ export const useWaitingConnection = ({ data, isCreateConnection }) => {
 		});
 	};
 	
-	useEffect(() => {
-		console.log('// isCreateConnection, isResponseReceived =', isCreateConnection, isResponseReceived)
-		
+	useEffect(() => {		
 		if (isCreateConnection) {
 			timeout = setTimeout(update, delay);
 		}
