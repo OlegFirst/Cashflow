@@ -178,6 +178,7 @@ export const gamePagePreparationMapper = data => {
 			},
 			moneyFlow: arithmeticMapper(data.user_model_arithmetic.money_flow),
 			cash: arithmeticMapper(data.user_model_arithmetic.cash),
+			bankLoan: arithmeticMapper(data.user_model_arithmetic.bank_loan),			
 			assets: {
 				savings: Number(data.user_model_assets_const.savings)
 			},
@@ -257,6 +258,11 @@ export const professionCardChangeObjKeyMapper = (objKey) => {
 			
 		case 'cash':
 			result.property = 'cash';
+			result.sub_property = '-1';
+			break;
+			
+		case 'bankLoan':
+			result.property = 'bank_loan';
 			result.sub_property = '-1';
 			break;
 		// Small path_(end)

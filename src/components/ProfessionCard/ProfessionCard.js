@@ -373,6 +373,19 @@ const ProfessionCard = (props) => {
 						 />
 					</div>
 					
+					<div className='profession-card__moneyFlow moneyFlow mt-3'>
+						<h4 className='moneyFlow__title'>Банківський кредит</h4>
+						
+						<ProfessionCardItem
+							profession={profession}
+							objKey='bankLoan'
+							type={professionCardTypes.ARITHMETIC}
+							cardItemType={professionCardItemTypes.TWO_COLUMNS}
+							active={true}
+							onClick={onItemClick}
+						 />
+					</div>
+					
 					<ProfessionCardRest 
 						{...props}
 						profession={profession}

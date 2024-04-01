@@ -62,6 +62,9 @@ export const createSelectedItemStyle = objKey => {
 		case 'cash':
 			return { color: 'white', backgroundColor: 'green' };
 			
+		case 'bankLoan':
+			return { color: 'white', backgroundColor: 'green' };
+			
 		default:
 			return null;
 	}
