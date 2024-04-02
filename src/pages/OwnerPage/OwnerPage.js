@@ -68,6 +68,8 @@ const OwnerPage = () => {
 		getCreatedGames();
 	}, []);
 	
+	console.log(1, user);
+	
 	// Page refereshing handler
 	useEffect(() => {
 		if (!user) {
@@ -89,7 +91,7 @@ const OwnerPage = () => {
 		}));
 
 		if (isGameStarted.current) {
-			isGameStarted.current = false;
+			isGameStarted.current = false;			
 			navigate('/game-owner-page');
 			return;
 		}

@@ -120,7 +120,7 @@ export const ownerCreatedGamesResponseMapper = (data = []) => (
 	), [])
 );
 
-export const gamePagePreparationMapper = data => {
+export const gamePagePreparationMapper = data => {	
 	return {
 		info: {
 			color: data.user_model.color,
