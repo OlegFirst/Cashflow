@@ -25,6 +25,8 @@ const ArithmeticTable = (props) => {
 		isUpdated
 	} = props;
 	
+	const isBankLoanTable = props.currentData.objKey === 'bankLoan';
+	
 	// onBlur
 	const onBlurHandler = newValue => {		
 		const data = updateActionsTableItems(newValue, valueList);
@@ -64,9 +66,19 @@ const ArithmeticTable = (props) => {
 		<div className='arithmetic-table'>
 			<Table bordered hover size='sm'>
 				<thead>
-					<tr>
-						<th>+- Значення</th>
-						<th>Результат</th>
+					<tr>					
+						{!isBankLoanTable && (
+							<>
+								<th>+- Значення</th>
+								<th>Результат</th>
+							</>
+						)}						
+						{isBankLoanTable && (
+							<>
+								<th>Сума</th>
+								<th>Виплати</th>
+							</>
+						)}
 						<th />
 					</tr>
 				</thead>

@@ -19,10 +19,8 @@ const ProfessionCardItem = (props) => {
 		toastMessage = null
 	} = props;
 	
-	const total = getTotal(objKey, type, profession);
-		
-	const style = createSelectedItemStyle(objKey);
-	
+	const total = getTotal(objKey, type, profession);		
+	const style = createSelectedItemStyle(objKey);	
 	const renderProps = {
 		title,
 		value: total,

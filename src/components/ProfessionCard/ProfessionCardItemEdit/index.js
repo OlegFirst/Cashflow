@@ -2,7 +2,6 @@ import ActionsTable from './ActionsTable';
 import RealEstateTable from './RealEstateTable';
 import BusinessTable from './BusinessTable';
 import ArithmeticTable from './ArithmeticTable';
-import ArithmeticTableBankLoan from './ArithmeticTableBankLoan';
 import BuyedDreamsTable from './BuyedDreamsTable';
 import BuyedBusinessTable from './BuyedBusinessTable';
 import BuyedCashTable from './BuyedCashTable';
@@ -20,13 +19,12 @@ const ProfessionCardItemEdit = (props) => {
 			[professionCardTypes.REAL_ESTATE]: () => <RealEstateTable { ...props } />,
 			[professionCardTypes.BUSINESS]: () => <BusinessTable { ...props } />,
 			[professionCardTypes.ARITHMETIC]: () => <ArithmeticTable { ...props } />,
-			[professionCardTypes.ARITHMETIC_BANK_LOAN]: () => <ArithmeticTableBankLoan { ...props } />,
 			[professionCardTypes.BUYED_DREAMS]: () => <BuyedDreamsTable { ...props } />,
 			[professionCardTypes.BUYED_BUSINESS]: () => <BuyedBusinessTable { ...props } />,
 			[professionCardTypes.BUYED_CASH]: () => <BuyedCashTable { ...props } />
 		};
 		
-		return cardComponentByStatus[status]
+		return cardComponentByStatus[status];
 	};
 	
 	const Consumer = ({ ComponentType }) => <ComponentType />
