@@ -11,6 +11,12 @@
 }
 
 .arithmetic-table {
+	&__remove-button {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
 	&__total-title {
 		color: green !important;
 		font-weight: bold;

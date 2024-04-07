@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import { hostURL, params } from './constants';
@@ -308,7 +307,7 @@ export const executeRequestGet = (request, callBack) => {
 			return;
 		} 
 		
-		callBack({ isSuccess: false, data: 'Server error: ', data });
+		callBack({ isSuccess: false, data: 'Server error' });
 	});
 };
 
