@@ -323,16 +323,6 @@ const ProfessionCard = (props) => {
 							/>
 							
 							<ProfessionCardItem 
-								title='Витрати на дітей'
-								profession={profession}
-								objKey='expenses.childrenExpenses'
-								type={professionCardTypes.ARITHMETIC}
-								cardItemType={professionCardItemTypes.TWO_COLUMNS_LIST}
-								active={true}
-								onClick={onItemClick}
-							/>
-							
-							<ProfessionCardItem 
 								title='Загальні витрати'
 								profession={profession}
 								objKey='expenses.totalExpenses'
@@ -347,7 +337,7 @@ const ProfessionCard = (props) => {
 					<div className='profession-card__moneyFlow moneyFlow'>
 						<h4 className='moneyFlow__title'>
 							Грошовий потік
-							<Button onClick={() => setIsShow(true)} variant='outline-secondary' size='sm'>i</Button>
+							<Button onClick={() => setIsShow(true)} variant='info'>i</Button>
 						</h4>
 						
 						<ProfessionCardItem

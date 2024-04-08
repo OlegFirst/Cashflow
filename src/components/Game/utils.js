@@ -357,10 +357,16 @@ export const useTurnProgress = (gameRequestQueryGeneral, fishkaStepProcessValue,
 	const [turnProgress, setTurnProgress] = useState(useTurnProgressInitialState);
 	const [isSkipTurnSpinnerShow, setSkipTurnSpinnerShow] = useState(false);
 	
+	const [isCheatButtonActive, setIsCheatButtonActive] = useState(false);
+	
 	const turnDiceValue = useRef(0);
 	
 	const dispatch = useDispatch();
 	const currentAgreementCard = useSelector(state => state.userModel.currentAgreementCard);
+	
+	const onCheatButton = (isActive) => {
+		setIsCheatButtonActive(isActive);
+	};
 	
 	const onStartTurn = () => {
 		// Is turn possible
@@ -396,6 +402,10 @@ export const useTurnProgress = (gameRequestQueryGeneral, fishkaStepProcessValue,
 	
 	const onRollHandler = value => {
 		turnDiceValue.current += value;
+		
+		if (isCheatButtonActive) {
+			turnDiceValue.current = 1;
+		}
 		
 		dispatch(setDiceValue(turnDiceValue.current));
 		dispatch(setFishkaStepProcessValue(fishkaStepProcess.READY));
@@ -470,8 +480,8 @@ export const useTurnProgress = (gameRequestQueryGeneral, fishkaStepProcessValue,
 	}, [fishkaStepProcessValue])
 	
 	return { 
-		turnProgress, isSkipTurnSpinnerShow,
-		onStartTurn, onRollHandler, onSkipTurn, onEndTurn
+		turnProgress, isSkipTurnSpinnerShow, isCheatButtonActive,
+		onStartTurn, onRollHandler, onSkipTurn, onEndTurn, onCheatButton
 	};
 };
 

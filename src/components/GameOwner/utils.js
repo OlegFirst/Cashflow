@@ -101,6 +101,7 @@ export const makeNextTurnMapper = data => {
 	return {
 		gamerIdTurn: Number(gamer_id_turn),
 		cash: Number(gamer_turn_data.cash),
+		isBankruptValuePresent: Number(gamer_turn_data.is_bankrupt_value_present),
 		incomesRealEstate: Number(gamer_turn_data.incomes_real_estate),
 		isSmallPath: Number(gamer_turn_data.is_small_path) === 1,
 		charityTurnsLeft: gamer_turn_data.charity_turns_left
@@ -120,6 +121,7 @@ export const gameOwnerPreparationMapper = data => {
 		gamerTurnData: {
 			gamerIdTurn: Number(gamer_id_turn),
 			cash: Number(gamer_turn_data.cash),
+			isBankruptValuePresent: Number(gamer_turn_data.is_bankrupt_value_present),
 			incomesRealEstate: Number(gamer_turn_data.incomes_real_estate),
 			isSmallPath: Number(gamer_turn_data.is_small_path) === 1,
 			charityTurnsLeft: Number(gamer_turn_data.charity_turns_left)

@@ -13,6 +13,8 @@ const GamerCard = (props) => {
 		charityActivatedTurnsLeft
 	} = props;
 	
+	console.log('//', gamerTurnData)
+	
 	return (
 		<li 
 			className='gamer-card'

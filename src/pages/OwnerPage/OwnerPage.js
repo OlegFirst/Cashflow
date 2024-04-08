@@ -68,8 +68,6 @@ const OwnerPage = () => {
 		getCreatedGames();
 	}, []);
 	
-	console.log(1, user);
-	
 	// Page refereshing handler
 	useEffect(() => {
 		if (!user) {

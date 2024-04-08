@@ -25,7 +25,7 @@ const TwoColumnsList = (props) => {
 				>			
 				{title}
 				
-				{toastMessage && <Button onClick={() => setIsShow(true)} variant='outline-info'>i</Button>}
+				{toastMessage && <Button onClick={() => setIsShow(true)} variant='info'>i</Button>}
 			</div>
 				
 			<div className='two-columns-list__value'>
