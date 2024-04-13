@@ -10,6 +10,12 @@
 	padding: 10px;
 	transition: all 0.4s;
 	
+	&.active {
+		animation-name: gamer-car-fade-in;
+		animation-duration: 1s;
+		animation-fill-mode: forwards;
+	}
+	
 	&__inner {
 		background-color: grey;
 		width: calc(100% - 20px);
@@ -28,5 +34,15 @@
 	
 	&__bankrupt-value-present {
 		color: red;
+	}
+	
+	@keyframes gamer-car-fade-in {
+		from {
+			transform: scale(0, 0);
+		}
+		
+		to {
+			transform: scale(1, 1);
+		}
 	}
 }

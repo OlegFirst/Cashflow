@@ -15,7 +15,7 @@ const GamerCard = (props) => {
 	
 	return (
 		<li 
-			className='gamer-card'
+			className={`gamer-card ${gamerTurnData ? 'active' : ''}`}
 			style={{
 				backgroundColor: color
 			}}

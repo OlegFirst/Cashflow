@@ -286,8 +286,6 @@ const GameOwner = (props) => {
 	const onBankuptConfirmModalSubmit = () => {
 		setIsBankuptConfirmModalShow(false);
 		
-		console.log('ok')
-		
 		setGamerBankrupt({ 
 			...gameRequestQueryGeneral,
 			gamerIdTurn: info.ownerData.gamerTurnData.gamerIdTurn

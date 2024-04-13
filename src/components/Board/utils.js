@@ -114,7 +114,8 @@ const waitingConnectionMapper = ({ fishka_positions, is_game_begun, common_small
 			coordinates: {
 				left: item.path_position_left,
 				top: item.path_position_top
-			}
+			},
+			isBankrupt: Number(item.is_bankrupt) === 1
 		})),
 		isGameBegun: Number(is_game_begun) === 1,
 		commonSmallAgreementIdList: common_small_agreement_id_list.map(item => Number(item))

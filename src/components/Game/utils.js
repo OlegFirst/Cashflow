@@ -211,6 +211,7 @@ export const useFishkaOptions = (gameRequestQueryGeneral, userModel, isDreamCrea
 	} = userModel;
 	
 	const [fishkaOptions, setFishkaOptions] = useState(useFishkaActionInitialState);
+	const [isBankrupt, setIsBankrupt] = useState(false);
 	
 	const dispatch = useDispatch();
 	
@@ -329,13 +330,14 @@ export const useFishkaOptions = (gameRequestQueryGeneral, userModel, isDreamCrea
 		}
 	};
 	
-	// If Gamer is moved to the other Path then correct fishka data
+	// - If Gamer is moved to the other Path then correct fishka data
+	// - If Gamer is bunkrupted
 	const waitingDataUpdateHandler = data => {
 		if (!data) {
 			return;
 		}
 		
-		if (data.pathPositionId === 0 && isSmallPath !== data.isSmallPath) {			
+		if (data.pathPositionId === 0 && isSmallPath !== data.isSmallPath) {
 			const currentData = {
 				isSmallPath: data.isSmallPath,
 				id: data.pathPositionId,
@@ -348,9 +350,11 @@ export const useFishkaOptions = (gameRequestQueryGeneral, userModel, isDreamCrea
 				...prevState, ...currentData
 			}));
 		}
+		
+		setIsBankrupt(data.isBankrupt);
 	};
 	
-	return { onFishkaClickHandler, onPathHover, onPathClick, waitingDataUpdateHandler };
+	return { isBankrupt, onFishkaClickHandler, onPathHover, onPathClick, waitingDataUpdateHandler };
 };
 
 export const useTurnProgress = (gameRequestQueryGeneral, fishkaStepProcessValue, diceValue, callbacks, onInfoMessage) => {

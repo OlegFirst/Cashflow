@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Header from './Header/Header';
 import Board from '../../Board/Board';
@@ -29,9 +30,13 @@ const GameBoard = (props) => {
 	
 	const [isDreamCreatorShow, setIsDreamCreatorShow] = useState(false);
 	const { 
-		onFishkaClickHandler, onPathHover, onPathClick, waitingDataUpdateHandler		
-	} = useFishkaOptions(gameRequestQueryGeneral, userModel, isDreamCreatorShow, callbacks, onInfoMessage);
+		isBankrupt, onFishkaClickHandler, onPathHover, onPathClick, waitingDataUpdateHandler		
+	} = useFishkaOptions(
+		gameRequestQueryGeneral, userModel, isDreamCreatorShow, callbacks, onInfoMessage
+	);
 	const [isPerspective, setIsPerspective] = useState(false);
+	
+	const navigate = useNavigate();
 	
 	const onDreamCreatorClick = data => {
 		if (!data.bigPathId) {
@@ -53,6 +58,11 @@ const GameBoard = (props) => {
 			setIsDreamCreatorShow(true);
 		}
 	}, [bigPathCard.info.dream.bigPathId]);
+	
+	if (isBankrupt) {
+		navigate('/bankrupt-page');
+		return;
+	}
 	
 	return (
 		<section className='game-board'>
