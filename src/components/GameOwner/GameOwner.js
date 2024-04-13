@@ -8,10 +8,8 @@ import GameOwnerAgreementGard from './GameOwnerAgreementGard/GameOwnerAgreementC
 import GameOwnerMarketCard from './GameOwnerMarketCard/GameOwnerMarketCard';
 import GameOwnerMoneyInTheWindCard from './GameOwnerMWCard/GameOwnerMWCard';
 import ConfirmModal from '../../_commonComponents/ConfirmModal/ConfirmModal';
-import CalculationCardsSmallPath 
-	from '../CalculationCards/CalculationCardsSmallPath/CalculationCardsSmallPath';
-import CalculationCardsBigPath
-	from '../CalculationCards/CalculationCardsBigPath/CalculationCardsBigPath';
+import CalculationCardsSmallPath from '../CalculationCards/CalculationCardsSmallPath/CalculationCardsSmallPath';
+import CalculationCardsBigPath from '../CalculationCards/CalculationCardsBigPath/CalculationCardsBigPath';
 
 import { 
 	createResponseCompleteMessage,
@@ -47,7 +45,8 @@ import {
 	setCharityTurnsLeft,
 	checkMakeNextTurnMapper,
 	getMoneyInTheWindMapper,
-	sendCommonAgreementToGamer
+	sendCommonAgreementToGamer,
+	setGamerBankrupt
 } from './utils';
 import './game-owner.scss';
 
@@ -76,6 +75,7 @@ const GameOwner = (props) => {
 	});
 	const [charityActivatedTurnsLeft, setCharityActivatedTurnsLeft] = useState(null);
 	const [isConfirmModalShow, setIsConfirmModalShow] = useState(false);
+	const [isBankuptConfirmModalShow, setIsBankuptConfirmModalShow] = useState(false);
 	const [calculationCardsData, setCalculationCardsData] = useState(calculationCardsDataInitialState);
 	
 	// Storage
@@ -278,6 +278,35 @@ const GameOwner = (props) => {
 		});
 	};
 	
+	// Bankrupt_(start)
+	const onBankruptHandler = () => {
+		setIsBankuptConfirmModalShow(true);
+	};
+	
+	const onBankuptConfirmModalSubmit = () => {
+		setIsBankuptConfirmModalShow(false);
+		
+		console.log('ok')
+		
+		setGamerBankrupt({ 
+			...gameRequestQueryGeneral,
+			gamerIdTurn: info.ownerData.gamerTurnData.gamerIdTurn
+			}, {
+			...callbacks,
+			onSuccess: data => {
+				callbacks.onSuccess();
+				
+				const { message, isSuccess } = createResponseCompleteMessage(data);
+				onInfoMessage(message, isSuccess);
+			}
+		});
+	};
+	
+	const onBankuptConfirmModalCancel = () => {
+		setIsBankuptConfirmModalShow(false);
+	};
+	// Bankrupt_(end)
+	
 	const onShowCalculationCards = userId => {		
 		gamePagePreparation({ userId, userRoleId: 3 }, { 
 			...callbacks,
@@ -314,6 +343,7 @@ const GameOwner = (props) => {
 					onGetMoneyInTheWind={onGetMoneyInTheWindHandler}
 					onCharity={onCharityHandler}
 					onMoveGamerToPath={onMoveGamerToPathHandler}
+					onBankrupt={onBankruptHandler}
 				/>
 			</div>
 			
@@ -355,7 +385,16 @@ const GameOwner = (props) => {
 				isShow={isConfirmModalShow}
 				onSubmit={onConfirmModalSubmit}
 				onClose={onConfirmModalCancel}
-			/>			
+			/>
+			
+			<ConfirmModal
+				title={''}
+				message={'Це призведе до банкрутства гравця! Усе одно продовжити?'}
+				type={confirmModalTypes.DANGER}
+				isShow={isBankuptConfirmModalShow}
+				onSubmit={onBankuptConfirmModalSubmit}
+				onClose={onBankuptConfirmModalCancel}
+			/>
 			
 			{calculationCardsData.isShow && calculationCardsData.isSmallPath && (
 				<CalculationCardsSmallPath 

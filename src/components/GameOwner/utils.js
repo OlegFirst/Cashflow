@@ -9,7 +9,7 @@ export const gameOwnerPreparation = (data, callbacks) => {
 	executeRequestGetWrapper(request, callbacks);
 };
 
-export const checkMakeNextTurn= (data, callbacks) => {		
+export const checkMakeNextTurn = (data, callbacks) => {		
 	const request = {
 		endPointURL: 'game',
 		query: 'info=game-check-make-next-turn&data=' + JSON.stringify(data)
@@ -90,6 +90,15 @@ export const moveGamerToPath = (data, callbacks) => {
 	executeRequestGetWrapper(request, callbacks);
 };
 
+export const setGamerBankrupt = (data, callbacks) => {		
+	const request = {
+		endPointURL: 'game',
+		query: 'info=set-gamer-bankrupt&data=' + JSON.stringify(data)
+	};
+	
+	executeRequestGetWrapper(request, callbacks);
+};
+
 // Mappers_(start)
 export const checkMakeNextTurnMapper = data  => {
 	return Number(data.is_gamer_turn_end) === 1;
@@ -121,7 +130,7 @@ export const gameOwnerPreparationMapper = data => {
 		gamerTurnData: {
 			gamerIdTurn: Number(gamer_id_turn),
 			cash: Number(gamer_turn_data.cash),
-			isBankruptValuePresent: Number(gamer_turn_data.is_bankrupt_value_present),
+			isBankruptValuePresent: Number(gamer_turn_data.is_bankrupt_value_present) === 1,
 			incomesRealEstate: Number(gamer_turn_data.incomes_real_estate),
 			isSmallPath: Number(gamer_turn_data.is_small_path) === 1,
 			charityTurnsLeft: Number(gamer_turn_data.charity_turns_left)

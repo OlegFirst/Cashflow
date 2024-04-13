@@ -28,23 +28,14 @@ const GameInfoSuperActions = (props) => {
 	const navigate = useNavigate();
 	
 	const { 
-		turnProgress, isSkipTurnSpinnerShow, isCheatButtonActive,
+		turnProgress, isSkipTurnSpinnerShow,
 		onStartTurn, onRollHandler, onSkipTurn, onEndTurn, onCheatButton
 	} = useTurnProgress(
 		gameRequestQueryGeneral, fishkaStepProcessValue, diceValue, callbacks, onInfoMessage
 	);
 	
 	const onStartTurnHandler = () => {
-		const moneyFlowLength = moneyFlow.length;
-		
-		// Check if the user is a bankrupt
-		// if (moneyFlowLength > 0) {
-			// if (moneyFlow[moneyFlowLength - 1].result <= bankruptMoneyFlow) {
-				// navigate('/bankrupt-page');
-				// return;
-			// }
-		// }
-				
+		const moneyFlowLength = moneyFlow.length;				
 		onStartTurn();
 	};
 	
@@ -95,26 +86,6 @@ const GameInfoSuperActions = (props) => {
 			>
 				Pозрахункові картки
 			</Button>
-			
-			{isCheatButtonActive && (
-				<Button
-					variant='success'
-					className='mt-2'
-					onClick={() => onCheatButton(false)}
-				>
-					Cheat button
-				</Button>
-			)}
-			
-			{!isCheatButtonActive && (
-				<Button
-					variant='danger'
-					className='mt-2'
-					onClick={() => onCheatButton(true)}
-				>
-					Cheat button
-				</Button>
-			)}
 			
 			<div className='game-info__gamer-action-wrapper mt-4'>
 				<GameInfoActions onReadAgreement={props.onReadAgreement} />

@@ -81,6 +81,15 @@ const OwnerActions = (props) => {
 				>
 					Перехід на Мале Коло
 				</Button>
+				
+				<Button
+					className='ms-4'
+					variant='danger'
+					size='sm'
+					onClick={props.onBankrupt}
+				>
+					Банкрут
+				</Button>
 		</div>
 	)
 };

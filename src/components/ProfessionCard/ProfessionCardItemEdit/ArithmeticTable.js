@@ -1,6 +1,4 @@
-import { useSelector } from 'react-redux';
 import Table from 'react-bootstrap/Table';
-import CloseButton from 'react-bootstrap/CloseButton';
 import Button from 'react-bootstrap/Button';
 
 import RemoveButton from '../../../_commonComponents/RemoveButton/RemoveButton';
@@ -8,7 +6,6 @@ import InputComponentWrapper from './InputComponentWrapper';
 import TotalChangedComponent from './TotalChangedComponent/TotalChangedComponent';
 
 import { 
-	getObjectValue,
 	ArifmeticTable as ArithmeticTableClass,
 } from '../../../common/utils';
 import { updateActionsTableItems } from '../utils';
@@ -38,9 +35,9 @@ const ArithmeticTable = (props) => {
 	};
 	
 	// onBlurTotal
-	const onBlurTotalHandler = newTotal => {
-		props.onTotalUpdate(newTotal);
-	};
+	// const onBlurTotalHandler = newTotal => {
+		// props.onTotalUpdate(newTotal);
+	// };
 	
 	// onInsert
 	const onInsertNewRow = () => {
@@ -76,6 +73,7 @@ const ArithmeticTable = (props) => {
 						{isBankLoanTable && (
 							<>
 								<th>Сума</th>
+								<th>Відсотки</th>
 								<th>Виплати</th>
 							</>
 						)}
@@ -86,6 +84,7 @@ const ArithmeticTable = (props) => {
 				<tbody>
 					{valueList.map((item, index) => {
 						const { id, value, result, status } = item;
+						const persents = value / 100;
 						
 						if (status === itemStatuses.REMOVED) {
 							return null;
@@ -101,6 +100,12 @@ const ArithmeticTable = (props) => {
 										onBlur={onBlurHandler}
 									/>
 								</td>
+								
+								{isBankLoanTable && (
+									<td>
+										<div className='arithmetic-table__persents'>{persents}</div>
+									</td>
+								)}
 								
 								<td className='arithmetic-table__row-item'>
 									<InputComponentWrapper 
@@ -123,6 +128,9 @@ const ArithmeticTable = (props) => {
 					{valueList.length > 0 && (
 						<tr>
 							<td className='arithmetic-table__total-title'>Разом: </td>
+							{isBankLoanTable && (
+								<td></td>
+							)}
 							<td className='arithmetic-table__total'>
 								<TotalChangedComponent total={total} isUpdated={isUpdated} />
 							</td>
