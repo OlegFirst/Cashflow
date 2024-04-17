@@ -13,6 +13,11 @@ const GamerCard = (props) => {
 		charityActivatedTurnsLeft
 	} = props;
 	
+	let charityTurnsLeft = 0;
+	if (gamerTurnData?.charityTurnsLeft) {
+		charityTurnsLeft = gamerTurnData?.isSmallPath ? gamerTurnData.charityTurnsLeft : 'Infinity'
+	}
+		
 	return (
 		<li 
 			className={`gamer-card ${gamerTurnData ? 'active' : ''}`}
@@ -38,7 +43,7 @@ const GamerCard = (props) => {
 						
 						<p className='mb-0'>
 							<b>Благодійність, залишилось ходів: </b> 
-							{charityActivatedTurnsLeft ?? gamerTurnData.charityTurnsLeft}
+							{charityTurnsLeft}
 						</p>
 						
 						{gamerTurnData?.isBankruptValuePresent ? (

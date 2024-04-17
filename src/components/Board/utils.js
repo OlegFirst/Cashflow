@@ -139,7 +139,7 @@ export const useWaitingConnection = ({ data, isCreateConnection }) => {
 	const [isResponseReceived, setIsResponseReceived] = useState(true);
 	
 	const update = () => {
-		console.log('run update')
+		console.log('run update');
 		
 		executeRequestGet(request, ({ isSuccess, data }) => {		
 			if (isSuccess && data) {
