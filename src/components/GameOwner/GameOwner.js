@@ -15,7 +15,7 @@ import {
 	createResponseCompleteMessage,
 	checkCommonSmallAgreement
 } from '../../common/utils';
-import { 
+import {
 	confirmModalTypes,
 	pathTypes,
 	pathTypeStartCoordinates
@@ -30,7 +30,7 @@ import {
 	setCurrentAgreementCardIdType,
 	setUserModel
 } from '../../storage/actions/actionCreatorsUserModel';
-import { setProfession } from '../../storage/actions/actionCreatorsBigPathCard';
+import { setDream, setProfession } from '../../storage/actions/actionCreatorsBigPathCard';
 import {
 	sendAgreementToGamer,
 	sendedAgreementToGamerMapper,
@@ -313,7 +313,10 @@ const GameOwner = (props) => {
 				const { info, profession, bigPathCard } = gamePagePreparationMapper(data);
 				
 				dispatch(setUserModel({ info, profession }));
-				dispatch(setProfession(bigPathCard));
+				
+				const { selectedDream, buyedDreams, buyedBusiness, buyedCash } = bigPathCard;
+				dispatch(setDream(selectedDream));
+				dispatch(setProfession({ buyedDreams, buyedBusiness, buyedCash }));
 				
 				setCalculationCardsData({
 					isSmallPath: info.isSmallPath,

@@ -198,6 +198,10 @@ export const gamePagePreparationMapper = data => {
 			}
 		},
 		bigPathCard: {
+			selectedDream: {
+				name: data.user_model_big_path_card.user_model_dream.title,
+				price: data.user_model_big_path_card.user_model_dream.price
+			},
 			buyedDreams: data.user_model_big_path_card.user_model_buyed_dreams.map(item => ({
 				id: Number(item.id),
 				name: item.name,
@@ -209,7 +213,7 @@ export const gamePagePreparationMapper = data => {
 				passiveIncomes: Number(item.passive_incomes),
 				moneyFlow: Number(item.money_flow)
 			})),
-			buyedCash: arithmeticMapper(data.user_model_big_path_card.user_model_buyed_cash),
+			buyedCash: arithmeticMapper(data.user_model_big_path_card.user_model_buyed_cash)
 		}
 	}
 	
@@ -324,14 +328,3 @@ export const executeRequestGetWrapper = (request, { onSuccess, onPending, onFail
 		}
 	});
 };
-
-// const options = {
-	// method: 'GET',
-	// mode: 'no-cors',
-	// headers: {
-		// "Access-Control-Allow-Origin": "*",
-		// 'Content-Type': 'text/html; charset=UTF-8'
-	// }
-// };
-
-// POST doesnt work
