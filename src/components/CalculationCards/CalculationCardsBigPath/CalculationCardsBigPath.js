@@ -9,8 +9,6 @@ import './calculation-cards-big-path.scss';
 const CalculationCardsBigPath = (props) => {
 	const bigPathCard = useSelector(state => state.bigPathCard);
 	
-	console.log(bigPathCard)
-	
 	// Gamer part. Upfdate Big path data
 	useEffect(() => {
 		if (props.getUserModel) {
