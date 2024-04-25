@@ -30,7 +30,7 @@ const GameBoard = (props) => {
 	
 	const [isDreamCreatorShow, setIsDreamCreatorShow] = useState(false);
 	const { 
-		isBankrupt, onFishkaClickHandler, onPathHover, onPathClick, waitingDataUpdateHandler		
+		isReturnToSmallPath, isBankrupt, onFishkaClickHandler, onPathHover, onPathClick, waitingDataUpdateHandler		
 	} = useFishkaOptions(
 		gameRequestQueryGeneral, userModel, isDreamCreatorShow, callbacks, onInfoMessage
 	);
@@ -58,6 +58,11 @@ const GameBoard = (props) => {
 			setIsDreamCreatorShow(true);
 		}
 	}, [bigPathCard.info.dream.bigPathId]);
+	
+	if (isReturnToSmallPath) {
+		navigate('/return-small-path');
+		return;
+	}
 	
 	if (isBankrupt) {
 		navigate('/bankrupt-page');
