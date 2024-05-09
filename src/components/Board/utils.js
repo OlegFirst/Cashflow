@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { executeRequestGet } from '../../services/utils';
+import { waitingConnectionInitialState } from '../../common/constants';
 import {
 	bigPathItemSize,
 	smallPathItemSize,

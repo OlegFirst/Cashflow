@@ -156,3 +156,7 @@ export const getMoneyInTheWindMapper = data => {
 	return Number(data.card_id);
 };
 // Mappers_(end)
+
+export const gamerWaitingDataProps = (gamerId, waitingData) => (
+	waitingData.fishkaPositions.find(fishkaPosition => gamerId === fishkaPosition.gamerId)
+);

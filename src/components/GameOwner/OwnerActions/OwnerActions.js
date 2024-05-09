@@ -7,7 +7,9 @@ import {
 } from '../../../common/constants';
 import './owner-actions.scss';
 
-const OwnerActions = (props) => {	
+const OwnerActions = (props) => {
+	const { isBankrupt } = props.gamerWaitingData;
+	
 	return (
 		<div className='actions'>
 			<h5>Видати :</h5>
@@ -87,6 +89,7 @@ const OwnerActions = (props) => {
 					variant='danger'
 					size='sm'
 					onClick={props.onBankrupt}
+					disabled={isBankrupt}
 				>
 					Банкрут
 				</Button>

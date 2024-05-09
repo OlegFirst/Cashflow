@@ -17,6 +17,7 @@ import {
 	setBigPathStyled
 } from '../../storage/actions/actionCreatorsUserModel';
 import { networkStatuses } from '../../services/constants';
+import { waitingConnectionInitialState } from '../../common/constants';
 import { 
 	createSmallPathItemList,
 	createBigPathItemList
@@ -34,6 +35,7 @@ const GameOwnerPage = () => {
 	});
 	const [isGameOwnerHide, setIsGameOwnerHide] = useState(false);
 	const [isPerspective, setIsPerspective] = useState(false);
+	const [currentWaitingData, setCurrentWaitingData] = useState(waitingConnectionInitialState);
 	
 	// Storage
 	const dispatch = useDispatch();
@@ -112,6 +114,13 @@ const GameOwnerPage = () => {
 		gameId: info.ownerData.gameId
 	};
 	
+	const waitingDataUpdateHandler = (waitingData) => {
+		setCurrentWaitingData(prevState => ({
+			...prevState,
+			...waitingData
+		}));
+	};
+	
 	return (
 		<section className='game-owner-page'>
 			<main className='game-owner-page__main main'>
@@ -131,6 +140,7 @@ const GameOwnerPage = () => {
 						gameRequestQueryGeneral={gameRequestQueryGeneral}
 						callbacks={callbacks}
 						onInfoMessage={onInfoMessageHandler}
+						waitingData={currentWaitingData}
 					/>
 				</div>
 			</main>
@@ -140,6 +150,7 @@ const GameOwnerPage = () => {
 					gameRequestQueryGeneral={gameRequestQueryGeneral}
 					isCreateConnection={true}
 					isPerspective={isPerspective}
+					waitingDataUpdate={waitingDataUpdateHandler}
 				/>
 			</div>
 			

@@ -10,6 +10,7 @@ const GamerCard = (props) => {
 			color,
 		},
 		gamerTurnData,
+		gamerWaitingData,
 		charityActivatedTurnsLeft
 	} = props;
 	
@@ -17,7 +18,9 @@ const GamerCard = (props) => {
 	if (gamerTurnData?.charityTurnsLeft) {
 		charityTurnsLeft = gamerTurnData?.isSmallPath ? gamerTurnData.charityTurnsLeft : 'Infinity'
 	}
-		
+	
+	const { isBankrupt } = gamerWaitingData;
+	
 	return (
 		<li 
 			className={`gamer-card ${gamerTurnData ? 'active' : ''}`}
@@ -46,7 +49,7 @@ const GamerCard = (props) => {
 							{charityTurnsLeft}
 						</p>
 						
-						{gamerTurnData?.isBankruptValuePresent ? (
+						{isBankrupt ? (
 							<p className='gamer-card__bankrupt-value-present mb-0'>
 								<b>Ситуація банкрутства</b>
 							</p>

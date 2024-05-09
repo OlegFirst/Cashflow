@@ -98,3 +98,9 @@ export const networkIcons = [
 export const phone = '+38(095)705-38-46';
 
 export const eMail = 'Shilinaoksana@ukr.net';
+
+export const waitingConnectionInitialState = {
+	fishkaPositions: [],
+	isGameBegun: null,
+	commonSmallAgreementIdList: []
+};

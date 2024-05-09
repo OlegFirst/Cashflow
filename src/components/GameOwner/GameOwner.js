@@ -46,7 +46,8 @@ import {
 	checkMakeNextTurnMapper,
 	getMoneyInTheWindMapper,
 	sendCommonAgreementToGamer,
-	setGamerBankrupt
+	setGamerBankrupt,
+	gamerWaitingDataProps
 } from './utils';
 import './game-owner.scss';
 
@@ -61,7 +62,8 @@ const GameOwner = (props) => {
 		userModel,
 		gameRequestQueryGeneral,
 		callbacks,
-		onInfoMessage
+		onInfoMessage,
+		waitingData
 	} = props;
 	
 	const [isAgreementCardShow, setIsAgreementCardShow] = useState(false);
@@ -326,18 +328,28 @@ const GameOwner = (props) => {
 		});
 	};
 	
+	if (waitingData.fishkaPositions.length === 0) {
+		return (
+			<div className='gamer-cards'>Завантаження...</div>
+		)
+	}
+	
+	const gamerId = info.ownerData.gamerTurnData.gamerIdTurn;
+	
 	return (
 		<div className='game-owner'>
 			<div className='game-owner__gamer-cards-wrapper'>
 				<GamerCards 
 					{ ...info.ownerData }
 					charityActivatedTurnsLeft={charityActivatedTurnsLeft}
+					waitingData={waitingData}
 					onCalculationCards={onShowCalculationCards}
 				/>
 			</div>
 			
 			<div className='game-owner__actions-wrapper mt-4'>
 				<OwnerActions
+					gamerWaitingData={gamerWaitingDataProps(gamerId, waitingData)}
 					onSendAgreementToGamer={onSendAgreementToGamerHandler}
 					onRemoveAgreement={onRemoveAgreementHandler}
 					onMarketClick={onGetMarketHandler}

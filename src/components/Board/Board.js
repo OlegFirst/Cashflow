@@ -29,7 +29,10 @@ const Board = (props) => {
 			props.waitingDataUpdate(
 				waitingData.fishkaPositions.find(item => item.gamerId === gameRequestQueryGeneral.userId)
 			);
+			return;
 		}
+		
+		props.waitingDataUpdate(waitingData);
 	}, [waitingData]);
 	
 	return (
