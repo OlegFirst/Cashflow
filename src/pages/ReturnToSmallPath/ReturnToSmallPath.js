@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 
 import Info from '../../_commonComponents/Info/Info';
+import SpinnerButton from '../../_commonComponents/SpinnerButton/SpinnerButton';
 
+import { singOutClearStorage } from '../../storage/actions/actionCreatorsCommon';
 import { setNetworkStatus } from '../../storage/actions/actionCreatorsInfo';
 import { networkStatuses } from '../../services/constants';
 import { returnToSmallPath } from './utils';
@@ -19,6 +22,15 @@ const ReturnToSmallPath = () => {
 	const info = useSelector(state => state.info);
 	
 	const navigate = useNavigate();
+	
+	// Page is refreshed
+	useEffect(() => {
+		if (!info.user.id) {
+			singOutClearStorage(dispatch)();
+			navigate('/');
+			return;
+		}
+	}, []);
 	
 	const gameRequestQueryGeneral = {
 		userId: info.user.id,
@@ -49,22 +61,45 @@ const ReturnToSmallPath = () => {
 		onFail
 	};
 	
-	useEffect(() => {
+	const onSubmit = () => {
 		returnToSmallPath({ ...gameRequestQueryGeneral }, { 
 			...callbacks,
 			onSuccess: data => {
 				onSuccess();
 				
-				// navigate('/game');
+				navigate('/game');
 			}
 		});
-	}, []);
+	};
+	
+	const onInfoClose = () => {
+		setInfoMessage(prevState => ({
+			...prevState,
+			isSuccess: false,
+			message: ''
+		}));
+	};
+	
+	
 	
 	return (
 		<section className='return-to-small-path'>
 			<h1 className='return-to-small-path__title'>Ви повертаєтесь до Малого кола...</h1>
+			<h2 className='return-to-small-path__title mb-4'>Ви збережете свої гроші, але у вас буде нова професія</h2>
 			
-			<Info isSuccess={infoMessage.isSuccess} message={infoMessage.message} />
+			<SpinnerButton
+				variant='success'
+				text='Продовжити'
+				// isPending={false}
+				isPending={info.networkStatus === networkStatuses.PENDING}
+				onClick={onSubmit}
+			/>
+			
+			<Info 
+				isSuccess={infoMessage.isSuccess}
+				message={infoMessage.message}
+				onClose={onInfoClose} 
+			/>
 			
 			<img
 				className='return-to-small-path__bg-image'

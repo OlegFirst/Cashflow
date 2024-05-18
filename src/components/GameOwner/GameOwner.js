@@ -78,6 +78,7 @@ const GameOwner = (props) => {
 	const [charityActivatedTurnsLeft, setCharityActivatedTurnsLeft] = useState(null);
 	const [isConfirmModalShow, setIsConfirmModalShow] = useState(false);
 	const [isBankuptConfirmModalShow, setIsBankuptConfirmModalShow] = useState(false);
+	const [isReturnToSmallPathConfirmModalShow, setIsReturnToSmallPathConfirmModalShow] = useState(false);
 	const [calculationCardsData, setCalculationCardsData] = useState(calculationCardsDataInitialState);
 	
 	// Storage
@@ -256,14 +257,13 @@ const GameOwner = (props) => {
 	};
 	// Next turn_(end)
 	
-	const onMoveGamerToPathHandler = type => {
-		const isSmallPath = type === pathTypes.SMALL_PATH;
-		
+	// onMoveGamerToPathHandler_(start)
+	const moveGamerToPathProceed = ({ willGamerMovedToSmallPath }) => {
 		moveGamerToPath({ 
 			...gameRequestQueryGeneral,
 			gamerIdTurn: info.ownerData.gamerTurnData.gamerIdTurn,
-			isSmallPath: isSmallPath ? '1' : '0',
-			coordinates: isSmallPath ? pathTypeStartCoordinates.SMALL_PATH : pathTypeStartCoordinates.BIG_PATH
+			isSmallPath: willGamerMovedToSmallPath ? '1' : '0',
+			coordinates: willGamerMovedToSmallPath ? pathTypeStartCoordinates.SMALL_PATH : pathTypeStartCoordinates.BIG_PATH
 			}, {
 			...callbacks,
 			onSuccess: data => {
@@ -274,11 +274,41 @@ const GameOwner = (props) => {
 				
 				if (isSuccess) {
 					setCharityActivatedTurnsLeft(0);
-					dispatch(setGamerTurnPath(isSmallPath));
+					dispatch(setGamerTurnPath(willGamerMovedToSmallPath));
 				}
 			}
 		});
 	};
+	
+	const onMoveGamerToPathHandler = type => {		
+		const isGamerOnSmallPath = info.ownerData.gamerTurnData.isSmallPath;
+		const willGamerMovedToSmallPath = type === pathTypes.SMALL_PATH;
+		
+		// - Move from Big path to Small path
+		if (!isGamerOnSmallPath && willGamerMovedToSmallPath) {
+			setIsReturnToSmallPathConfirmModalShow(true);
+			return;
+		}
+		
+		// - Move from Small path to Big path
+		if (isGamerOnSmallPath && !willGamerMovedToSmallPath) {
+			moveGamerToPathProceed({ willGamerMovedToSmallPath: false });
+			return;
+		}
+		
+		onInfoMessage('Гравця вже перемістили на це коло', false);
+	};
+	
+	const onReturnToSmallPathConfirmModalSubmit = () => {
+		setIsReturnToSmallPathConfirmModalShow(false);
+		
+		moveGamerToPathProceed({ willGamerMovedToSmallPath: true });
+	};
+	
+	const onReturnToSmallPathConfirmModalCancel = () => {
+		setIsReturnToSmallPathConfirmModalShow(false);
+	};
+	// onMoveGamerToPathHandler_(end)
 	
 	// Bankrupt_(start)
 	const onBankruptHandler = () => {
@@ -407,6 +437,15 @@ const GameOwner = (props) => {
 				isShow={isBankuptConfirmModalShow}
 				onSubmit={onBankuptConfirmModalSubmit}
 				onClose={onBankuptConfirmModalCancel}
+			/>
+			
+			<ConfirmModal
+				title={''}
+				message={'Усі дані гравця, крім готівки, буде видалено! Усе одно продовжити?'}
+				type={confirmModalTypes.DANGER}
+				isShow={isReturnToSmallPathConfirmModalShow}
+				onSubmit={onReturnToSmallPathConfirmModalSubmit}
+				onClose={onReturnToSmallPathConfirmModalCancel}
 			/>
 			
 			{calculationCardsData.isShow && calculationCardsData.isSmallPath && (
