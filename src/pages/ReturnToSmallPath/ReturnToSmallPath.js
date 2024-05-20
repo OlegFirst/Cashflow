@@ -23,15 +23,12 @@ const ReturnToSmallPath = () => {
 	
 	const navigate = useNavigate();
 	
-	// Page is refreshed
-	useEffect(() => {
-		if (!info.user.id) {
-			singOutClearStorage(dispatch)();
-			navigate('/');
-			return;
-		}
-	}, []);
-	
+	if (!info.user) {
+		singOutClearStorage(dispatch)();
+		navigate('/');
+		return;
+	}
+		
 	const gameRequestQueryGeneral = {
 		userId: info.user.id,
 		userRoleId: info.user.userRoleId,

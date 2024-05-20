@@ -7,8 +7,7 @@ const GamerCards = (props) => {
 	const {
 		gamerList,
 		gamerTurnData,
-		waitingData,
-		charityActivatedTurnsLeft
+		waitingData
 	} = props;
 	
 	return (
@@ -23,7 +22,6 @@ const GamerCards = (props) => {
 							item={item}
 							gamerTurnData={item.id === gamerTurnData.gamerIdTurn ? gamerTurnData : null}
 							gamerWaitingData={gamerWaitingData}
-							charityActivatedTurnsLeft={charityActivatedTurnsLeft}
 							onCalculationCards={props.onCalculationCards}
 						/>
 					)

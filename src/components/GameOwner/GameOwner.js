@@ -214,7 +214,7 @@ const GameOwner = (props) => {
 	};
 	
 	// Next turn_(start)
-	const nextTurnProceed = () => {
+	const nextTurnProceed = () => {		
 		if (charityActivatedTurnsLeft) {
 			setCharityActivatedTurnsLeft(null);
 		}
@@ -273,7 +273,7 @@ const GameOwner = (props) => {
 				onInfoMessage(message, isSuccess);
 				
 				if (isSuccess) {
-					setCharityActivatedTurnsLeft(0);
+					setCharityActivatedTurnsLeft(null);					
 					dispatch(setGamerTurnPath(willGamerMovedToSmallPath));
 				}
 			}
@@ -371,7 +371,6 @@ const GameOwner = (props) => {
 			<div className='game-owner__gamer-cards-wrapper'>
 				<GamerCards 
 					{ ...info.ownerData }
-					charityActivatedTurnsLeft={charityActivatedTurnsLeft}
 					waitingData={waitingData}
 					onCalculationCards={onShowCalculationCards}
 				/>

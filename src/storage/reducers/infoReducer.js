@@ -34,7 +34,8 @@ const infoReducer = (state = initialInfoReducerState, action) => {
 					...state.ownerData, 
 					gamerTurnData: { 
 						...state.ownerData.gamerTurnData,
-						isSmallPath: action.value
+						isSmallPath: action.value,
+						charityTurnsLeft: 0
 					}
 				} 
 			};

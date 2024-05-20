@@ -10,8 +10,7 @@ const GamerCard = (props) => {
 			color,
 		},
 		gamerTurnData,
-		gamerWaitingData,
-		charityActivatedTurnsLeft
+		gamerWaitingData
 	} = props;
 	
 	let charityTurnsLeft = 0;
@@ -19,7 +18,7 @@ const GamerCard = (props) => {
 		charityTurnsLeft = gamerTurnData?.isSmallPath ? gamerTurnData.charityTurnsLeft : 'Infinity'
 	}
 	
-	const { isBankrupt } = gamerWaitingData;
+	const { isBankrupt = false } = gamerWaitingData;
 	
 	return (
 		<li 
