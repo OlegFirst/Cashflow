@@ -47,6 +47,7 @@ import {
 	getMoneyInTheWindMapper,
 	sendCommonAgreementToGamer,
 	setGamerBankrupt,
+	setWaitingConnection,
 	gamerWaitingDataProps
 } from './utils';
 import './game-owner.scss';
@@ -139,7 +140,7 @@ const GameOwner = (props) => {
 		});
 	};
 	
-	const onGetMarketHandler = () => {		
+	const onGetMarketHandler = () => {
 		getMarket({
 			...gameRequestQueryGeneral
 			}, {
@@ -154,6 +155,11 @@ const GameOwner = (props) => {
 					id,
 					isShow: true
 				}));
+				
+				setWaitingConnection({ 
+					...gameRequestQueryGeneral,
+					marketId: id
+				}, callbacks);
 			}
 		});
 	};

@@ -26,12 +26,15 @@ const Board = (props) => {
 	// If Gamer is moved to the other Path then correct fishka data
 	useEffect(() => {
 		if (isGame) {
+			// Gamer
 			props.waitingDataUpdate(
-				waitingData.fishkaPositions.find(item => item.gamerId === gameRequestQueryGeneral.userId)
+				waitingData.fishkaPositions.find(item => item.gamerId === gameRequestQueryGeneral.userId),
+				waitingData.commonEvents
 			);
 			return;
 		}
 		
+		// Game Owner
 		props.waitingDataUpdate(waitingData);
 	}, [waitingData]);
 	

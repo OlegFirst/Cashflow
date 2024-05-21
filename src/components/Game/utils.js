@@ -213,6 +213,10 @@ export const useFishkaOptions = (gameRequestQueryGeneral, userModel, isDreamCrea
 	const [fishkaOptions, setFishkaOptions] = useState(useFishkaActionInitialState);
 	const [isBankrupt, setIsBankrupt] = useState(false);
 	const [isReturnToSmallPath, setIsReturnToSmallPath] = useState(false);
+	const [markedCard, setMarkedCard] = useState({
+		id: null,
+		isShow: false
+	});
 	
 	const dispatch = useDispatch();
 	
@@ -333,7 +337,7 @@ export const useFishkaOptions = (gameRequestQueryGeneral, userModel, isDreamCrea
 	
 	// - If Gamer is moved to the other Path then correct fishka data
 	// - If Gamer is bunkrupted
-	const waitingDataUpdateHandler = data => {
+	const waitingDataUpdateHandler = (data, commonEvents) => {
 		if (!data) {
 			return;
 		}
@@ -360,9 +364,27 @@ export const useFishkaOptions = (gameRequestQueryGeneral, userModel, isDreamCrea
 		}
 		
 		setIsBankrupt(data.isBankrupt);
+		
+		if (commonEvents.marketId !== -1 && markedCard.id !== commonEvents.marketId) {
+			setMarkedCard(prevState => ({
+				...prevState,
+				id: commonEvents.marketId,
+				isShow: true
+			}));
+		}
 	};
 	
-	return { isReturnToSmallPath, isBankrupt, onFishkaClickHandler, onPathHover, onPathClick, waitingDataUpdateHandler };
+	const onMarkedCardClose = () => {
+		setMarkedCard(prevState => ({
+			...prevState,
+			isShow: false
+		}));
+	};
+	
+	return { 
+		isReturnToSmallPath, isBankrupt, markedCard,
+		onFishkaClickHandler, onPathHover, onPathClick, waitingDataUpdateHandler, onMarkedCardClose
+	};
 };
 
 export const useTurnProgress = (gameRequestQueryGeneral, fishkaStepProcessValue, diceValue, callbacks, onInfoMessage) => {

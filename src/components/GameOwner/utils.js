@@ -99,6 +99,15 @@ export const setGamerBankrupt = (data, callbacks) => {
 	executeRequestGetWrapper(request, callbacks);
 };
 
+export const setWaitingConnection = (data, callbacks) => {		
+	const request = {
+		endPointURL: 'game',
+		query: 'info=set-waiting-connection&data=' + JSON.stringify(data)
+	};
+	
+	executeRequestGetWrapper(request, callbacks);
+};
+
 // Mappers_(start)
 export const checkMakeNextTurnMapper = data  => {
 	return Number(data.is_gamer_turn_end) === 1;

@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import Header from './Header/Header';
 import Board from '../../Board/Board';
 import DreamCreator from '../DreamCreator/DreamCreator';
+import ModalComponent from '../../../_commonComponents/Modal/Modal';
+import MarketCard from '../../MarketCard/MarketCard';
 
 import { 
 	getPathItemCoordinates,
@@ -30,7 +32,7 @@ const GameBoard = (props) => {
 	
 	const [isDreamCreatorShow, setIsDreamCreatorShow] = useState(false);
 	const { 
-		isReturnToSmallPath, isBankrupt, onFishkaClickHandler, onPathHover, onPathClick, waitingDataUpdateHandler		
+		isReturnToSmallPath, isBankrupt, markedCard, onFishkaClickHandler, onPathHover, onPathClick, waitingDataUpdateHandler, onMarkedCardClose
 	} = useFishkaOptions(
 		gameRequestQueryGeneral, userModel, isDreamCreatorShow, callbacks, onInfoMessage
 	);
@@ -95,6 +97,16 @@ const GameBoard = (props) => {
 					onClick={onDreamCreatorClick}
 				/>
 			)}
+			
+			<ModalComponent
+				title={'Ринок'}
+				isCancelButtonHide={true}
+				isSubmitButtonHide={true}
+				isShow={markedCard.isShow}
+				onClose={onMarkedCardClose}
+			>
+				<MarketCard id={markedCard.id} />
+			</ModalComponent>
 		</section>
 	)
 };

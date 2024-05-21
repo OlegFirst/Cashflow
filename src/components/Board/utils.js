@@ -105,7 +105,7 @@ export const createSmallPathItemList = () => {
 };
 
 // Common maping_(start)
-const waitingConnectionMapper = ({ fishka_positions, is_game_begun, common_small_agreement_id_list}) => {	
+const waitingConnectionMapper = ({ fishka_positions, is_game_begun, common_small_agreement_id_list, common_events }) => {	
 	return {
 		fishkaPositions: fishka_positions.map(item => ({
 			gamerId: Number(item.gamer_id),
@@ -119,7 +119,10 @@ const waitingConnectionMapper = ({ fishka_positions, is_game_begun, common_small
 			isBankrupt: Number(item.is_bankrupt) === 1
 		})),
 		isGameBegun: Number(is_game_begun) === 1,
-		commonSmallAgreementIdList: common_small_agreement_id_list.map(item => Number(item))
+		commonSmallAgreementIdList: common_small_agreement_id_list.map(item => Number(item)),
+		commonEvents: {
+			marketId: Number(common_events.market_id)
+		}
 	};
 };
 // Common maping_(end)
@@ -143,7 +146,7 @@ export const useWaitingConnection = ({ data, isCreateConnection }) => {
 		console.log('run update');
 		
 		executeRequestGet(request, ({ isSuccess, data }) => {		
-			if (isSuccess && data) {
+			if (isSuccess && data) {				
 				setResponse(waitingConnectionMapper(data));
 				setIsResponseReceived(!isResponseReceived);
 			}
