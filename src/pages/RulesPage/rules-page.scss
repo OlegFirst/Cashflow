@@ -1,0 +1,10 @@
+.rules-page {
+	position: relative;
+	background-color: grey;
+	min-width: 800px;
+	padding: 40px;
+	
+	&__start-button {
+		margin: 0 0 0 calc(100% - 80px);
+	}
+}

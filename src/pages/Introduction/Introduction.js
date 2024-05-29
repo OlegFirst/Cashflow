@@ -41,7 +41,7 @@ const Introduction = () => {
 				navigate('/owner-page');
 				break;
 			case userRoles.GAMER:
-				navigate('/game-waiting');
+				navigate('/rules-page');
 				break;
 			default:
 				console.log('Bad user role');

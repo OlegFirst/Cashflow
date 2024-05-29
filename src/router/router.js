@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Introduction from '../pages/Introduction/Introduction';
+import RulesPage from '../pages/RulesPage/RulesPage';
 import GameWaiting from '../pages/GameWaiting/GameWaiting';
 import OwnerPage from '../pages/OwnerPage/OwnerPage';
 import GamePage from '../pages/Game/GamePage';
@@ -13,6 +14,7 @@ const Router = () => (
 	<BrowserRouter>
 		<Routes>
 			<Route path='/' element={<Introduction />} />
+			<Route path='/rules-page' element={<RulesPage />} />
 			<Route path='/game-waiting' element={<GameWaiting />} />
 			<Route path='/owner-page' element={<OwnerPage />} />			
 			<Route path='/game' element={<GamePage />} />
