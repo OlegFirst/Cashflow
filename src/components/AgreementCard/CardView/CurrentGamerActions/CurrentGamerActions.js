@@ -51,7 +51,7 @@ const CurrentGamerActions = (props) => {
 			{!isProgressBarComponentHide && (
 				<div className='mt-4'>
 					<ProgressBarComponent 
-						maxTime={10}
+						maxTime={40}
 						timeIsUp={props.onTimeIsUp}
 					/>
 				</div>

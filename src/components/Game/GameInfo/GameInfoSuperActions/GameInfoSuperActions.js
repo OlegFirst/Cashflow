@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert';
 import Spinner from 'react-bootstrap/Spinner';
 
 import GameInfoActions from './GameInfoActions/GameInfoActions';
@@ -10,7 +11,11 @@ import { useTurnProgress } from '../../utils';
 
 const GameInfoSuperActions = (props) => {
 	const {
+		info: {
+			user
+		},
 		userModel: {
+			info,
 			board: {
 				diceValue,
 				diceCount,
@@ -18,39 +23,35 @@ const GameInfoSuperActions = (props) => {
 			},
 			profession: {
 				moneyFlow
-			}
+			},
+			commonEvents
 		},
 		gameRequestQueryGeneral,
-		callbacks,
-		onInfoMessage
+		callbacks
 	} = props;
 	
 	const navigate = useNavigate();
 	
-	const { 
-		turnProgress, isSkipTurnSpinnerShow,
-		onStartTurn, onRollHandler, onSkipTurn, onEndTurn, onCheatButton
-	} = useTurnProgress(
-		gameRequestQueryGeneral, fishkaStepProcessValue, diceValue, callbacks, onInfoMessage
-	);
+	const currentAgreementCardId = props.userModel.currentAgreementCard.id;
 	
-	const onStartTurnHandler = () => {
-		const moneyFlowLength = moneyFlow.length;				
-		onStartTurn();
-	};
+	const { 
+		turnProgress, isSkipTurnSpinnerShow, isErrorStartTurn,
+		onRollHandler, onSkipTurn, onEndTurn, onCheatButton
+	} = useTurnProgress(
+		gameRequestQueryGeneral, fishkaStepProcessValue, diceValue, callbacks,
+		user.id, commonEvents
+	);
 	
 	return (
 		<>
 			<div className='game-info-super-actions__start-turn'>
-				<Button
-					variant='success'
-					className='mt-4 me-4'
-					size='sm'
-					disabled={!turnProgress.startTurn}
-					onClick={onStartTurnHandler}
-				>
-					Почати хід
-				</Button>
+				{!turnProgress.startTurn && (
+					<Alert className='text-center' variant='success'>Bаш хід</Alert>
+				)}
+				
+				{isErrorStartTurn && (
+					<Alert className='text-center' variant='danger'>Bаш хід. Карточка Угода не опрацьована</Alert>
+				)}
 				
 				<Button
 					variant='danger'

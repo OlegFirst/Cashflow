@@ -40,7 +40,6 @@ const modelReducer = (state = initialModelReducerState, action) => {
 				board: { ...state.board, smallPathStyled: action.value }
 			};
 		
-		
 		// Fishka_(start)
 		case ActionTypes.SET_FISHKA_STEP_PROCESS_VALUE:
 			return { 
@@ -64,6 +63,12 @@ const modelReducer = (state = initialModelReducerState, action) => {
 				info: { ...state.info, ...action.value }
 			};			
 		// Fishka_(end)
+		
+		case ActionTypes.SET_COMMON_EVENTS:
+			return {
+				...state,
+				commonEvents: { ...state.commonEvents, ...action.value }
+			};
 		
 		// AgreementCard_(start)
 		case ActionTypes.SET_CURRENT_AGREEMENT_CARD_ID_TYPE:		

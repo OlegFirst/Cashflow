@@ -48,16 +48,18 @@ const CardView = (props) => {
 					</Card.Title>
 					
 					<div className='card-view__content'>
-						<ul className='card-view__items'>
-							{info.length > 0 && info.map(({ title, caption }, index) => {
-								return (
-									<li className='card-view__item item' key={index}>
-										<p className='item__title'>{title}</p>										
-										<p className='item__caption'>{caption}</p>
-									</li>
-								);
-							})}
-						</ul>
+						{info.length > 0 && (
+							<ul className='card-view__items'>
+								{info.map(({ title, caption }, index) => {
+									return (
+										<li className='card-view__item item' key={index}>
+											<p className='item__title'>{title}</p>										
+											<p className='item__caption'>{caption}</p>
+										</li>
+									);
+								})}
+							</ul>
+						)}
 						
 						<p className='card-view__caption' dangerouslySetInnerHTML={{__html: caption }} />
 						

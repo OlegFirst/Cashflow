@@ -213,10 +213,6 @@ export const useFishkaOptions = (gameRequestQueryGeneral, userModel, isDreamCrea
 	const [fishkaOptions, setFishkaOptions] = useState(useFishkaActionInitialState);
 	const [isBankrupt, setIsBankrupt] = useState(false);
 	const [isReturnToSmallPath, setIsReturnToSmallPath] = useState(false);
-	const [markedCard, setMarkedCard] = useState({
-		id: null,
-		isShow: false
-	});
 	
 	const dispatch = useDispatch();
 	
@@ -335,13 +331,8 @@ export const useFishkaOptions = (gameRequestQueryGeneral, userModel, isDreamCrea
 		}
 	};
 	
-	// - If Gamer is moved to the other Path then correct fishka data
-	// - If Gamer is bunkrupted
-	const waitingDataUpdateHandler = (data, commonEvents) => {
-		if (!data) {
-			return;
-		}
-		
+	const waitingDataUpdate = (data) => {		
+		// - If Gamer is moved to the other Path then correct fishka data
 		const isGamerMovedToTheOtherPath = data.pathPositionId === 0 && isSmallPath !== data.isSmallPath;
 		
 		if (isGamerMovedToTheOtherPath) {
@@ -357,15 +348,38 @@ export const useFishkaOptions = (gameRequestQueryGeneral, userModel, isDreamCrea
 				...prevState, ...currentData
 			}));
 			
-			// Gamer is returned to the Small Path
+			// - Gamer is returned to the Small Path
 			if (data.isSmallPath) {
 				setIsReturnToSmallPath(true);
 			}
 		}
 		
+		// - If Gamer is bunkrupted
 		setIsBankrupt(data.isBankrupt);
-		
+	};
+	
+	return {
+		isReturnToSmallPath, isBankrupt,
+		onFishkaClickHandler, onPathHover, onPathClick, waitingDataUpdate
+	};
+};
+
+export const useCommonEventsWaitingData = () => {	
+	const [markedCard, setMarkedCard] = useState({
+		id: null,
+		isShow: false
+	});
+	
+	const setEvents = (commonEvents) => {
+		setMarkedCard(prevState => ({
+			...prevState,
+			id: commonEvents.marketId
+		}));
+	};
+	
+	const updateEvents = (commonEvents) => {
 		if (commonEvents.marketId !== -1 && markedCard.id !== commonEvents.marketId) {
+			// Show marked card
 			setMarkedCard(prevState => ({
 				...prevState,
 				id: commonEvents.marketId,
@@ -374,46 +388,67 @@ export const useFishkaOptions = (gameRequestQueryGeneral, userModel, isDreamCrea
 		}
 	};
 	
+	const waitingCommonEventsUpdate = (commonEvents) => {		
+		if (markedCard.id === null) {
+			// Gamer has already started or returned to play the game
+			setEvents(commonEvents);
+			return;
+		}
+		
+		updateEvents(commonEvents);
+	};
+	
 	const onMarkedCardClose = () => {
+		// Gamer is playing the game
 		setMarkedCard(prevState => ({
 			...prevState,
 			isShow: false
 		}));
 	};
 	
-	return { 
-		isReturnToSmallPath, isBankrupt, markedCard,
-		onFishkaClickHandler, onPathHover, onPathClick, waitingDataUpdateHandler, onMarkedCardClose
+	return {
+		markedCard,
+		waitingCommonEventsUpdate, onMarkedCardClose
 	};
 };
 
-export const useTurnProgress = (gameRequestQueryGeneral, fishkaStepProcessValue, diceValue, callbacks, onInfoMessage) => {
+export const useTurnProgress = (gameRequestQueryGeneral, fishkaStepProcessValue, diceValue, callbacks, userId, commonEvents) => {
 	const [turnProgress, setTurnProgress] = useState(useTurnProgressInitialState);
+	const [isErrorStartTurn, setIsErrorStartTurn] = useState(false);
 	const [isSkipTurnSpinnerShow, setSkipTurnSpinnerShow] = useState(false);
+	const [timeStamp, setTimeStamp] = useState(null);
 	
 	const turnDiceValue = useRef(0);
 	
 	const dispatch = useDispatch();
 	const currentAgreementCard = useSelector(state => state.userModel.currentAgreementCard);
 	
+	// Start or End turn according to Game Owner event
+	useEffect(() => {
+		if (userId === commonEvents.gamerIdTurn) {
+			onStartTurn();
+			return;
+		}
+		
+		onEndTurn();
+	}, [userId, commonEvents.gamerIdTurn, commonEvents.timeStamp, currentAgreementCard.id]);
+	
 	const onStartTurn = () => {
-		// Is turn possible
+		if (!turnProgress.startTurn) {
+			return;
+		}
+		
+		if (currentAgreementCard.id) {
+			setIsErrorStartTurn(true);
+			return;
+		}
+		
+		setIsErrorStartTurn(false);
+		
 		gameStartTurn({ ...gameRequestQueryGeneral }, {
 			...callbacks,
 			onSuccess: data => {
 				callbacks.onSuccess();
-				
-				// - if !is_gamer_can_start_turn
-				if (!data.is_gamer_can_start_turn) {
-					onInfoMessage('Хід нeможливий');
-					return;
-				}
-					
-				// - if currentAgreement card has been already calculated by Gamer					
-				if (currentAgreementCard.id) {
-					onInfoMessage('Карточка Угода не опрацьована');
-					return;
-				}
 				
 				turnDiceValue.current = 0;
 				dispatch(setDiceValue(0));
@@ -422,13 +457,18 @@ export const useTurnProgress = (gameRequestQueryGeneral, fishkaStepProcessValue,
 				setTurnProgress(prevState => ({
 					...prevState,
 					startTurn: false,
-					skipTurn: false,
+					skipTurn: true,
 					dice: true
 				}));
 		}});
 	};
 	
 	const onRollHandler = value => {
+		setTurnProgress(prevState => ({
+			...prevState,
+			skipTurn: false
+		}));
+		
 		turnDiceValue.current += value;
 		
 		dispatch(setDiceValue(turnDiceValue.current));
@@ -439,7 +479,8 @@ export const useTurnProgress = (gameRequestQueryGeneral, fishkaStepProcessValue,
 		setTurnProgress(prevState => ({
 			...prevState,
 			startTurn: false,
-			skipTurn: false
+			skipTurn: false,
+			dice: false
 		}));
 		
 		gameEndTurn({ ...gameRequestQueryGeneral }, { 
@@ -459,10 +500,23 @@ export const useTurnProgress = (gameRequestQueryGeneral, fishkaStepProcessValue,
 	const onEndTurn = () => {
 		// N. B. This event occurs after Gamer moved the fishka
 		
+		if (isErrorStartTurn) {
+			setIsErrorStartTurn(false);
+		}
+		
+		if (
+			turnProgress.startTurn &&
+			!turnProgress.skipTurn &&
+			!turnProgress.dice && 
+			!turnProgress.endTurn
+		) {
+			return;
+		}
+		
 		setTurnProgress(prevState => ({
 			...prevState,
 			startTurn: true,
-			skipTurn: true,
+			skipTurn: false,
 			dice: false,
 			endTurn: false
 		}));
@@ -504,8 +558,8 @@ export const useTurnProgress = (gameRequestQueryGeneral, fishkaStepProcessValue,
 	}, [fishkaStepProcessValue])
 	
 	return { 
-		turnProgress, isSkipTurnSpinnerShow,
-		onStartTurn, onRollHandler, onSkipTurn, onEndTurn
+		turnProgress, isSkipTurnSpinnerShow, isErrorStartTurn,
+		onRollHandler, onSkipTurn, onEndTurn
 	};
 };
 

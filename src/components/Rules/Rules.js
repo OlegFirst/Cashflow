@@ -9,8 +9,8 @@ const Rules = () => {
 			<h1 className='rules__title'>Правила</h1>
 		
 			<ul className='rules__items'>
-				{videoList.map(({ title, src }, index) => (
-					<li className='rules__item'>
+				{videoList.map(({ id, title, src }) => (
+					<li key={id} className='rules__item'>
 							<video className='rules__item-video' controls>
 								<source src={src} type='video/mp4' />
 								<source src={src} type='video/ogg' />

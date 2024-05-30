@@ -1,5 +1,20 @@
+.modal-component_small .modal-content {
+	width: 90px;
+	opacity: 0.8;
+	transition: all 0.4s;
+}
+
 .modal-content {
 	& > div.modal-dialog {
 		margin: 0;
+	}
+	
+	& .modal-header {
+		position: relative;
+		
+		& > .modal-component__resize-block {
+			position: absolute;
+			right: 44px;
+		}
 	}
 }

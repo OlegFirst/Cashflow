@@ -33,6 +33,10 @@ export const initialModelReducerState = {
 		isPresent: false,
 		gamerType: null,
 		isCardRedirected: false
+	},
+	commonEvents: {
+		gamerIdTurn: null,
+		timeStamp: null
 	}
 };
 

@@ -10,6 +10,7 @@ const DiceComponent = props => {
 			<div className='dice-component__inner'>
 				<Dice 
 					defaultValue={1}
+					cheatValue={1}
 					onRoll={props.onRoll}
 					disabled={isDisabled}
 				/>

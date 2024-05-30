@@ -105,7 +105,9 @@ export const createSmallPathItemList = () => {
 };
 
 // Common maping_(start)
-const waitingConnectionMapper = ({ fishka_positions, is_game_begun, common_small_agreement_id_list, common_events }) => {	
+const waitingConnectionMapper = (data) => {
+	const { fishka_positions, is_game_begun, common_small_agreement_id_list, common_events } = data;
+	
 	return {
 		fishkaPositions: fishka_positions.map(item => ({
 			gamerId: Number(item.gamer_id),
@@ -121,7 +123,9 @@ const waitingConnectionMapper = ({ fishka_positions, is_game_begun, common_small
 		isGameBegun: Number(is_game_begun) === 1,
 		commonSmallAgreementIdList: common_small_agreement_id_list.map(item => Number(item)),
 		commonEvents: {
-			marketId: Number(common_events.market_id)
+			gamerIdTurn: Number(common_events.gamer_id_turn),
+			marketId: Number(common_events.market_id),
+			timeStamp: Number(common_events.time_stamp)
 		}
 	};
 };

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import Header from './Header/Header';
@@ -7,11 +8,13 @@ import DreamCreator from '../DreamCreator/DreamCreator';
 import ModalComponent from '../../../_commonComponents/Modal/Modal';
 import MarketCard from '../../MarketCard/MarketCard';
 
+import { setCommonEvents } from '../../../storage/actions/actionCreatorsUserModel';
 import { 
 	getPathItemCoordinates,
 	setServerFishkaPosition,
 	setFishkaPosition,
 	useFishkaOptions,
+	useCommonEventsWaitingData,
 	setServerDream
 } from '../utils';
 import { 
@@ -31,13 +34,26 @@ const GameBoard = (props) => {
 	} = props;
 	
 	const [isDreamCreatorShow, setIsDreamCreatorShow] = useState(false);
-	const { 
-		isReturnToSmallPath, isBankrupt, markedCard, onFishkaClickHandler, onPathHover, onPathClick, waitingDataUpdateHandler, onMarkedCardClose
+	
+	const {
+		isReturnToSmallPath, isBankrupt,
+		onFishkaClickHandler, onPathHover, onPathClick, waitingDataUpdate
 	} = useFishkaOptions(
-		gameRequestQueryGeneral, userModel, isDreamCreatorShow, callbacks, onInfoMessage
+		gameRequestQueryGeneral,
+		userModel,
+		isDreamCreatorShow,
+		callbacks,
+		onInfoMessage
 	);
+	
+	const {
+		markedCard,
+		waitingCommonEventsUpdate, onMarkedCardClose
+	} = useCommonEventsWaitingData();
+	
 	const [isPerspective, setIsPerspective] = useState(false);
 	
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	
 	const onDreamCreatorClick = data => {
@@ -53,6 +69,17 @@ const GameBoard = (props) => {
 				callbacks.onSuccess();
 			}
 		});
+	};
+	
+	const waitingDataUpdateHandler = (data, commonEvents) => {
+		if (data) {
+			waitingDataUpdate(data);
+		}
+		
+		if (commonEvents) {
+			waitingCommonEventsUpdate(commonEvents);
+			dispatch(setCommonEvents(commonEvents));
+		}
 	};
 	
 	useEffect(() => {
@@ -88,7 +115,7 @@ const GameBoard = (props) => {
 				isPerspective={isPerspective}
 				onClick={onPathClick}
 				onFishkaClick={onFishkaClickHandler}
-				waitingDataUpdate={waitingDataUpdateHandler}
+				waitingDataUpdate={waitingDataUpdateHandler}				
 			/>
 			
 			{isDreamCreatorShow && (

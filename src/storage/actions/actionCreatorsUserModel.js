@@ -30,6 +30,11 @@ export const setDiceCount = value => ({
 	value
 });
 
+export const setCommonEvents = valueObject => ({
+	type: ActionTypes.SET_COMMON_EVENTS,
+	value: valueObject
+});
+
 // Fishka_(start)
 export const setFishkaStepProcessValue = value => ({
 	type: ActionTypes.SET_FISHKA_STEP_PROCESS_VALUE,
