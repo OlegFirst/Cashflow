@@ -17,6 +17,7 @@ import {
 	setSmallPathStyled,
 	setBigPathStyled
 } from '../../storage/actions/actionCreatorsUserModel';
+import { fishkaStepProcess } from '../../components/Game/constants';
 import { networkStatuses } from '../../services/constants';
 import { 
 	gamePagePreparationMapper,
@@ -38,6 +39,7 @@ const GamePage = () => {
 		message: ''
 	});
 	const [isGameInfoHide, setIsGameInfoHide] = useState(false);
+	const [isCreateConnection, setIsCreateConnection] = useState(false);
 	
 	// Storage
 	const dispatch = useDispatch();
@@ -129,6 +131,15 @@ const GamePage = () => {
 		}));
 	};
 	
+	const createConnectionHandler = (isCalculationCardsShow) => {
+		if (isCalculationCardsShow) {
+			setIsCreateConnection(false);
+			return;
+		}
+		
+		setIsCreateConnection(userModel.board.fishkaStepProcessValue === fishkaStepProcess.NOT_READY);
+	};
+	
 	return (
 		<section className='game-page'>
 			<main className='game-page__main'>
@@ -141,9 +152,9 @@ const GamePage = () => {
 						isGameInfoHide={isGameInfoHide}
 						onGameInfoHide={() => setIsGameInfoHide(true)}
 						onGameInfoShow={() => setIsGameInfoHide(false)}
+						isCreateConnection={isCreateConnection}
 						callbacks={callbacks}
-						onInfoMessage={onInfoMessageHandler}
-						
+						onInfoMessage={onInfoMessageHandler}						
 						onGetModel={() => getUserModel()}
 					/>
 				</div>
@@ -156,6 +167,7 @@ const GamePage = () => {
 						callbacks={callbacks}
 						onInfoMessage={onInfoMessageHandler}
 						getUserModel={getUserModel}
+						createConnection={createConnectionHandler}
 					/>
 				</div>
 			</main>

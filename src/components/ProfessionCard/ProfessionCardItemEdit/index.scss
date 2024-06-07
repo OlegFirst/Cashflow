@@ -11,6 +11,9 @@
 }
 
 .arithmetic-table {
+	max-height: 400px;
+	overflow: auto;
+
 	&__remove-button {
 		display: flex;
 		justify-content: center;

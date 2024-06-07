@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 
@@ -22,6 +23,7 @@ const ArithmeticTable = (props) => {
 		isUpdated
 	} = props;
 	
+	const arithmeticTableRef = useRef();
 	const isBankLoanTable = props.currentData.objKey === 'bankLoan';
 	
 	// onBlur
@@ -33,11 +35,6 @@ const ArithmeticTable = (props) => {
 			newItemId
 		});
 	};
-	
-	// onBlurTotal
-	// const onBlurTotalHandler = newTotal => {
-		// props.onTotalUpdate(newTotal);
-	// };
 	
 	// onInsert
 	const onInsertNewRow = () => {
@@ -58,9 +55,13 @@ const ArithmeticTable = (props) => {
 	const onRemove = id => {
 		props.onRemove(id);
 	};
+	
+	useEffect(() => {
+		arithmeticTableRef.current.scrollIntoView();
+	}, []);
 		
 	return (
-		<div className='arithmetic-table'>
+		<div className='arithmetic-table' ref={arithmeticTableRef}>
 			<Table bordered hover size='sm'>
 				<thead>
 					<tr>					

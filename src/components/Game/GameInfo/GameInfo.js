@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import Header from './Header/Header';
@@ -140,6 +140,11 @@ const GameInfo = (props) => {
 		dispatch(clearCurrentAgreementCard());
 	};
 	// Agreement_(end)
+	
+	// Stop waiting connection while CalculationCards are being shown
+	useEffect(() => {
+		props.createConnection(isCalculationCardsShow);
+	}, [isCalculationCardsShow]);
 	
 	return (
 		<section className='game-info'>

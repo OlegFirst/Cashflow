@@ -17,10 +17,7 @@ import {
 	useCommonEventsWaitingData,
 	setServerDream
 } from '../utils';
-import { 
-	pathTypes,
-	fishkaStepProcess
-} from '../constants';
+import { pathTypes } from '../constants';
 
 const GameBoard = (props) => {
 	const {
@@ -29,6 +26,7 @@ const GameBoard = (props) => {
 		bigPathCard,
 		gameRequestQueryGeneral,
 		isGameInfoHide,
+		isCreateConnection,
 		callbacks,
 		onInfoMessage
 	} = props;
@@ -111,7 +109,7 @@ const GameBoard = (props) => {
 		
 			<Board
 				gameRequestQueryGeneral={gameRequestQueryGeneral}
-				isCreateConnection={userModel.board.fishkaStepProcessValue === fishkaStepProcess.NOT_READY}
+				isCreateConnection={isCreateConnection}
 				isPerspective={isPerspective}
 				onClick={onPathClick}
 				onFishkaClick={onFishkaClickHandler}
