@@ -1,17 +1,11 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useRef } from 'react';
 import Table from 'react-bootstrap/Table';
-import CloseButton from 'react-bootstrap/CloseButton';
 import Button from 'react-bootstrap/Button';
 
 import RemoveButton from '../../../_commonComponents/RemoveButton/RemoveButton';
 import InputComponentWrapper from './InputComponentWrapper';
 
-import {
-	getObjectValue,
-	ActionsTable as ActionsTableClass,
-	professionCardTotalValidation
-} from '../../../common/utils';
+import { ActionsTable as ActionsTableClass } from '../../../common/utils';
 import { professionCardInputNames } from '../../../common/constants';
 import { 
 	updateActionsTableItems, 
@@ -29,9 +23,11 @@ const ActionsTable = (props) => {
 		},
 		errorMessageList,
 		errorTotalMessage,
-		newItemId,
-		isUpdated
+		newItemId
+		// isUpdated
 	} = props;
+	
+	const buttonRef = useRef();
 	
 	// onBlur
 	const onBlurHandler = newValue => {
@@ -69,6 +65,12 @@ const ActionsTable = (props) => {
 	const onRemove = id => {
 		props.onRemove(id);
 	};
+	
+	useEffect(() => {
+		if (buttonRef.current) {
+			buttonRef.current.scrollIntoView({ behavior: 'smooth' });
+		}
+	}, [buttonRef]);
 		
 	return (
 		<div className='actions-table'>
@@ -177,6 +179,7 @@ const ActionsTable = (props) => {
 			</Table>
 			
 			<Button
+				ref={buttonRef}
 				variant='outline-secondary'
 				size='sm'
 				onClick={onInsertNewRow}

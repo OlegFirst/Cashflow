@@ -10,10 +10,13 @@
 	}
 }
 
-.arithmetic-table {
+.arithmetic-table,
+.actions-table {
 	max-height: 400px;
 	overflow: auto;
+}
 
+.arithmetic-table {
 	&__remove-button {
 		display: flex;
 		justify-content: center;

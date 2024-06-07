@@ -23,7 +23,7 @@ const ArithmeticTable = (props) => {
 		isUpdated
 	} = props;
 	
-	const arithmeticTableRef = useRef();
+	const buttonRef = useRef();
 	const isBankLoanTable = props.currentData.objKey === 'bankLoan';
 	
 	// onBlur
@@ -57,11 +57,13 @@ const ArithmeticTable = (props) => {
 	};
 	
 	useEffect(() => {
-		arithmeticTableRef.current.scrollIntoView();
-	}, []);
+		if (buttonRef.current) {
+			buttonRef.current.scrollIntoView({ behavior: 'smooth' });
+		}
+	}, [buttonRef]);
 		
 	return (
-		<div className='arithmetic-table' ref={arithmeticTableRef}>
+		<div className='arithmetic-table'>
 			<Table bordered hover size='sm'>
 				<thead>
 					<tr>					
@@ -141,6 +143,7 @@ const ArithmeticTable = (props) => {
 			</Table>
 			
 			<Button
+				ref={buttonRef}
 				variant='outline-secondary'
 				size='sm'
 				onClick={onInsertNewRow}

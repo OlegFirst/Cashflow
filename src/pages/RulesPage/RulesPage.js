@@ -15,7 +15,7 @@ const RulesPage = () => {
 	return (
 		<section className='rules-page'>
 			<Button
-				className='rules-page__start-button'
+				className='rules-page__start-button w-100 mb-4'
 				variant='success'
 				onClick={onClick}
 			>
